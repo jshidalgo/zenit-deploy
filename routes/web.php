@@ -34,3 +34,10 @@ Route::post('/empleados',[EmployeeController::class,'create_employee'])->name('a
 Route::get('/empleados/{cedula?}',[EmployeeController::class,'get_employee'])->name('get_employee');
 Route::post('/empleados/editar',[EmployeeController::class,'edit_employee'])->name('edit_employee');
 Route::delete('/empleados',[EmployeeController::class,'delete_employee'])->name('delete_employee');
+
+//rutas para los proveedores
+Route::get('/proveedores',[ProviderController::class,'show_view_provider'])->name('view_provider');
+Route::post('/proveedores',[ProviderController::class,'create_provider'])->name('add_provider');
+Route::get('/proveedores/{id?}',[ProviderController::class,'get_provider'])->name('get_provider');
+Route::post('/proveedores/editar',[ProviderController::class,'edit_provider'])->name('edit_provider');
+Route::delete('/proveedores',[ProviderController::class,'delete_provider'])->name('delete_provider');
