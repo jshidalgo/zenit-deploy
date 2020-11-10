@@ -1,5 +1,5 @@
 //Este archivo contiene las funciones utilizadas
-
+// Inicio empleados ----------------------------------------
 /**
  * Función que valida los campos del formulario  de agregar empleado
  * */
@@ -110,7 +110,7 @@ function validateFormEditEmployee() {
 /**
  * Función que limpia todos los campos disponibles en la vista del empleado
  * */
-function clearField() {
+function clearFieldEmployee() {
     document.querySelectorAll('#modal-edit-employee input, #modal-add-employee input').forEach(function (element) {
        element.value="";
     });
@@ -119,8 +119,7 @@ function clearField() {
  * Función que valida la estructura del correo
  * @return {boolean}
  */
-function validatemail(mail)
-{
+function validatemail(mail){
     if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
     {
         return true;
@@ -128,6 +127,10 @@ function validatemail(mail)
     return false;
 }
 
+/**
+ * Función que valida la los datos ingresados en buscar empleado
+ * @return {boolean}
+ */
 function validateSearchEmployee() {
     var search= $('#input-search').val();
     if(search !== ''){
@@ -179,6 +182,7 @@ function show_edit_employee() {
 
 
 //Fin empleados ---------------------------------------------------
+
 
 
 //Inicio provedoores -----------------------------------------------

@@ -112,8 +112,8 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn-clear" onclick="clearField()">Limpiar</button>
-                    <a class="btn-cancel">Cancelar</a>
+                    <button class="btn-clear" onclick="clearFieldEmployee()">Limpiar</button>
+                    <a class="btn-cancel" data-dismiss="modal" aria-label="Close">Cancelar</a>
                     <button class="btn-add-employee" onclick="validateFormEmployee()">Agregar</button>
                 </div>
             </div>
@@ -172,8 +172,8 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn-clear" onclick="clearField()">Limpiar</button>
-                    <a class="btn-cancel">Cancelar</a>
+                    <button class="btn-clear" onclick="clearFieldEmployee()">Limpiar</button>
+                    <a class="btn-cancel" data-dismiss="modal" aria-label="Close">Cancelar</a>
                     <button class="btn-add-employee" onclick="validateFormEditEmployee()">Actualizar</button>
                 </div>
             </div>
@@ -184,49 +184,6 @@
 
 @section('scripts')
 <script>
-
-    /**
-     * Función que carga los datos del empleado en el modal de editar
-     */
-    function show_edit_employee() {
-        var selected = Array();
-        document.querySelectorAll('input[type="checkbox"]:checked').forEach(element =>
-            selected.push(element.closest('tr').children[2].innerHTML));
-        console.log(selected);
-        if(selected.length === 1){
-            //Necesito cargar los datos en el modal
-            $.ajax({
-                type:'GET',
-                url:'empleados/'+selected[0],
-                data:{
-                    _token:'{{csrf_token()}}'
-                }
-            }).done(function(data) {
-                document.getElementById('id-employee-edit').value=data[0].id;
-                document.getElementById('cc-employee-edit').value=data[0].identification_card;
-                document.getElementById('name-employee-edit').value=data[0].name;
-                document.getElementById('last-name-employee-edit').value=data[0].last_name;
-                document.getElementById('addr-employee-edit').value=data[0].address;
-                document.getElementById('mail-employee-edit').value=data[0].mail;
-                document.getElementById('phone-employee-edit').value=data[1].number;
-            });
-            //Mostrar modal para editar
-            $('#modal-edit-employee').modal('show');
-        }else if(selected.length > 1){
-            Swal.fire({
-                icon: 'error',
-                title: 'Ocurrió un error!',
-                text: 'No puede editar más de un elemento a la vez'
-            });
-        }else{
-            Swal.fire({
-                icon: 'error',
-                title: 'Ocurrió un error!',
-                text: 'Debes de seleccionar un elemento'
-            });
-        }
-    }
-
     /**
      * Función que permite eliminar los empleados seleccionados
      */
@@ -261,7 +218,6 @@
             });
         }
     }
-
 
     var check_msg = '{{isset($check_msg) && !empty($check_msg) && $check_msg!='' ? $check_msg : ''}}';
     var fail_msg = '{{isset($fail_msg) && !empty($fail_msg) && $fail_msg!='' ? $fail_msg : ''}}';
