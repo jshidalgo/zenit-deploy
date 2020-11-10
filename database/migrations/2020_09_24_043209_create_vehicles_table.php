@@ -20,7 +20,7 @@ class CreateVehiclesTable extends Migration
             $table->string('cylinder_capacity');
             $table->integer('model');
             $table->string('name');
-            $table->unsignedMediumInteger('brand_id');
+            $table->unsignedBigInteger('brand_id');
             $table->foreign('brand_id')->references('id')->on('brands');
             $table->timestamps();
             $table->softDeletes();
