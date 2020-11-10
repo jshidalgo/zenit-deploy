@@ -14,10 +14,10 @@
 
     </head>
     <body>
-{{--    @include('includes.header')--}}
+    @include('includes.header')
     <div id="main">
-{{--        @include('includes.menu_bar')--}}
-{{--        @yield('content')--}}
+        @include('includes.menu_bar')
+        @yield('content')
         <h1>Espero que esto siveva, te lo pido con todas las fuerzas ...</h1>
     </div>
 
@@ -27,6 +27,6 @@
     <script src="{{asset('front/js/popper.min.js')}}"></script>
     <script src="{{asset('front/js/all_functions.js')}}"></script>
     <script src="{{asset('front/js/sweetalert2.min.js')}}"></script>
-{{--    @yield('scripts')--}}
+    @yield('scripts')
     </body>
 </html>
