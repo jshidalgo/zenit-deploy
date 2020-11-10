@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Appointment extends Model
+class Record extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $fillable=['date','customer_id','employee_id','vehicle_id'];
+    protected $fillable=['entry_date','mileage','departure_date','customer_id','employee_id','vehicle_id'];
 }
