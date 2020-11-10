@@ -1,0 +1,35 @@
+#menu-bar{
+    width: max-content;
+    margin-right: 40px;
+    ul {
+        width: max-content;
+        .nav-item{
+            padding: 1rem 1rem;
+            border-bottom: solid 1px #E1DFDF;
+            font-size: 20px;
+            a{
+                color: #808080;
+                display: block;
+                .icon-left{
+                    padding-top: 5px;
+                    float: left;
+                    margin-right: 10px;
+                }
+                .icon-right{
+                    padding-top: 5px;
+                    float: right;
+                    margin-left: 10px;
+                }
+            }
+        }
+        .nav-item-first{
+            margin-bottom: 20px;
+            color: #808080;
+            font-size: 20px;
+            a{
+                display: block;
+                text-align: right;
+            }
+        }
+    }
+}

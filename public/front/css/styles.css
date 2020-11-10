@@ -1,0 +1,630 @@
+header {
+  display: flex; }
+  header #logo-header {
+    margin: auto auto auto 10%; }
+    header #logo-header img {
+      height: 75px;
+      width: 170px; }
+  header #icon-sesion-header {
+    margin: auto 10% auto auto; }
+    header #icon-sesion-header a {
+      cursor: pointer;
+      width: max-content;
+      display: inline-block; }
+      header #icon-sesion-header a img {
+        height: 50px;
+        width: 50px; }
+
+#menu-bar {
+  width: max-content;
+  margin-right: 40px; }
+  #menu-bar ul {
+    width: max-content; }
+    #menu-bar ul .nav-item {
+      padding: 1rem 1rem;
+      border-bottom: solid 1px #E1DFDF;
+      font-size: 20px; }
+      #menu-bar ul .nav-item a {
+        color: #808080;
+        display: block; }
+        #menu-bar ul .nav-item a .icon-left {
+          padding-top: 5px;
+          float: left;
+          margin-right: 10px; }
+        #menu-bar ul .nav-item a .icon-right {
+          padding-top: 5px;
+          float: right;
+          margin-left: 10px; }
+    #menu-bar ul .nav-item-first {
+      margin-bottom: 20px;
+      color: #808080;
+      font-size: 20px; }
+      #menu-bar ul .nav-item-first a {
+        display: block;
+        text-align: right; }
+
+#main {
+  margin-top: 40px;
+  display: flex;
+  padding: 0 5%; }
+
+#view-employee {
+  width: 100%; }
+  #view-employee .text-intro {
+    display: flex; }
+    #view-employee .text-intro h1 {
+      font-size: 24px; }
+    #view-employee .text-intro span {
+      font-size: 14px;
+      font-style: italic;
+      margin: auto auto auto 5px; }
+  #view-employee #actions-bar {
+    display: flex; }
+    #view-employee #actions-bar #search {
+      display: flex;
+      margin: auto auto auto 0; }
+      #view-employee #actions-bar #search input {
+        border: 1px solid gray; }
+      #view-employee #actions-bar #search .btn-search {
+        border: 1px solid gray; }
+    #view-employee #actions-bar #actions-buttons {
+      margin: auto 0 auto auto; }
+      #view-employee #actions-bar #actions-buttons button {
+        margin: 0 5px;
+        padding: 0;
+        border: 0; }
+        #view-employee #actions-bar #actions-buttons button .fa-edit {
+          background: #DED100;
+          color: white;
+          padding: 7px; }
+        #view-employee #actions-bar #actions-buttons button .fa-trash-alt {
+          background: #CD3030;
+          color: white;
+          padding: 7px; }
+        #view-employee #actions-bar #actions-buttons button .fa-plus {
+          background: #4CBC5B;
+          color: white;
+          padding: 7px; }
+  #view-employee #section-table {
+    margin-top: 40px; }
+    #view-employee #section-table table .col-check {
+      text-align: center; }
+  #view-employee #modal-add-employee .modal-dialog .modal-content .modal-header h2 {
+    font-size: 20px; }
+  #view-employee #modal-add-employee .modal-dialog .modal-content .modal-body {
+    margin: 20px 0;
+    padding: 0 5%; }
+    #view-employee #modal-add-employee .modal-dialog .modal-content .modal-body .row {
+      margin: 0 0 20px 0; }
+      #view-employee #modal-add-employee .modal-dialog .modal-content .modal-body .row label {
+        font-size: 15px;
+        width: 40%; }
+      #view-employee #modal-add-employee .modal-dialog .modal-content .modal-body .row input {
+        width: 60%;
+        border-radius: 12px;
+        border: solid 1px gray;
+        padding-left: 10px; }
+      #view-employee #modal-add-employee .modal-dialog .modal-content .modal-body .row span {
+        display: none;
+        width: 60%;
+        color: red;
+        margin-left: auto;
+        padding: 0 5px; }
+  #view-employee #modal-add-employee .modal-dialog .modal-content .modal-footer .btn-add-employee {
+    border: 0;
+    border-radius: 12px;
+    background: #4CBC5B;
+    padding: 5px 20px;
+    color: white; }
+  #view-employee #modal-add-employee .modal-dialog .modal-content .modal-footer .btn-cancel {
+    background: #CD3030;
+    padding: 5px 20px;
+    color: white;
+    border-radius: 12px;
+    text-decoration: none;
+    cursor: pointer; }
+  #view-employee #modal-add-employee .modal-dialog .modal-content .modal-footer .btn-clear {
+    background: #808080;
+    padding: 5px 20px;
+    color: white;
+    border-radius: 12px;
+    border: 0;
+    margin-right: auto; }
+  #view-employee #modal-edit-employee .modal-dialog .modal-content .modal-header h2 {
+    font-size: 20px; }
+  #view-employee #modal-edit-employee .modal-dialog .modal-content .modal-body {
+    margin: 20px 0;
+    padding: 0 5%; }
+    #view-employee #modal-edit-employee .modal-dialog .modal-content .modal-body .row {
+      margin: 0 0 20px 0; }
+      #view-employee #modal-edit-employee .modal-dialog .modal-content .modal-body .row label {
+        font-size: 15px;
+        width: 40%; }
+      #view-employee #modal-edit-employee .modal-dialog .modal-content .modal-body .row input {
+        width: 60%;
+        border-radius: 12px;
+        border: solid 1px gray;
+        padding-left: 10px; }
+      #view-employee #modal-edit-employee .modal-dialog .modal-content .modal-body .row span {
+        display: none;
+        width: 60%;
+        color: red;
+        margin-left: auto;
+        padding: 0 5px; }
+  #view-employee #modal-edit-employee .modal-dialog .modal-content .modal-footer .btn-add-employee {
+    border: 0;
+    border-radius: 12px;
+    background: #4CBC5B;
+    padding: 5px 20px;
+    color: white; }
+  #view-employee #modal-edit-employee .modal-dialog .modal-content .modal-footer .btn-cancel {
+    background: #CD3030;
+    padding: 5px 20px;
+    color: white;
+    border-radius: 12px;
+    text-decoration: none;
+    cursor: pointer; }
+  #view-employee #modal-edit-employee .modal-dialog .modal-content .modal-footer .btn-clear {
+    background: #808080;
+    padding: 5px 20px;
+    color: white;
+    border-radius: 12px;
+    border: 0;
+    margin-right: auto; }
+
+#view-provider {
+  width: 100%; }
+  #view-provider .text-intro {
+    display: flex; }
+    #view-provider .text-intro h1 {
+      font-size: 24px; }
+    #view-provider .text-intro span {
+      font-size: 14px;
+      font-style: italic;
+      margin: auto auto auto 5px; }
+  #view-provider #actions-bar {
+    display: flex; }
+    #view-provider #actions-bar #search {
+      display: flex;
+      margin: auto auto auto 0; }
+      #view-provider #actions-bar #search input {
+        border: 1px solid gray; }
+      #view-provider #actions-bar #search .btn-search {
+        border: 1px solid gray; }
+    #view-provider #actions-bar #actions-buttons {
+      margin: auto 0 auto auto; }
+      #view-provider #actions-bar #actions-buttons button {
+        margin: 0 5px;
+        padding: 0;
+        border: 0; }
+        #view-provider #actions-bar #actions-buttons button .fa-edit {
+          background: #DED100;
+          color: white;
+          padding: 7px; }
+        #view-provider #actions-bar #actions-buttons button .fa-trash-alt {
+          background: #CD3030;
+          color: white;
+          padding: 7px; }
+        #view-provider #actions-bar #actions-buttons button .fa-plus {
+          background: #4CBC5B;
+          color: white;
+          padding: 7px; }
+  #view-provider #section-table {
+    margin-top: 40px; }
+    #view-provider #section-table table .col-check {
+      text-align: center; }
+  #view-provider #modal-add-provider .modal-dialog .modal-content .modal-header h2 {
+    font-size: 20px; }
+  #view-provider #modal-add-provider .modal-dialog .modal-content .modal-body {
+    margin: 20px 0;
+    padding: 0 5%; }
+    #view-provider #modal-add-provider .modal-dialog .modal-content .modal-body .row {
+      margin: 0 0 20px 0; }
+      #view-provider #modal-add-provider .modal-dialog .modal-content .modal-body .row label {
+        font-size: 15px;
+        width: 40%; }
+      #view-provider #modal-add-provider .modal-dialog .modal-content .modal-body .row input {
+        width: 60%;
+        border-radius: 12px;
+        border: solid 1px gray;
+        padding-left: 10px; }
+      #view-provider #modal-add-provider .modal-dialog .modal-content .modal-body .row span {
+        display: none;
+        width: 60%;
+        color: red;
+        margin-left: auto;
+        padding: 0 5px; }
+  #view-provider #modal-add-provider .modal-dialog .modal-content .modal-footer .btn-add-provider {
+    border: 0;
+    border-radius: 12px;
+    background: #4CBC5B;
+    padding: 5px 20px;
+    color: white; }
+  #view-provider #modal-add-provider .modal-dialog .modal-content .modal-footer .btn-cancel {
+    background: #CD3030;
+    padding: 5px 20px;
+    color: white;
+    border-radius: 12px;
+    text-decoration: none;
+    cursor: pointer; }
+  #view-provider #modal-add-provider .modal-dialog .modal-content .modal-footer .btn-clear {
+    background: #808080;
+    padding: 5px 20px;
+    color: white;
+    border-radius: 12px;
+    border: 0;
+    margin-right: auto; }
+
+#view-purchase {
+  width: 100%; }
+  #view-purchase .text-intro {
+    display: flex; }
+    #view-purchase .text-intro h1 {
+      font-size: 24px; }
+    #view-purchase .text-intro span {
+      font-size: 14px;
+      font-style: italic;
+      margin: auto auto auto 5px; }
+  #view-purchase #actions-bar {
+    display: flex; }
+    #view-purchase #actions-bar #search {
+      display: flex;
+      margin: auto auto auto 0; }
+      #view-purchase #actions-bar #search input {
+        border: 1px solid gray; }
+      #view-purchase #actions-bar #search .btn-search {
+        border: 1px solid gray; }
+    #view-purchase #actions-bar #actions-buttons {
+      margin: auto 0 auto auto; }
+      #view-purchase #actions-bar #actions-buttons button {
+        margin: 0 5px;
+        padding: 0;
+        border: 0; }
+        #view-purchase #actions-bar #actions-buttons button .fa-edit {
+          background: #DED100;
+          color: white;
+          padding: 7px; }
+        #view-purchase #actions-bar #actions-buttons button .fa-trash-alt {
+          background: #CD3030;
+          color: white;
+          padding: 7px; }
+        #view-purchase #actions-bar #actions-buttons button .fa-plus {
+          background: #4CBC5B;
+          color: white;
+          padding: 7px; }
+  #view-purchase #section-table {
+    margin-top: 40px; }
+    #view-purchase #section-table table .col-check {
+      text-align: center; }
+  #view-purchase #modal-add-purchase .modal-dialog .modal-content .modal-header h2 {
+    font-size: 20px; }
+  #view-purchase #modal-add-purchase .modal-dialog .modal-content .modal-body {
+    margin: 20px 0;
+    padding: 0 5%; }
+    #view-purchase #modal-add-purchase .modal-dialog .modal-content .modal-body .row {
+      margin: 0 0 20px 0; }
+      #view-purchase #modal-add-purchase .modal-dialog .modal-content .modal-body .row label {
+        font-size: 15px;
+        width: 40%; }
+      #view-purchase #modal-add-purchase .modal-dialog .modal-content .modal-body .row input {
+        width: 60%;
+        border-radius: 12px;
+        border: solid 1px gray;
+        padding-left: 10px; }
+      #view-purchase #modal-add-purchase .modal-dialog .modal-content .modal-body .row span {
+        display: none;
+        width: 60%;
+        color: red;
+        margin-left: auto;
+        padding: 0 5px; }
+      #view-purchase #modal-add-purchase .modal-dialog .modal-content .modal-body .row select {
+        width: 60%;
+        border-radius: 12px;
+        border: solid 1px gray;
+        padding-left: 10px; }
+      #view-purchase #modal-add-purchase .modal-dialog .modal-content .modal-body .row textarea {
+        width: 60%;
+        border-radius: 12px;
+        border: solid 1px gray;
+        padding-left: 10px; }
+    #view-purchase #modal-add-purchase .modal-dialog .modal-content .modal-body .row-products {
+      margin: 10px 0 20px 20px; }
+      #view-purchase #modal-add-purchase .modal-dialog .modal-content .modal-body .row-products .fa-plus-circle {
+        display: block;
+        background: transparent;
+        color: #4CBC5B;
+        padding: 7px;
+        border: 0px;
+        cursor: pointer; }
+      #view-purchase #modal-add-purchase .modal-dialog .modal-content .modal-body .row-products .fa-minus-circle {
+        display: none;
+        background: transparent;
+        color: #CD3030;
+        padding: 7px;
+        border: 0px;
+        cursor: pointer; }
+  #view-purchase #modal-add-purchase .modal-dialog .modal-content .modal-footer .btn-add-purchase {
+    border: 0;
+    border-radius: 12px;
+    background: #4CBC5B;
+    padding: 5px 20px;
+    color: white; }
+  #view-purchase #modal-add-purchase .modal-dialog .modal-content .modal-footer .btn-add-product {
+    border: 0;
+    border-radius: 12px;
+    background: #4CBC5B;
+    padding: 5px 20px;
+    color: white; }
+  #view-purchase #modal-add-purchase .modal-dialog .modal-content .modal-footer .btn-cancel {
+    background: #CD3030;
+    padding: 5px 20px;
+    color: white;
+    border-radius: 12px;
+    text-decoration: none;
+    cursor: pointer; }
+  #view-purchase #modal-add-purchase .modal-dialog .modal-content .modal-footer .btn-clear {
+    background: #808080;
+    padding: 5px 20px;
+    color: white;
+    border-radius: 12px;
+    border: 0;
+    margin-right: auto; }
+
+#view-product {
+  width: 100%; }
+  #view-product .text-intro {
+    display: flex; }
+    #view-product .text-intro h1 {
+      font-size: 24px; }
+    #view-product .text-intro span {
+      font-size: 14px;
+      font-style: italic;
+      margin: auto auto auto 5px; }
+  #view-product #actions-bar {
+    display: flex; }
+    #view-product #actions-bar #search {
+      display: flex;
+      margin: auto auto auto 0; }
+      #view-product #actions-bar #search input {
+        border: 1px solid gray; }
+      #view-product #actions-bar #search .btn-search {
+        border: 1px solid gray; }
+    #view-product #actions-bar #actions-buttons {
+      margin: auto 0 auto auto; }
+      #view-product #actions-bar #actions-buttons button {
+        margin: 0 5px;
+        padding: 0;
+        border: 0; }
+        #view-product #actions-bar #actions-buttons button .fa-edit {
+          background: #DED100;
+          color: white;
+          padding: 7px; }
+        #view-product #actions-bar #actions-buttons button .fa-trash-alt {
+          background: #CD3030;
+          color: white;
+          padding: 7px; }
+        #view-product #actions-bar #actions-buttons button .fa-plus {
+          background: #4CBC5B;
+          color: white;
+          padding: 7px; }
+  #view-product #section-table {
+    margin-top: 40px; }
+    #view-product #section-table table .col-check {
+      text-align: center; }
+  #view-product #modal-add-product .modal-dialog .modal-content .modal-header h2 {
+    font-size: 20px; }
+  #view-product #modal-add-product .modal-dialog .modal-content .modal-body {
+    margin: 20px 0;
+    padding: 0 5%; }
+    #view-product #modal-add-product .modal-dialog .modal-content .modal-body .row {
+      margin: 0 0 20px 0; }
+      #view-product #modal-add-product .modal-dialog .modal-content .modal-body .row label {
+        font-size: 15px;
+        width: 40%; }
+      #view-product #modal-add-product .modal-dialog .modal-content .modal-body .row input {
+        width: 60%;
+        border-radius: 12px;
+        border: solid 1px gray;
+        padding-left: 10px; }
+      #view-product #modal-add-product .modal-dialog .modal-content .modal-body .row span {
+        display: none;
+        width: 60%;
+        color: red;
+        margin-left: auto;
+        padding: 0 5px; }
+      #view-product #modal-add-product .modal-dialog .modal-content .modal-body .row textarea {
+        width: 60%;
+        border-radius: 12px;
+        border: solid 1px gray;
+        padding-left: 10px; }
+      #view-product #modal-add-product .modal-dialog .modal-content .modal-body .row select {
+        width: 60%;
+        border-radius: 12px;
+        border: solid 1px gray;
+        padding-left: 10px; }
+  #view-product #modal-add-product .modal-dialog .modal-content .modal-footer .btn-add-product {
+    border: 0;
+    border-radius: 12px;
+    background: #4CBC5B;
+    padding: 5px 20px;
+    color: white; }
+  #view-product #modal-add-product .modal-dialog .modal-content .modal-footer .btn-cancel {
+    background: #CD3030;
+    padding: 5px 20px;
+    color: white;
+    border-radius: 12px;
+    text-decoration: none;
+    cursor: pointer; }
+  #view-product #modal-add-product .modal-dialog .modal-content .modal-footer .btn-clear {
+    background: #808080;
+    padding: 5px 20px;
+    color: white;
+    border-radius: 12px;
+    border: 0;
+    margin-right: auto; }
+
+#view-vehicle {
+  width: 100%; }
+  #view-vehicle .text-intro {
+    display: flex; }
+    #view-vehicle .text-intro h1 {
+      font-size: 24px; }
+    #view-vehicle .text-intro span {
+      font-size: 14px;
+      font-style: italic;
+      margin: auto auto auto 5px; }
+  #view-vehicle #actions-bar {
+    display: flex; }
+    #view-vehicle #actions-bar #search {
+      display: flex;
+      margin: auto auto auto 0; }
+      #view-vehicle #actions-bar #search input {
+        border: 1px solid gray; }
+      #view-vehicle #actions-bar #search .btn-search {
+        border: 1px solid gray; }
+    #view-vehicle #actions-bar #actions-buttons {
+      margin: auto 0 auto auto; }
+      #view-vehicle #actions-bar #actions-buttons button {
+        margin: 0 5px;
+        padding: 0;
+        border: 0; }
+        #view-vehicle #actions-bar #actions-buttons button .fa-edit {
+          background: #DED100;
+          color: white;
+          padding: 7px; }
+        #view-vehicle #actions-bar #actions-buttons button .fa-trash-alt {
+          background: #CD3030;
+          color: white;
+          padding: 7px; }
+        #view-vehicle #actions-bar #actions-buttons button .fa-plus {
+          background: #4CBC5B;
+          color: white;
+          padding: 7px; }
+  #view-vehicle #section-table {
+    margin-top: 40px; }
+    #view-vehicle #section-table table .col-check {
+      text-align: center; }
+  #view-vehicle #modal-add-vehicle .modal-dialog .modal-content .modal-header h2 {
+    font-size: 20px; }
+  #view-vehicle #modal-add-vehicle .modal-dialog .modal-content .modal-body {
+    margin: 20px 0;
+    padding: 0 5%; }
+    #view-vehicle #modal-add-vehicle .modal-dialog .modal-content .modal-body .row {
+      margin: 0 0 20px 0; }
+      #view-vehicle #modal-add-vehicle .modal-dialog .modal-content .modal-body .row label {
+        font-size: 15px;
+        width: 40%; }
+      #view-vehicle #modal-add-vehicle .modal-dialog .modal-content .modal-body .row input {
+        width: 60%;
+        border-radius: 12px;
+        border: solid 1px gray;
+        padding-left: 10px; }
+      #view-vehicle #modal-add-vehicle .modal-dialog .modal-content .modal-body .row span {
+        display: none;
+        width: 60%;
+        color: red;
+        margin-left: auto;
+        padding: 0 5px; }
+  #view-vehicle #modal-add-vehicle .modal-dialog .modal-content .modal-footer .btn-add-vehicle {
+    border: 0;
+    border-radius: 12px;
+    background: #4CBC5B;
+    padding: 5px 20px;
+    color: white; }
+  #view-vehicle #modal-add-vehicle .modal-dialog .modal-content .modal-footer .btn-cancel {
+    background: #CD3030;
+    padding: 5px 20px;
+    color: white;
+    border-radius: 12px;
+    text-decoration: none;
+    cursor: pointer; }
+  #view-vehicle #modal-add-vehicle .modal-dialog .modal-content .modal-footer .btn-clear {
+    background: #808080;
+    padding: 5px 20px;
+    color: white;
+    border-radius: 12px;
+    border: 0;
+    margin-right: auto; }
+
+#view-customer {
+  width: 100%; }
+  #view-customer .text-intro {
+    display: flex; }
+    #view-customer .text-intro h1 {
+      font-size: 24px; }
+    #view-customer .text-intro span {
+      font-size: 14px;
+      font-style: italic;
+      margin: auto auto auto 5px; }
+  #view-customer #actions-bar {
+    display: flex; }
+    #view-customer #actions-bar #search {
+      display: flex;
+      margin: auto auto auto 0; }
+      #view-customer #actions-bar #search input {
+        border: 1px solid gray; }
+      #view-customer #actions-bar #search .btn-search {
+        border: 1px solid gray; }
+    #view-customer #actions-bar #actions-buttons {
+      margin: auto 0 auto auto; }
+      #view-customer #actions-bar #actions-buttons button {
+        margin: 0 5px;
+        padding: 0;
+        border: 0; }
+        #view-customer #actions-bar #actions-buttons button .fa-edit {
+          background: #DED100;
+          color: white;
+          padding: 7px; }
+        #view-customer #actions-bar #actions-buttons button .fa-trash-alt {
+          background: #CD3030;
+          color: white;
+          padding: 7px; }
+        #view-customer #actions-bar #actions-buttons button .fa-plus {
+          background: #4CBC5B;
+          color: white;
+          padding: 7px; }
+  #view-customer #section-table {
+    margin-top: 40px; }
+    #view-customer #section-table table .col-check {
+      text-align: center; }
+  #view-customer #modal-add-customer .modal-dialog .modal-content .modal-header h2 {
+    font-size: 20px; }
+  #view-customer #modal-add-customer .modal-dialog .modal-content .modal-body {
+    margin: 20px 0;
+    padding: 0 5%; }
+    #view-customer #modal-add-customer .modal-dialog .modal-content .modal-body .row {
+      margin: 0 0 20px 0; }
+      #view-customer #modal-add-customer .modal-dialog .modal-content .modal-body .row label {
+        font-size: 15px;
+        width: 40%; }
+      #view-customer #modal-add-customer .modal-dialog .modal-content .modal-body .row input {
+        width: 60%;
+        border-radius: 12px;
+        border: solid 1px gray;
+        padding-left: 10px; }
+      #view-customer #modal-add-customer .modal-dialog .modal-content .modal-body .row span {
+        display: none;
+        width: 60%;
+        color: red;
+        margin-left: auto;
+        padding: 0 5px; }
+  #view-customer #modal-add-customer .modal-dialog .modal-content .modal-footer .btn-add-customer {
+    border: 0;
+    border-radius: 12px;
+    background: #4CBC5B;
+    padding: 5px 20px;
+    color: white; }
+  #view-customer #modal-add-customer .modal-dialog .modal-content .modal-footer .btn-cancel {
+    background: #CD3030;
+    padding: 5px 20px;
+    color: white;
+    border-radius: 12px;
+    text-decoration: none;
+    cursor: pointer; }
+  #view-customer #modal-add-customer .modal-dialog .modal-content .modal-footer .btn-clear {
+    background: #808080;
+    padding: 5px 20px;
+    color: white;
+    border-radius: 12px;
+    border: 0;
+    margin-right: auto; }

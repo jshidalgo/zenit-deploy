@@ -1,0 +1,247 @@
+#view-record{
+    width: 100%;
+    .text-intro{
+        display: flex;
+        h1{
+            font-size: 24px;
+        }
+        span{
+            font-size: 14px;
+            font-style: italic;
+            margin: auto auto auto 5px;
+        }
+    }
+    #actions-bar{
+        display: flex;
+        #search{
+            display: flex;
+            margin: auto auto auto 0;
+            input{
+                border: 1px solid gray;
+            }
+            .btn-search{
+                border: 1px solid gray;
+            }
+        }
+
+        #actions-buttons{
+            margin: auto 0 auto auto;
+            button{
+                margin: 0 5px;
+                padding: 0;
+                border: 0;
+                .fa-edit{
+                    background: #DED100;
+                    color: white;
+                    padding: 7px;
+                }
+                .fa-trash-alt{
+                    background: #CD3030;
+                    color: white;
+                    padding: 7px;
+                }
+                .fa-plus{
+                    background: #4CBC5B;
+                    color: white;
+                    padding: 7px;
+                }
+            }
+
+        }
+    }
+
+    #section-table{
+        margin-top: 40px;
+        table{
+            .col-check{
+                text-align: center;
+            }
+        }
+    }
+
+    #modal-add-record{
+        .modal-dialog{
+            
+            .modal-content{
+                .modal-header{
+                    h2{
+                        font-size: 20px;
+                    }
+                }
+                .modal-body{
+                    margin: 20px 0;
+                    padding: 0 5%;
+                    .row{
+                        margin: 0 0 20px 0;
+
+                        label{
+                            font-size: 15px;
+                            width: 40%;
+                        }
+                        input{
+                            width: 60%;
+                            border-radius: 12px;
+                            border: solid 1px gray;
+                            padding-left: 10px;
+                        }
+                        input.readonly{
+                            background-color: #e9ecef;
+                            opacity: 1;
+                        }
+                        span{
+                            display: none;
+                            width: 60%;
+                            color: red;
+                            margin-left: auto;
+                            padding: 0 5px;
+                        }
+                        select{
+                            width: 60%;
+                            border-radius: 12px;
+                            border: solid 1px gray;
+                            padding-left: 10px;
+                        }
+                        textarea{
+                            width: 60%;
+                            border-radius: 12px;
+                            border: solid 1px gray;
+                            padding-left: 10px;
+                        }
+                        textarea.readonly{
+                            background-color: #e9ecef;
+                            opacity: 1;
+                        }
+                    }
+                    .row-products{
+                        margin: 10px 0 20px 20px;
+
+                        .fa-plus-circle{
+                            display: block;
+                            background: transparent;
+                            color: #4CBC5B;
+                            padding: 7px;
+                            border: 0px;
+                            cursor: pointer;
+                        }
+                        .fa-minus-circle{
+                            display: none;
+                            background: transparent;
+                            color: #CD3030;
+                            padding: 7px;
+                            border: 0px;
+                            cursor: pointer;
+                        }
+                    }
+                    .row-services{
+                        margin: 10px 0 20px 20px;
+
+                        .fa-plus-circle{
+                            display: block;
+                            background: transparent;
+                            color: #4CBC5B;
+                            padding: 7px;
+                            border: 0px;
+                            cursor: pointer;
+                        }
+                        .fa-minus-circle{
+                            display: none;
+                            background: transparent;
+                            color: #CD3030;
+                            padding: 7px;
+                            border: 0px;
+                            cursor: pointer;
+                        }
+                    }
+                }
+                
+                .modal-footer{
+                    .btn-add-record{
+                        border: 0;
+                        border-radius: 12px;
+                        background: #4CBC5B;
+                        padding: 5px 20px;
+                        color: white;
+                    }
+                    .btn-cancel{
+                        background: #CD3030;
+                        padding: 5px 20px;
+                        color: white;
+                        border-radius: 12px;
+                        text-decoration: none;
+                        cursor: pointer;
+                    }
+                    .btn-clear{
+                        background: #808080;
+                        padding: 5px 20px;
+                        color: white;
+                        border-radius: 12px;
+                        border: 0;
+                        margin-right: auto;
+                    }
+                }
+            }
+        }
+    }
+
+    #modal-edit-record{
+        .modal-dialog{
+            .modal-content{
+                .modal-header{
+                    h2{
+                        font-size: 20px;
+                    }
+                }
+                .modal-body{
+                    margin: 20px 0;
+                    padding: 0 5%;
+                    .row{
+                        margin: 0 0 20px 0;
+
+                        label{
+                            font-size: 15px;
+                            width: 40%;
+                        }
+                        input{
+                            width: 60%;
+                            border-radius: 12px;
+                            border: solid 1px gray;
+                            padding-left: 10px;
+                        }
+                        span{
+                            display: none;
+                            width: 60%;
+                            color: red;
+                            margin-left: auto;
+                            padding: 0 5px;
+                        }
+                    }
+                }
+                .modal-footer{
+                    .btn-add-record{
+                        border: 0;
+                        border-radius: 12px;
+                        background: #4CBC5B;
+                        padding: 5px 20px;
+                        color: white;
+                    }
+                    .btn-cancel{
+                        background: #CD3030;
+                        padding: 5px 20px;
+                        color: white;
+                        border-radius: 12px;
+                        text-decoration: none;
+                        cursor: pointer;
+                    }
+                    .btn-clear{
+                        background: #808080;
+                        padding: 5px 20px;
+                        color: white;
+                        border-radius: 12px;
+                        border: 0;
+                        margin-right: auto;
+                    }
+                }
+            }
+        }
+    }
+}

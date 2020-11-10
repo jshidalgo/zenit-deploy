@@ -1,0 +1,169 @@
+#view-calendar{
+    width: 100%;
+    .text-intro{
+        display: flex;
+        h1{
+            font-size: 24px;
+        }
+        span{
+            font-size: 14px;
+            font-style: italic;
+            margin: auto auto auto 5px;
+        }
+    }
+
+    /*
+    *
+    * ==========================================
+    * CUSTOM UTIL CLASSES
+    * ==========================================
+    *
+    */
+    .clearfix::after,
+    .calendar ol::after {
+        content: ".";
+        display: block;
+        height: 0;
+        clear: both;
+        visibility: hidden;
+    }
+
+    .calendar {
+        border-radius: 10px;
+        .month {
+            font-size: 2rem;
+        }
+
+        @media (min-width: 992px) {
+            .month {
+                font-size: 3.5rem;
+            }
+        }
+        ol li {
+            float: left;
+            width: 14.28571%;
+        }
+        .day-names {
+            border-bottom: 1px solid #eee;
+            li {
+                text-transform: uppercase;
+                margin-bottom: 0.5rem;
+            }
+        }
+        .days {
+            li {
+                border-bottom: 1px solid #eee;
+                min-height: 8rem;
+                .date {
+                    margin: 0.5rem 0;
+                    padding-left: 0.625rem;
+                }
+                .date.today{
+                    text-overflow: ellipsis;
+                    border-radius: 4rem;
+                    margin-bottom: 1px;
+                    background-color: gainsboro;
+                    font-weight: bold;
+                }
+                .event {
+                    font-size: 0.75rem;
+                    padding: 0.4rem;
+                    color: white;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    border-radius: 4rem;
+                    margin-bottom: 1px;
+                }
+                .event.span-2 {
+                    width: 200%;
+                }
+                .event.span-3 {
+                    width: 300%;
+                }
+                .event.span-4 {
+                    width: 400%;
+                }
+                .event.span-5 {
+                    width: 500%;
+                }
+                .event.span-6 {
+                    width: 600%;
+                }
+                .event.span-7 {
+                    width: 700%;
+                }
+                .event.begin {
+                    border-radius: 1rem 0 0 1rem;
+                }
+                .event.end {
+                    border-radius: 0 1rem 1rem 0;
+                }
+                .event.clear {
+                    background: none;
+                }
+            }
+            li:nth-child(n+29) {
+                border-bottom: none;
+            }
+            li.outside {
+
+                .date {
+                    color: #ddd;
+                }
+            }
+        }
+    }
+
+    .contenedor{
+        width:90px;
+        height:240px;
+        position:fixed;
+        right:5%;
+        bottom:5%;
+        .botonF1{
+            width:40px;
+            height:40px;
+            border-radius:100%;
+            background:#F44336;
+            right:0;
+            bottom:0;
+            position:absolute;
+            margin-right:16px;
+            margin-bottom:16px;
+            border:none;
+            outline:none;
+            color:#FFF;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+            transition:.3s;  
+            cursor: pointer;
+        }
+        
+        .botonF1:active{
+        transform:scale(1.1);
+        }
+        @media (min-width: 992px) {
+            .botonF1 {
+                width:60px;
+                height:60px;
+                font-size:36px;
+            }
+            
+        }
+    }   
+    .change-calendar{
+        margin-bottom: 10px;
+        i{
+            margin-right: 10px;
+        }
+    }
+    @media (min-width: 992px) {
+        .change-calendar{
+            position: absolute;
+            right: 10%;
+            font-size: 25px;
+        }
+    }
+
+
+}
