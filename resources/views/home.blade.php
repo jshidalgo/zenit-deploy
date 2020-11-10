@@ -18,7 +18,6 @@
     <div id="main">
         @include('includes.menu_bar')
         @yield('content')
-        <h1>Espero que esto siveva, te lo pido con todas las fuerzas ...</h1>
     </div>
 
     <script src="{{asset('front/js/jquery-3.5.1.slim.min.js')}}"></script>
