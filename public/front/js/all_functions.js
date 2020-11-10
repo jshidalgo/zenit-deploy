@@ -1,5 +1,5 @@
 //Este archivo contiene las funciones utilizadas
-
+// Inicio empleados ----------------------------------------
 /**
  * Función que valida los campos del formulario  de agregar empleado
  * */
@@ -110,7 +110,7 @@ function validateFormEditEmployee() {
 /**
  * Función que limpia todos los campos disponibles en la vista del empleado
  * */
-function clearField() {
+function clearFieldEmployee() {
     document.querySelectorAll('#modal-edit-employee input, #modal-add-employee input').forEach(function (element) {
        element.value="";
     });
@@ -119,8 +119,7 @@ function clearField() {
  * Función que valida la estructura del correo
  * @return {boolean}
  */
-function validatemail(mail)
-{
+function validatemail(mail){
     if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
     {
         return true;
@@ -128,9 +127,58 @@ function validatemail(mail)
     return false;
 }
 
+/**
+ * Función que valida la los datos ingresados en buscar empleado
+ * @return {boolean}
+ */
 function validateSearchEmployee() {
     var search= $('#input-search').val();
     if(search !== ''){
         $('#form-search-employee').submit();
     }
 }
+
+/**
+ * Función que carga los datos del empleado en el modal de editar
+ */
+function show_edit_employee() {
+    var selected = Array();
+    document.querySelectorAll('input[type="checkbox"]:checked').forEach(element =>
+        selected.push(element.closest('tr').children[2].innerHTML));
+    console.log(selected);
+    if(selected.length === 1){
+        //Necesito cargar los datos en el modal
+        $.ajax({
+            type:'GET',
+            url:'empleados/'+selected[0],
+            data:{
+                _token:'{{csrf_token()}}'
+            }
+        }).done(function(data) {
+            document.getElementById('id-employee-edit').value=data[0].id;
+            document.getElementById('cc-employee-edit').value=data[0].identification_card;
+            document.getElementById('name-employee-edit').value=data[0].name;
+            document.getElementById('last-name-employee-edit').value=data[0].last_name;
+            document.getElementById('addr-employee-edit').value=data[0].address;
+            document.getElementById('mail-employee-edit').value=data[0].mail;
+            document.getElementById('phone-employee-edit').value=data[1].number;
+        });
+        //Mostrar modal para editar
+        $('#modal-edit-employee').modal('show');
+    }else if(selected.length > 1){
+        Swal.fire({
+            icon: 'error',
+            title: 'Ocurrió un error!',
+            text: 'No puede editar más de un elemento a la vez'
+        });
+    }else{
+        Swal.fire({
+            icon: 'error',
+            title: 'Ocurrió un error!',
+            text: 'Debes de seleccionar un elemento'
+        });
+    }
+}
+
+
+//Fin empleados ---------------------------------------------------
