@@ -62,3 +62,11 @@ Route::post('/vehiculos',[VehicleController::class,'create_vehicle'])->name('add
 Route::get('/vehiculos/{id?}',[VehicleController::class,'get_vehicle'])->name('get_vehicle');
 Route::post('/vehiculos/editar',[VehicleController::class,'edit_vehicle'])->name('edit_vehicle');
 Route::delete('/vehiculos',[VehicleController::class,'delete_vehicle'])->name('delete_vehicle');
+
+
+//rutas para clientes
+Route::get('/clientes',[CustomerController::class,'show_view_customer'])->name('view_customer');
+Route::post('/clientes',[CustomerController::class,'create_customer'])->name('add_customer');
+Route::get('/clientes/{cedula?}',[CustomerController::class,'get_customer'])->name('get_customer');
+Route::post('/clientes/editar',[CustomerController::class,'edit_customer'])->name('edit_customer');
+Route::delete('/clientes',[CustomerController::class,'delete_customer'])->name('delete_customer');

@@ -822,3 +822,175 @@ function clearFieldVehicles() {
     });
 }
 //Fin vehiculos ------
+
+//Inicio clientes ------
+
+/**
+ * Función que busca un cliente
+ */
+function validateSearchCustomer() {
+    var search= $('#input-search').val();
+    if(search !== ''){
+        $('#form-search-customer').submit();
+    }
+}
+
+/**
+ * Función que carga los datos del empleado en el modal de editar
+ */
+function show_edit_customer() {
+    var selected = Array();
+    document.querySelectorAll('input[type="checkbox"]:checked').forEach(element =>
+        selected.push(element.closest('tr').children[2].innerHTML));
+    console.log(selected);
+    if(selected.length === 1){
+        //Necesito cargar los datos en el modal
+        $.ajax({
+            type:'GET',
+            url:'clientes/'+selected[0],
+            data:{
+                _token:'{{csrf_token()}}'
+            }
+        }).done(function(data) {
+            console.log(data);
+            document.getElementById('id-customer-edit').value=data[0].id;
+            document.getElementById('cc-customer-edit').value=data[0].identification_card;
+            document.getElementById('name-customer-edit').value=data[0].name;
+            document.getElementById('last-name-customer-edit').value=data[0].last_name;
+            document.getElementById('addr-customer-edit').value=data[0].address;
+            document.getElementById('mail-customer-edit').value=data[0].mail;
+            document.getElementById('phone-customer-edit').value=data[1].number;
+        });
+        //Mostrar modal para editar
+        $('#modal-edit-customer').modal('show');
+    }else if(selected.length > 1){
+        Swal.fire({
+            icon: 'error',
+            title: 'Ocurrió un error!',
+            text: 'No puede editar más de un elemento a la vez'
+        });
+    }else{
+        Swal.fire({
+            icon: 'error',
+            title: 'Ocurrió un error!',
+            text: 'Debes de seleccionar un elemento'
+        });
+    }
+}
+
+/**
+ * Función que limpia todos los campos disponibles en la vista de cliente
+ **/
+function clearFieldCustomer() {
+    document.querySelectorAll('#modal-edit-customer input, #modal-add-customer input').forEach(function (element) {
+        element.value="";
+    });
+}
+
+/**
+ * Función que valida los campos del formulario de editar cliente
+ */
+function validateFormEditCustomer() {
+    var cc = $("#cc-customer-edit").val();
+    var name = $("#name-customer-edit").val();
+    var lastName = $("#last-name-customer-edit").val();
+    var phone = $("#phone-customer-edit").val();
+    var mail = $("#mail-customer-edit").val();
+    var vt_mail = validatemail(mail);
+    var address = $('#addr-customer-edit').val();
+    if (cc !== "" && name !== "" && lastName !== "" && phone !== "" && mail !== "" && address !== "" && vt_mail) {
+        console.log("todo correcto");
+        $('#modal-edit-customer #form-edit-customer').submit();
+    }
+
+    if (cc === "") {
+        $('.msg-error-cc-edit').css('display', 'block');
+    } else {
+        $('.msg-error-cc-edit').css('display', 'none');
+    }
+    if (name === "") {
+        $('.msg-error-name-edit').css('display', 'block');
+    } else {
+        $('.msg-error-name-edit').css('display', 'none');
+    }
+    if (lastName === "") {
+        $('.msg-error-last-name-edit').css('display', 'block');
+    } else {
+        $('.msg-error-last-name-edit').css('display', 'none');
+    }
+    if (phone === "") {
+        $('.msg-error-phone-edit').css('display', 'block');
+    } else {
+        $('.msg-error-phone-edit').css('display', 'none');
+    }
+    if (mail === "") {
+        $('.msg-error-mail-edit').css('display', 'block');
+    } else {
+        $('.msg-error-mail-edit').css('display', 'none');
+    }
+    if (!vt_mail) {
+        $('.msg-error-invalid-mail-edit').css('display', 'block');
+    } else {
+        $('.msg-error-invalid-mail-edit').css('display', 'none');
+    }
+    if (address === "") {
+        $('.msg-error-address-edit').css('display', 'block');
+    } else {
+        $('.msg-error-address-edit').css('display', 'none');
+    }
+}
+
+/**
+ * Función que valida el formulario de crear cliente
+ */
+function validateFormAddCustomer() {
+    var cc = $("#cc-customer").val().trim();
+    var name = $("#name-customer").val().trim();
+    var lastName = $("#last-name-customer").val().trim();
+    var phone = $("#phone-customer").val().trim();
+    var mail = $("#mail-customer").val().trim();
+    var vt_mail = validatemail(mail);
+    var address = $('#address-customer').val().trim();
+    if (cc !== "" && name !== "" && lastName !== "" && phone !== "" && mail !== "" && address !== "" && vt_mail) {
+        console.log("todo correcto");
+        $('#modal-add-customer #form-add-customer').submit();
+    }
+
+    if (cc === "") {
+        $('.msg-error-cc').css('display', 'block');
+    } else {
+        $('.msg-error-cc').css('display', 'none');
+    }
+    if (name === "") {
+        $('.msg-error-name').css('display', 'block');
+    } else {
+        $('.msg-error-name').css('display', 'none');
+    }
+    if (lastName === "") {
+        $('.msg-error-last-name').css('display', 'block');
+    } else {
+        $('.msg-error-last-name').css('display', 'none');
+    }
+    if (phone === "") {
+        $('.msg-error-phone').css('display', 'block');
+    } else {
+        $('.msg-error-phone').css('display', 'none');
+    }
+    if (mail === "") {
+        $('.msg-error-mail').css('display', 'block');
+    } else {
+        $('.msg-error-mail').css('display', 'none');
+    }
+    if (!vt_mail) {
+        $('.msg-error-invalid-mail').css('display', 'block');
+    } else {
+        $('.msg-error-invalid-mail').css('display', 'none');
+    }
+    if (address === "") {
+        $('.msg-error-address').css('display', 'block');
+    } else {
+        $('.msg-error-address').css('display', 'none');
+    }
+}
+
+//Fin clientes -----
