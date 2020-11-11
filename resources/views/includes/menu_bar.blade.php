@@ -7,7 +7,7 @@
             <a class="nav-link" href="{{route('view_calendar')}}"><i class="fas fa-calendar icon-left"></i>Calendario <i class="fas fa-angle-double-right icon-right"></i></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" ><i class="fas fa-wrench icon-left"></i>Servicios <i class="fas fa-angle-double-right icon-right"></i></a>
+            <a class="nav-link" href="{{route('view_record')}}"><i class="fas fa-wrench icon-left"></i>Servicios <i class="fas fa-angle-double-right icon-right"></i></a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{route('view_customer')}}"><i class="fas fa-users icon-left"></i>Clientes <i class="fas fa-angle-double-right icon-right"></i></a>
@@ -27,10 +27,6 @@
         <li class="nav-item">
             <a class="nav-link" href="{{route('view_employee')}}"><i class="fas fa-user-friends icon-left"></i>Empleados <i class="fas fa-angle-double-right icon-right"></i></a>
         </li>
-
-{{--        <li class="nav-item">--}}
-{{--            <a class="nav-link" href="{{route('view_record')}}"><i class="fas fa-wrench icon-left"></i>Servicios <i class="fas fa-angle-double-right icon-right"></i></a>--}}
-{{--        </li>--}}
 
     </ul>
 </div>
