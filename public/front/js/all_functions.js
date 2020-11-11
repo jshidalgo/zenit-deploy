@@ -145,7 +145,7 @@ function show_edit_employee() {
     var selected = Array();
     document.querySelectorAll('input[type="checkbox"]:checked').forEach(element =>
         selected.push(element.closest('tr').children[2].innerHTML));
-    console.log(selected);
+    //console.log(selected);
     if(selected.length === 1){
         //Necesito cargar los datos en el modal
         $.ajax({
@@ -203,7 +203,7 @@ function show_edit_provider() {
     var selected = Array();
     document.querySelectorAll('input[type="checkbox"]:checked').forEach(element =>
         selected.push(element.closest('tr').children[1].innerHTML));
-    console.log(selected);
+    //console.log(selected);
     if(selected.length === 1){
         //Necesito cargar los datos en el modal
         $.ajax({
@@ -213,7 +213,7 @@ function show_edit_provider() {
                 _token:'{{csrf_token()}}'
             }
         }).done(function(data) {
-            console.log(data);
+            //console.log(data);
             document.getElementById('id-provider-edit').value=data[0].id;
             document.getElementById('nit-provider-edit').value=data[0].nit;
             document.getElementById('name-provider-edit').value=data[0].name;
@@ -265,7 +265,7 @@ function validateFormProvider(form) {
     var city = $('#city-provider'+form).val().trim();
     var addr = $('#addr-provider'+form).val().trim();
     if (nit !== "" & name !== "" & mail !== "" & phone !== "" & country !== "" & departament !== "" & city !== "" & addr !== "" && vt_mail) {
-        console.log(nit, name, mail, phone, country, departament, city, addr);
+        //console.log(nit, name, mail, phone, country, departament, city, addr);
         if (form === '-edit') {
             $('#modal-edit-provider #form-edit-provider').submit();
         }else{
@@ -344,7 +344,7 @@ function show_edit_purchase() {
     var selected = Array();
     document.querySelectorAll('input[type="checkbox"]:checked').forEach(element =>
         selected.push(element.closest('tr').children[1].innerHTML));
-    console.log(selected);
+    //console.log(selected);
     if(selected.length === 1){
         //Necesito cargar los datos en el modal
         $.ajax({
@@ -354,7 +354,7 @@ function show_edit_purchase() {
                 _token:'{{csrf_token()}}'
             }
         }).done(function(data) {
-            console.log(data);
+            //console.log(data);
 
             document.getElementById('id-purchase-edit').value=data[0].id;
             document.getElementById('cod-edit-purchase').value=data[0].cod;
@@ -390,8 +390,8 @@ var products = 2;
  * @param modal
  */
 function addProductPurchase(modal) {
-    console.log(modal)
-    console.log("Este es el modal ^")
+    //console.log(modal)
+    //console.log("Este es el modal ^")
     if (validateFormProductPurchase(0,modal)) {
         //se agrega el contenedor del producto
 
@@ -439,7 +439,7 @@ function addProductPurchase(modal) {
  */
 function deleteProductPurchase(numberProduct) {
     //$("#product3").detach()
-    console.log(numberProduct);
+    //console.log(numberProduct);
     //eliminando el elemento
     //se elimina el div que contien todo la informacion del producto
     $("#product" + numberProduct).detach();
@@ -463,7 +463,7 @@ function validateFormProductPurchase(num,modal) {
     //hijos dentro del contenedor div
     var products = $("#row-products-"+modal).children();
     var length = (products.length - num);
-    console.log(length);
+    //console.log(length);
     for (i = 0; i < products.length; i++) {
         var idProduct = products[i].getAttribute('id').substring(7);
         var name = $('#name-product-purchase' + (idProduct)).val().trim();
@@ -471,7 +471,7 @@ function validateFormProductPurchase(num,modal) {
         var amount = $('#amount-product-purchase' + (idProduct)).val().trim();
 
         if (name !== "" && cost !== "" && amount !== "") {
-            console.log(name, cost, amount);
+            //console.log(name, cost, amount);
             length -= 1;
         }
         if (name === "") {
@@ -493,7 +493,7 @@ function validateFormProductPurchase(num,modal) {
     }
 
     if (length === 0) {
-        console.log(length);
+        //console.log(length);
         return true;
     } else {
         return false;
@@ -513,10 +513,10 @@ function validateFormPurchase(modal) {
     var provider = $('#provider-purchase').val();
 
     if (cod !== "" && date !== "" && cost !== "" && concept !== "" && status !== "-1" && provider !== "-1") {
-        console.log(cod, date, cost, concept, status, provider);
+        //console.log(cod, date, cost, concept, status, provider);
         var products = $("#row-products-"+modal).children();
         var count = products.length;
-        console.log(count + " - numero de productos")
+        //console.log(count + " - numero de productos")
         if (count === 1 & validateFormProductPurchase(0,modal)) {
 
             $('#modal-add-purchase #form-add-purchase').submit();
@@ -582,7 +582,7 @@ function show_edit_product() {
     var selected = Array();
     document.querySelectorAll('input[type="checkbox"]:checked').forEach(element =>
         selected.push(element.closest('tr').children[1].innerHTML));
-    console.log(selected);
+    //console.log(selected);
     if(selected.length === 1){
         //Necesito cargar los datos en el modal
         $.ajax({
@@ -592,7 +592,7 @@ function show_edit_product() {
                 _token:'{{csrf_token()}}'
             }
         }).done(function(data) {
-            console.log(data);
+            //console.log(data);
             document.getElementById('id-product-edit').value=data[0].id;
             document.getElementById('cod-product-edit').value=data[0].code;
             document.getElementById('name-product-edit').value=data[0].name;
@@ -638,7 +638,7 @@ function validateFormProduct(form) {
     var des = $('#description-product'+form).val().trim();
 
     if (cod != "" & name != "" & cost != "" & amount != "" & des != "") {
-        console.log(cod, name, cost, amount, des);
+        //console.log(cod, name, cost, amount, des);
         if (form === '-edit') {
             $('#modal-edit-product #form-edit-product').submit();
 
@@ -685,7 +685,7 @@ function show_edit_vehicle() {
     var selected = Array();
     document.querySelectorAll('input[type="checkbox"]:checked').forEach(element =>
         selected.push(element.closest('tr').children[1].innerHTML));
-    console.log(selected);
+    //console.log(selected);
     if(selected.length === 1){
         //Necesito cargar los datos en el modal
         $.ajax({
@@ -695,7 +695,7 @@ function show_edit_vehicle() {
                 _token:'{{csrf_token()}}'
             }
         }).done(function(data) {
-            console.log(data);
+            //console.log(data);
             document.getElementById('id-vehicle-edit').value=data['result'].id;
             document.getElementById('plate-vehicle-edit').value=data['result'].license_plate;
             document.getElementById('color-vehicle-edit').value=data['result'].color;
@@ -842,7 +842,7 @@ function show_edit_customer() {
     var selected = Array();
     document.querySelectorAll('input[type="checkbox"]:checked').forEach(element =>
         selected.push(element.closest('tr').children[2].innerHTML));
-    console.log(selected);
+    //console.log(selected);
     if(selected.length === 1){
         //Necesito cargar los datos en el modal
         $.ajax({
@@ -852,7 +852,7 @@ function show_edit_customer() {
                 _token:'{{csrf_token()}}'
             }
         }).done(function(data) {
-            console.log(data);
+            //console.log(data);
             document.getElementById('id-customer-edit').value=data[0].id;
             document.getElementById('cc-customer-edit').value=data[0].identification_card;
             document.getElementById('name-customer-edit').value=data[0].name;
@@ -899,7 +899,7 @@ function validateFormEditCustomer() {
     var vt_mail = validatemail(mail);
     var address = $('#addr-customer-edit').val();
     if (cc !== "" && name !== "" && lastName !== "" && phone !== "" && mail !== "" && address !== "" && vt_mail) {
-        console.log("todo correcto");
+        //console.log("todo correcto");
         $('#modal-edit-customer #form-edit-customer').submit();
     }
 
@@ -952,7 +952,7 @@ function validateFormAddCustomer() {
     var vt_mail = validatemail(mail);
     var address = $('#address-customer').val().trim();
     if (cc !== "" && name !== "" && lastName !== "" && phone !== "" && mail !== "" && address !== "" && vt_mail) {
-        console.log("todo correcto");
+        //console.log("todo correcto");
         $('#modal-add-customer #form-add-customer').submit();
     }
 
