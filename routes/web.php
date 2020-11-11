@@ -48,3 +48,10 @@ Route::post('/compras',[PurchaseController::class,'create_purchase'])->name('add
 Route::get('/compras/{id?}',[PurchaseController::class,'get_purchase'])->name('get_purchase');
 Route::post('/compras/editar',[PurchaseController::class,'edit_purchase'])->name('edit_purchase');
 Route::delete('/compras',[PurchaseController::class,'delete_purchase'])->name('delete_purchase');
+
+//rutas para productos
+Route::get('/productos',[ProductController::class,'show_view_product'])->name('view_product');
+Route::post('/productos',[ProductController::class,'create_product'])->name('add_product');
+Route::get('/productos/{id?}',[ProductController::class,'get_product'])->name('get_product');
+Route::post('/productos/editar',[ProductController::class,'edit_product'])->name('edit_product');
+Route::delete('/productos',[ProductController::class,'delete_product'])->name('delete_product');

@@ -561,5 +561,117 @@ function validateFormPurchase(modal) {
 
 }
 
+//Fin compras ---------------
 
-//Fin compras
+//Inicio productos ------------
+/**
+ * Función que busca un producto
+ */
+function validateSearchProduct() {
+    var search= $('#input-search').val().trim();
+
+    if(search !== ''){
+        $('#form-search-product').submit();
+    }
+}
+
+/**
+ * Función que carga los datos del un producto en el modal editar
+ */
+function show_edit_product() {
+    var selected = Array();
+    document.querySelectorAll('input[type="checkbox"]:checked').forEach(element =>
+        selected.push(element.closest('tr').children[1].innerHTML));
+    console.log(selected);
+    if(selected.length === 1){
+        //Necesito cargar los datos en el modal
+        $.ajax({
+            type:'GET',
+            url:'productos/'+selected[0],
+            data:{
+                _token:'{{csrf_token()}}'
+            }
+        }).done(function(data) {
+            console.log(data);
+            document.getElementById('id-product-edit').value=data[0].id;
+            document.getElementById('cod-product-edit').value=data[0].code;
+            document.getElementById('name-product-edit').value=data[0].name;
+            document.getElementById('sale-price-product-edit').value=data[0].sale_price;
+            document.getElementById('amount-product-edit').value=data[0].units_available;
+            document.getElementById('description-product-edit').value=data[0].description;
+        });
+        //Mostrar modal para editar
+        $('#modal-edit-product').modal('show');
+    }else if(selected.length > 1){
+        Swal.fire({
+            icon: 'error',
+            title: 'Ocurrió un error!',
+            text: 'No puede editar más de un elemento a la vez'
+        });
+    }else{
+        Swal.fire({
+            icon: 'error',
+            title: 'Ocurrió un error!',
+            text: 'Debes de seleccionar un elemento'
+        });
+    }
+}
+
+/**
+ * Función que limpia todos los campos disponibles en la vista de productos
+ **/
+function clearFieldProduct() {
+    document.querySelectorAll('#modal-edit-product input, #modal-add-product input, #modal-edit-product textarea, #modal-add-product textarea').forEach(function (element) {
+        element.value="";
+    });
+}
+
+/**
+ * funcion que valida el formulario para agregar o editar un producto
+ * @param form - formulario a validar, -edit para el formulario que edita un producto o -add para el que los agrega
+ */
+function validateFormProduct(form) {
+    var cod = $('#cod-product'+form).val().trim();
+    var name = $('#name-product'+form).val().trim();
+    var cost = $('#sale-price-product'+form).val().trim();
+    var amount = $('#amount-product'+form).val().trim();
+    var des = $('#description-product'+form).val().trim();
+
+    if (cod != "" & name != "" & cost != "" & amount != "" & des != "") {
+        console.log(cod, name, cost, amount, des);
+        if (form === '-edit') {
+            $('#modal-edit-product #form-edit-product').submit();
+
+        }else{
+            $('#modal-add-product #form-add-product').submit();
+        }
+    }
+    if (cod == "") {
+        $('.msg-error-cod'+form).css('display', 'block');
+    }else {
+        $('.msg-error-cod'+form).css('display', 'none');
+    }
+    if (name == "") {
+        $('.msg-error-name'+form).css('display', 'block');
+    }else {
+        $('.msg-error-name'+form).css('display', 'none');
+    }
+    if (cost == "") {
+        $('.msg-error-cost'+form).css('display', 'block');
+
+    }else {
+        $('.msg-error-cost'+form).css('display', 'none');
+    }
+    if (amount == "") {
+        $('.msg-error-amount'+form).css('display', 'block');
+    }else {
+        $('.msg-error-amount'+form).css('display', 'none');
+    }
+    if (des == "") {
+        $('.msg-error-description'+form).css('display', 'block');
+    }else {
+        $('.msg-error-description'+form).css('display', 'none');
+    }
+}
+
+//Fin productos ----
