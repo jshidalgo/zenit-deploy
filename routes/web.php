@@ -55,3 +55,10 @@ Route::post('/productos',[ProductController::class,'create_product'])->name('add
 Route::get('/productos/{id?}',[ProductController::class,'get_product'])->name('get_product');
 Route::post('/productos/editar',[ProductController::class,'edit_product'])->name('edit_product');
 Route::delete('/productos',[ProductController::class,'delete_product'])->name('delete_product');
+
+//rutas para vehiculos
+Route::get('/vehiculos',[VehicleController::class,'show_view_vehicle'])->name('view_vehicle');
+Route::post('/vehiculos',[VehicleController::class,'create_vehicle'])->name('add_vehicle');
+Route::get('/vehiculos/{id?}',[VehicleController::class,'get_vehicle'])->name('get_vehicle');
+Route::post('/vehiculos/editar',[VehicleController::class,'edit_vehicle'])->name('edit_vehicle');
+Route::delete('/vehiculos',[VehicleController::class,'delete_vehicle'])->name('delete_vehicle');

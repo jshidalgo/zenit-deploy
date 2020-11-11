@@ -675,3 +675,150 @@ function validateFormProduct(form) {
 }
 
 //Fin productos ----
+
+//Inicio vehiculos ----
+
+/**
+ * Función que carga los datos en el modal de Editar vehiculo
+ */
+function show_edit_vehicle() {
+    var selected = Array();
+    document.querySelectorAll('input[type="checkbox"]:checked').forEach(element =>
+        selected.push(element.closest('tr').children[1].innerHTML));
+    console.log(selected);
+    if(selected.length === 1){
+        //Necesito cargar los datos en el modal
+        $.ajax({
+            type:'GET',
+            url:'vehiculos/'+selected[0],
+            data:{
+                _token:'{{csrf_token()}}'
+            }
+        }).done(function(data) {
+            console.log(data);
+            document.getElementById('id-vehicle-edit').value=data['result'].id;
+            document.getElementById('plate-vehicle-edit').value=data['result'].license_plate;
+            document.getElementById('color-vehicle-edit').value=data['result'].color;
+            document.getElementById('cylinder-vehicle-edit').value=data['result'].cylinder_capacity;
+            document.getElementById('name-vehicle-edit').value=data['result'].name;
+            document.getElementById('model-vehicle-edit').value=data['result'].model;
+            document.getElementById('brand-vehicle-edit').value=data['result'].brand;
+        });
+        //Mostrar modal para editar
+        $('#modal-edit-vehicle').modal('show');
+    }else if(selected.length > 1){
+        Swal.fire({
+            icon: 'error',
+            title: 'Ocurrió un error!',
+            text: 'No puede editar más de un elemento a la vez'
+        });
+    }else{
+        Swal.fire({
+            icon: 'error',
+            title: 'Ocurrió un error!',
+            text: 'Debes de seleccionar un elemento'
+        });
+    }
+}
+
+/**
+ * Función que valida el fomrulario de agregar vehiculo
+ */
+function validateFormVehicle() {
+    var plate = $("#plate-vehicle").val().trim();
+    var color = $("#color-vehicle").val().trim();
+    var cylinder = $("#cylinder-vehicle").val().trim();
+    var model = $("#model-vehicle").val().trim();
+    var brand = $("#brand-vehicle").val().trim();
+    var name = $('#name-vehicle').val().trim();
+    if (plate !== "" && color !== "" && cylinder !== "" && model !== "" && brand !== "" && name !== "") {
+        $('#modal-add-vehicle #form-add-vehicle').submit();
+    }
+
+    if (plate == "") {
+        $('.msg-error-plate').css('display', 'block');
+    } else {
+        $('.msg-error-plate').css('display', 'none');
+    }
+    if (color == "") {
+        $('.msg-error-color').css('display', 'block');
+    } else {
+        $('.msg-error-color').css('display', 'none');
+    }
+    if (cylinder == "") {
+        $('.msg-error-cylinder').css('display', 'block');
+    } else {
+        $('.msg-error-cylinder').css('display', 'none');
+    }
+    if (model == "") {
+        $('.msg-error-model').css('display', 'block');
+    } else {
+        $('.msg-error-model').css('display', 'none');
+    }
+    if (brand == "") {
+        $('.msg-error-brand').css('display', 'block');
+    } else {
+        $('.msg-error-brand').css('display', 'none');
+    }
+    if (name == "") {
+        $('.msg-error-name').css('display', 'block');
+    } else {
+        $('.msg-error-name').css('display', 'none');
+    }
+}
+
+/**
+ * Función que valida el formulario de editar vehiculo
+ */
+function validateFormeEditVehicle() {
+    var plate = $("#plate-vehicle-edit").val().trim();
+    var color = $("#color-vehicle-edit").val().trim();
+    var cylinder = $("#cylinder-vehicle-edit").val().trim();
+    var model = $("#model-vehicle-edit").val().trim();
+    var brand = $("#brand-vehicle-edit").val().trim();
+    var name = $('#name-vehicle-edit').val().trim();
+    if (plate !== "" && color !== "" && cylinder !== "" && model !== "" && brand !== "" && name !== "") {
+        $('#modal-edit-vehicle #form-edit-vehicle').submit();
+    }
+
+    if (plate == "") {
+        $('.msg-error-plate-edit').css('display', 'block');
+    } else {
+        $('.msg-error-plate-edit').css('display', 'none');
+    }
+    if (color == "") {
+        $('.msg-error-color-edit').css('display', 'block');
+    } else {
+        $('.msg-error-color-edit').css('display', 'none');
+    }
+    if (cylinder == "") {
+        $('.msg-error-cylinder-edit').css('display', 'block');
+    } else {
+        $('.msg-error-cylinder-edit').css('display', 'none');
+    }
+    if (model == "") {
+        $('.msg-error-model-edit').css('display', 'block');
+    } else {
+        $('.msg-error-model-edit').css('display', 'none');
+    }
+    if (brand == "") {
+        $('.msg-error-brand-edit').css('display', 'block');
+    } else {
+        $('.msg-error-brand-edit').css('display', 'none');
+    }
+    if (name == "") {
+        $('.msg-error-name-edit').css('display', 'block');
+    } else {
+        $('.msg-error-name-edit').css('display', 'none');
+    }
+}
+
+/**
+ * Función que limpia todos los campos disponibles en la vista de vehiculos
+ **/
+function clearFieldVehicles() {
+    document.querySelectorAll('#modal-edit-vehicle input, #modal-add-vehicle input').forEach(function (element) {
+        element.value="";
+    });
+}
+//Fin vehiculos ------
