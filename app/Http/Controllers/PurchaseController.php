@@ -151,13 +151,7 @@ class PurchaseController extends Controller
                 ->orWhere('purchases.concept','like','%'.$word.'%')
                 ->orWhere('providers.name','like','%'.$word.'%')
                 ->get();
-            dd($purchase);
-            // foreach ($purchase as $key => $value) {
-            //         echo $key;
-            //         echo "=";
-            //         echo $value;
-            //     }
-            //sin implementar
+//            dd($purchase);
         } else {
             //datos de todos las compras
             $purchase['purchase'] = DB::table('purchases')
@@ -165,12 +159,7 @@ class PurchaseController extends Controller
                 ->select('purchases.*', 'providers.name as provider_name')
                 ->where('purchases.deleted_at','=',null)
                 ->get();
-            // foreach ($purchase as $key => $value) {
-            //     echo $key;
-            //     echo "=";
-            //     echo $value;
-            // }
-            //datos de todos los proveedes
+
         }
         $provider['provider'] = Provider::all();
         //datos a enviar
@@ -179,16 +168,21 @@ class PurchaseController extends Controller
     }
 
     /**
-     * Función que obtiene un cliente mediante su cédula
+     * Función que obtiene una compra por su identificador
      * @param $cc
      * @return array
      */
-    public function get_purchase($cc){
-        // $customer = Customer::where('identification_card','=',$cc)->first();
+    public function get_purchase($id){
+        $purchase = DB::table('purchases')
+            ->join('providers', 'providers.id', '=', 'purchases.provider_id')
+            ->select('purchases.*', 'providers.name as provider_name')
+            ->where('purchases.id','=', $id)
+            ->get();
+        // $customer = Customer::where('id','=',id)->first();
         // $phone = Customer_phone::where('customer_id','=',$customer->id)->first();
         // $result = [$customer, $phone];
 
-        // return $result;
+        return $purchase;
     }
 
     /**
