@@ -41,3 +41,10 @@ Route::post('/proveedores',[ProviderController::class,'create_provider'])->name(
 Route::get('/proveedores/{id?}',[ProviderController::class,'get_provider'])->name('get_provider');
 Route::post('/proveedores/editar',[ProviderController::class,'edit_provider'])->name('edit_provider');
 Route::delete('/proveedores',[ProviderController::class,'delete_provider'])->name('delete_provider');
+
+//rutas para compras
+Route::get('/compras',[PurchaseController::class,'show_view_purchase'])->name('view_purchase');
+Route::post('/compras',[PurchaseController::class,'create_purchase'])->name('add_purchase');
+Route::get('/compras/{id?}',[PurchaseController::class,'get_purchase'])->name('get_purchase');
+Route::post('/compras/editar',[PurchaseController::class,'edit_purchase'])->name('edit_purchase');
+Route::delete('/compras',[PurchaseController::class,'delete_purchase'])->name('delete_purchase');

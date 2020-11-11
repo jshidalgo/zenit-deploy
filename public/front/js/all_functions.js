@@ -161,7 +161,7 @@ function show_edit_employee() {
             document.getElementById('last-name-employee-edit').value=data[0].last_name;
             document.getElementById('addr-employee-edit').value=data[0].address;
             document.getElementById('mail-employee-edit').value=data[0].mail;
-            document.getElementById('phone-employee-edit').value=data[1].number;
+            // document.getElementById('phone-employee-edit').value=data[1].number; // Hay que definir lo de los numeros, data[0] viene en null
         });
         //Mostrar modal para editar
         $('#modal-edit-employee').modal('show');
@@ -182,8 +182,6 @@ function show_edit_employee() {
 
 
 //Fin empleados ---------------------------------------------------
-
-
 
 //Inicio provedoores -----------------------------------------------
 
@@ -325,3 +323,243 @@ function validateFormProvider(form) {
     }
 }
 
+//Fin proveedores ---------------
+
+//Inicio compras -----------------------
+/**
+ * Función que busca una compra
+ */
+function validateSearchPurchase() {
+    var search= $('#input-search').val();
+    if(search !== ''){
+        $('#form-search-purchase').submit();
+    }
+}
+
+
+/**
+ * Función que carga los datos de la compra en el modal de compra
+ */
+function show_edit_purchase() {
+    var selected = Array();
+    document.querySelectorAll('input[type="checkbox"]:checked').forEach(element =>
+        selected.push(element.closest('tr').children[1].innerHTML));
+    console.log(selected);
+    if(selected.length === 1){
+        //Necesito cargar los datos en el modal
+        $.ajax({
+            type:'GET',
+            url:'compras/'+selected[0],
+            data:{
+                _token:'{{csrf_token()}}'
+            }
+        }).done(function(data) {
+            console.log(data);
+
+            document.getElementById('id-purchase-edit').value=data[0].id;
+            document.getElementById('cod-edit-purchase').value=data[0].cod;
+            document.getElementById('date-edit-purchase').value=data[0].date;
+            document.getElementById('costU-edit-purchase').value=data[0].cost;
+            document.getElementById('concept-edit-purchase').value=data[0].concept;
+            document.getElementById('status-edit-purchase').value=data[0].status;
+            document.getElementById('provider-edit-purchase').value = data[0].provider_id;
+            // document.getElementById('phone-customer-edit').value=data[1].number;
+        });
+        //Mostrar modal para editar
+        $('#modal-edit-purchase').modal('show');
+    }else if(selected.length > 1){
+        Swal.fire({
+            icon: 'error',
+            title: 'Ocurrió un error!',
+            text: 'No puede editar más de un elemento a la vez'
+        });
+    }else{
+        Swal.fire({
+            icon: 'error',
+            title: 'Ocurrió un error!',
+            text: 'Debes de seleccionar un elemento'
+        });
+    }
+}
+
+//numero de productos agregados
+var products = 2;
+
+/**
+ * función que permite agergar compras
+ * @param modal
+ */
+function addProductPurchase(modal) {
+    console.log(modal)
+    console.log("Este es el modal ^")
+    if (validateFormProductPurchase(0,modal)) {
+        //se agrega el contenedor del producto
+
+        var contenedorProducto = "<div class='row-product' id='product" + products + "'></div>";
+        $('#row-products-'+modal).append(contenedorProducto);
+        //se agrega el HMTL del nombre del producto
+        var nombreProducto = "<div class='row'>" +
+            "<label for='name-product-purchase" + products + "'>Nombre producto</label>" +
+            "<input name='product[nameProduct" + products + "]' id='name-product-purchase" + products + "' type='text' placeholder='Nombre del producto'>" +
+            "<span class='msg-error-name-product' id='msg-error-name-product" + products + "'>Ingrese nombre del producto</span>" +
+            "</div>";
+        $('#product' + products).append(nombreProducto);
+        //se agrega el HTML de valor
+        var valorProducto = "<div class='row'>" +
+            "<label for='costU-product-purchase" + products + "'>Valor de costo unidad</label>" +
+            "<input name='product[costProduct" + products + "]' id='costU-product-purchase" + products + "' type='number' placeholder='Valor de costo unitario del producto' min='0'>" +
+            "<span class='msg-error-cost-product' id='msg-error-cost-product" + products + "'>Ingrese el valor de costo unidad del producto</span>" +
+            "</div>";
+        $('#product' + products).append(valorProducto);
+        // se agrega el HTML de la cantidad
+        var cantidadProducto = "<div class='row'>" +
+            "<label for='amount-product-purchase" + products + "'>Cantidad</label>" +
+            "<input name='product[amountProduct" + products + "]' id='amount-product-purchase" + products + "' type='number' placeholder='Cantidad producto disponible' min='1'>" +
+            "<span class='msg-error-amount-product' id='msg-error-amount-product" + products + "'>Ingrese la cantidad de producto</span>" +
+            "</div>";
+        $('#product' + products).append(cantidadProducto);
+
+        //se agrega el hTML de los botones, ocultando el de agregar del anterior
+        $('#product-add' + (products - 1)).css('display', 'none');
+        //mostrando el btn de eliminar
+        $('#product-del' + (products - 1)).css('display', 'block');
+        var btnProducto = "<div class='modal-footer'>" +
+            "<i class='fas fa-plus-circle fa-2x' onclick='addProductPurchase(\""+modal+"\")' id='product-add" + products + "'></i>" +
+            "<i class='fas fa-minus-circle fa-2x' id='product-del" + products + "' onclick='deleteProductPurchase(" + products + ")'></i>" +
+            "</div>";
+        $('#product' + products).append(btnProducto);
+        //incrementar el valor de los productos agregados
+        products += 1;
+    }
+}
+
+/**
+ * función que permite eliminar un producto del DOM
+ * @param numberProduct - numero que identifica al producto dentro del DOM
+ */
+function deleteProductPurchase(numberProduct) {
+    //$("#product3").detach()
+    console.log(numberProduct);
+    //eliminando el elemento
+    //se elimina el div que contien todo la informacion del producto
+    $("#product" + numberProduct).detach();
+}
+
+//metodo que valida el formulario del producto
+//num -
+//
+//num = 0 - valide todos
+//num = 1 - valide todos menos el ultimo
+/**
+ * función que permite validar los formularios de los productos
+ * esto con el fin de omitir validar el ultimo formulario de producto
+ * num = 0 - valide todos
+ //num = 1 - valide todos menos el ultimo
+ * @param num - numero que se le resta a length
+ * @param modal - modal al cual se le hara la verificación, edit para modal de editar y add para el modal de agregar
+ * @returns {boolean}
+ */
+function validateFormProductPurchase(num,modal) {
+    //hijos dentro del contenedor div
+    var products = $("#row-products-"+modal).children();
+    var length = (products.length - num);
+    console.log(length);
+    for (i = 0; i < products.length; i++) {
+        var idProduct = products[i].getAttribute('id').substring(7);
+        var name = $('#name-product-purchase' + (idProduct)).val().trim();
+        var cost = $('#costU-product-purchase' + (idProduct)).val().trim();
+        var amount = $('#amount-product-purchase' + (idProduct)).val().trim();
+
+        if (name !== "" && cost !== "" && amount !== "") {
+            console.log(name, cost, amount);
+            length -= 1;
+        }
+        if (name === "") {
+            $('#msg-error-name-product' + (idProduct)).css('display', 'block');
+        } else {
+            $('#msg-error-name-product' + (idProduct)).css('display', 'none');
+        }
+        if (cost === "") {
+            $('#msg-error-cost-product' + (idProduct)).css('display', 'block');
+
+        } else {
+            $('#msg-error-cost-product' + (idProduct)).css('display', 'none');
+        }
+        if (amount === "") {
+            $('#msg-error-amount-product' + (idProduct)).css('display', 'block');
+        } else {
+            $('#msg-error-amount-product' + (idProduct)).css('display', 'none');
+        }
+    }
+
+    if (length === 0) {
+        console.log(length);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+/**
+ * función que permite validar el fomulario de compras
+ * @param modal - modal al cual se le hara la verificación, add para el modal de agregar compra o edit para el modal de editar compra
+ */
+function validateFormPurchase(modal) {
+    var cod = $('#cod-purchase').val();
+    var date = $('#date-purchase').val();
+    var cost = $('#costU-purchase').val();
+    var concept = $('#concept-purchase').val();
+    var status = $('#status-purchase').val();
+    var provider = $('#provider-purchase').val();
+
+    if (cod !== "" && date !== "" && cost !== "" && concept !== "" && status !== "-1" && provider !== "-1") {
+        console.log(cod, date, cost, concept, status, provider);
+        var products = $("#row-products-"+modal).children();
+        var count = products.length;
+        console.log(count + " - numero de productos")
+        if (count === 1 & validateFormProductPurchase(0,modal)) {
+
+            $('#modal-add-purchase #form-add-purchase').submit();
+
+        } else if (count !== 1 && validateFormProductPurchase(1,modal)) {
+            $(products[count - 1]).detach();
+            $('#modal-add-purchase #form-add-purchase').submit();
+        }
+    }
+    if (cod === "") {
+        $('.msg-error-cod').css('display', 'block');
+    } else {
+        $('.msg-error-cod').css('display', 'none');
+    }
+    if (date === "") {
+        $('.msg-error-date').css('display', 'block');
+    } else {
+        $('.msg-error-date').css('display', 'none');
+    }
+    if (cost === "") {
+        $('.msg-error-cost').css('display', 'block');
+
+    } else {
+        $('.msg-error-cost').css('display', 'none');
+    }
+    if (concept === "") {
+        $('.msg-error-concept').css('display', 'block');
+    } else {
+        $('.msg-error-concept').css('display', 'none');
+    }
+
+    if (status === "-1") {
+        $('.msg-error-status').css('display', 'block');
+    } else {
+        $('.msg-error-status').css('display', 'none');
+    }
+    if (provider === "-1") {
+        $('.msg-error-provider').css('display', 'block');
+    } else {
+        $('.msg-error-provider').css('display', 'none');
+    }
+
+}
+
+
+//Fin compras
