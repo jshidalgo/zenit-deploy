@@ -16,8 +16,9 @@ class EmployeeController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function create_employee(Request $request){
+        //dd($request);
         $dat=$request->get('dat');
-
+        echo $dat['cc'];
         $exist_epmloyee = Employee::where('identification_card','=',$dat['cc'])->get();
         $exist_phone = Employee_phone::where('number','=',$dat['phone'])->get();
         $exist_mail = Employee::where('mail','=',$dat['mail'])->get();
@@ -64,6 +65,7 @@ class EmployeeController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show_view_employee(Request $request){
+
         $dat = $request->get('dat');
         $employees['fail_msg'] = Session::get('fail_msg');
         $employees['check_msg'] = Session::get('check_msg');
@@ -78,6 +80,7 @@ class EmployeeController extends Controller
         }else{
             $employees['employees'] = Employee::where('deleted_at','=',null)->get();
         }
+
         return view('employee',$employees);
     }
 
@@ -87,6 +90,7 @@ class EmployeeController extends Controller
      * @return array
      */
     public function get_employee($cc){
+        echo "llegue a get";
         $employee = Employee::where('identification_card','=',$cc)->first();
         $phone = Employee_phone::where('employee_id','=',$employee->id)->first();
         $result = [$employee, $phone];

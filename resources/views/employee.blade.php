@@ -45,7 +45,9 @@
                 </tr>
                 </tfoot>
                 <tbody>
+                @if($employees!=null)
                 @foreach($employees as $aux)
+
                     <tr>
                         <td class="col-check"><input type="checkbox"></td>
                         <td>{{$aux->id}}</td>
@@ -57,7 +59,7 @@
                         <td>{{$aux->mail}}</td>
                     </tr>
                 @endforeach
-
+                @endif
                 </tbody>
             </table>
         </div>

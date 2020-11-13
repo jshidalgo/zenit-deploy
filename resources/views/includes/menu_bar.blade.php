@@ -13,7 +13,7 @@
             <a class="nav-link" href="{{route('view_customer')}}"><i class="fas fa-users icon-left"></i>Clientes <i class="fas fa-angle-double-right icon-right"></i></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{route('view_vehicle')}}"><i class="fas fa-car icon-left"></i>Vehículo <i class="fas fa-angle-double-right icon-right"></i></a>
+            <a class="nav-link" href="{{route('view_vehicle')}}"><i class="fas fa-car icon-left"></i>Vehículos <i class="fas fa-angle-double-right icon-right"></i></a>
         </li>
         <li class="nav-item">
             <a class="nav-link"  href="{{route('view_product')}}"><i class="fas fa-cubes icon-left"></i>Productos <i class="fas fa-angle-double-right icon-right"></i></a>
