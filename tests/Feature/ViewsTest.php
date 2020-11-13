@@ -7,7 +7,7 @@ use Tests\TestCase;
 
 class ViewsTest extends TestCase
 {
-
+    use RefreshDatabase;
     /**
      * test que permite comproblar el funcionamiento basico de la vista de proveedores
      *
