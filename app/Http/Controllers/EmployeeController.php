@@ -16,7 +16,7 @@ class EmployeeController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function create_employee(Request $request){
-        
+
         $dat=$request->get('dat');
 
         $exist_epmloyee = Employee::where('identification_card','=',$dat['cc'])->get();
