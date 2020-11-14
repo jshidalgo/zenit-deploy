@@ -5,7 +5,11 @@ language: php
 
 php:
   - '7.3'
-  
+addons:
+  sonarcloud:
+    organization: "zenit"
+    token:
+      secure: "hwzasvzeMajRBvPHbz2pbXjQv7n5a4Exe0xtUslEoHEFWnuysffyHfkBLuHzY78MJjPntsJ+xE//YxJcm9d0YTB/EJKFTLVB4I4ViHZt34Wc3wNE5RaEHOx++gLo6sKReNEC0Ez0LgXZJQXi9C0SCbmjQUlYEayGfRQsyEGaxKpAJ3GwfrMJBZEFmdIMLXOfTw11gaLWLP4Np7wb9eSUsbGPcqPOwwXZf5Rh3ZLucY8LuyePO/cn5p8Fg8tFSwVl0V6WaEeGFkU8D4DTCa/FgXg0W6P0CqPk0yC5R6z8DTUfSL6XJPeBvxUoEMK1cBjGzJZeQpJY79AEw3+QXyg0JGkieFUBxNjK7Goxhsneig6OOuEO7rTrINVCUgsNu8XnerLtDm+In3daenpRIjZptJKRghINSbmHeI3NtpuWVSGYKg8N2YhmcOubJBbi2KalP/8gJ3ea7eee6UDDqg0P8Nk5dxHdjg356Pq/DQNOCjTIWkGqd+nHVznVmJ5q4jtezHTiuxtxvYbQ8cTcHnJGPIZns+VtfDB5zmaRQvktk6ar5jEMk4Std1F1Ju/WGXbdVfhLZc///tnFdn1kKYT2aLUlZ4T1lu2i3ZfOGzo68CQTZb9TdqAe743TLA9nEyDCTsYPeZJHRKof67AQA3hycGs7g45ODCpmRUq9lZmHkEA="
 before_script:
   - composer self-update
   - composer install --no-interaction
@@ -14,3 +18,5 @@ before_script:
 script:
   - vendor/bin/phpunit --coverage-text
   - npm run production
+  - sonar-scanner
+  
