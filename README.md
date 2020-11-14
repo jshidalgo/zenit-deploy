@@ -1,4 +1,4 @@
-<h2>Zenit</h2>
+<p align="center"><img src="/public/front/assets/images/zenit.png" width="400"></a></p>
 <p align="center">
  
 <a ><img src="https://travis-ci.com/jshidalgo/zenit-deploy.svg?token=823ruEwGPzU5vysoNZzp&branch=master" alt="Build Status"></a>
