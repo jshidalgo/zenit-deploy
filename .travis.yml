@@ -9,9 +9,7 @@ php:
 addons:
   sonarcloud:
     organization: "zenit"
-    token:
-        secure: "SDdSYvAQudUTlSKdTol1Q+7bOQccbSstDCzpC2YUUSCb8L3As/aauRYrkLhMU1npt28XiN80D/Tl77aKRl8ivmmvJJGxSPQX/BLK+XVEXmg1ldByXzNc8b1U95cn2b87hprH+wZuMywvK4ARUohomsmikkNAXd/zLvCw8bTMlg68w94aK9jdxRQFXF9VQyDPXS8jJx9vBuNQqRfGuPQgwI99kd1aJlk/59v90dmwVS+hRdLrTMqWnbdMTwJKI7mjFcUtpcp1qx7yCGJ4UQ308RbERym1c2npuQX9bwfiyZNk0VMuXMn+BFJtE2aeZLiB/813PCIxtVoLv4vfLqK4tvgJBaBltDjeLFbXlMNCdP50osCaGSuk4YhjPpAp4BUXtuTVW49JOqSlsmClc/+tbDNv+X0b7TAA76D6UVMAkYjlExEyU8trDJKU3hXWFRafbnXYj9canH9z86GEMoU2CpcqjKZLoJgO6Y1ADa24dpbKBdrMpw3Mrr7o9zAxAmlfLR7gY1HlnMKPyVOglyEB1ocBYpMSlzXGGoD6IVxNWdebZCyKzYEGRdxwL+5mVJHAQU1T8Kd9VrX43yrXetL8amRwNsMuVyy0hJczSfiAHekJtNSBg0HQiM/0q5GMn8U4Lkpt0Dla7gP1Z3rm9IcORRaR9dRCKMcYBYKquzbKVOk="      
-
+   
 before_script:
   - composer self-update
   - composer install --no-interaction
