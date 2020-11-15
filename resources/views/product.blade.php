@@ -132,7 +132,7 @@
                         @csrf
                         <div class="row">
                             <label for="id-product-edit">ID</label>
-                            <input name="dat[id]" id="id-product-edit" type="text" placeholder="ID" readonly>
+                            <input name="dat[id]" id="id-product-edit" type="text" placeholder="ID" class="readonly" readonly>
                         </div>
                         <div class="row">
                             <label for="cod-product-edit">Código</label>

@@ -83,10 +83,6 @@
                             border: solid 1px gray;
                             padding-left: 10px;
                         }
-                        input.readonly{
-                            background-color: #e9ecef;
-                            opacity: 1;
-                        }
                         span{
                             display: none;
                             width: 60%;
@@ -148,6 +144,10 @@
                             border-radius: 12px;
                             border: solid 1px gray;
                             padding-left: 10px;
+                        }
+                        input.readonly{
+                            background-color: #e9ecef;
+                            opacity: 1;
                         }
                         span{
                             display: none;

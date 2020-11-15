@@ -8,8 +8,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
+/**
+ * Class CustomerController
+ * @package App\Http\Controllers
+ */
 class CustomerController extends Controller
 {
+    const CUSTOMERS_ID = 'customers.id';
+    const CUSTOMER_PHONES_CUSTOMER_ID = 'customer_phones.customer_id';
+    const IDENTIFICATION_CARD = 'identification_card';
+    const CUSTOMER_PHONE_NUMBER = 'customer_phones.number';
+    const CUSTOMER_IDENTIFICATION_CARD = 'customers.identification_card';
     /**
      * Funcion que se encarga de registrar un nuevo cliente
      * @param Request $request
@@ -18,7 +27,7 @@ class CustomerController extends Controller
     public function create_customer(Request $request){
         $dat=$request->get('dat');
 
-        $exist_customer= Customer::where('identification_card','=',$dat['cc'])->get();
+        $exist_customer= Customer::where(CustomerController::IDENTIFICATION_CARD,'=',$dat['cc'])->get();
         $exist_phone = Customer_phone::where('number','=',$dat['phone'])->get();
         $exist_mail = Customer::where('mail','=',$dat['mail'])->get();
 
@@ -70,16 +79,21 @@ class CustomerController extends Controller
         $customer['check_msg'] = Session::get('check_msg');
         if (isset($dat) && !empty($dat)) {
             $word = $dat['search'];
-            $customer['customer'] = DB::table('customers')
-                ->where('identification_card','like','%'.$word.'%')
+            $customer['customer'] = DB::table('customer_phones')
+                ->join('customers', CustomerController::CUSTOMERS_ID, '=', CustomerController::CUSTOMER_PHONES_CUSTOMER_ID)
+                ->where(CustomerController::IDENTIFICATION_CARD,'like','%'.$word.'%')
                 ->orWhere('name','like','%'.$word.'%')
                 ->orWhere('last_name','like','%'.$word.'%')
+                ->orWhere(CustomerController::CUSTOMER_PHONE_NUMBER,'like','%'.$word.'%')
+                ->select(CustomerController::CUSTOMER_PHONE_NUMBER, 'customers.*')
                 ->get();
+
         } else {
 
             $customer['customer'] = DB::table('customer_phones')
-                ->join('customers', 'customers.id', '=', 'customer_phones.customer_id')
+                ->join('customers', CustomerController::CUSTOMERS_ID, '=', CustomerController::CUSTOMER_PHONES_CUSTOMER_ID)
                 ->where('customers.deleted_at','=',null)
+                ->select(CustomerController::CUSTOMER_PHONE_NUMBER, 'customers.*')
                 ->get();
 
         }
@@ -89,14 +103,15 @@ class CustomerController extends Controller
     /**
      * Función que obtiene un cliente mediante su cédula
      * @param $cc
-     * @return array
+     * @return \Illuminate\Support\Collection
      */
     public function get_customer($cc){
-        $customer = Customer::where('identification_card','=',$cc)->first();
-        $phone = Customer_phone::where('customer_id','=',$customer->id)->first();
-        $result = [$customer, $phone];
 
-        return $result;
+        return  DB::table('customer_phones')
+            ->join('customers', CustomerController::CUSTOMERS_ID, '=', CustomerController::CUSTOMER_PHONES_CUSTOMER_ID)
+            ->where(CustomerController::CUSTOMER_IDENTIFICATION_CARD, '=', $cc)
+            ->select(CustomerController::CUSTOMER_PHONE_NUMBER, CustomerController::CUSTOMERS_ID, CustomerController::CUSTOMER_IDENTIFICATION_CARD, 'customers.name', 'customers.last_name', 'customers.address', 'customers.mail')
+            ->get();
     }
 
     /**
@@ -106,24 +121,21 @@ class CustomerController extends Controller
      */
     public function edit_customer(Request $request){
         $dat = $request->get('dat');
-
         $customer = DB::table('customers')
-            ->join('customer_phones','customers.id','=','customer_phones.customer_id')
-            ->where('customers.id','=',$dat['id'])
+            ->join('customer_phones',CustomerController::CUSTOMERS_ID,'=',CustomerController::CUSTOMER_PHONES_CUSTOMER_ID)
+            ->where(CustomerController::CUSTOMERS_ID,'=',$dat['id'])
             ->get()->first();
 
-        $exist_customer = Customer::where('identification_card','=',$dat['cc'])->get();
+        $exist_customer = Customer::where(CustomerController::IDENTIFICATION_CARD,'=',$dat['cc'])->get();
         $exist_phone = Customer_phone::where('number','=',$dat['phone'])->get();
         $exist_mail = Customer::where('mail','=',$dat['mail'])->get();
 
         $flag_cc = true;
 
         //Verifica si la cédula ya se encuentra registrada
-        if($exist_customer->count() == 1) {
-            if($exist_customer[0]->id != $customer->id){
-                $flag_cc=false;
-                $request->session()->flash('fail_msg','Ya existe un cliente con esta cédula');
-            }
+        if($exist_customer->count() == 1 && ($exist_customer[0]->id != $customer->id)) {
+            $flag_cc=false;
+            $request->session()->flash('fail_msg','Ya existe un cliente con esta cédula');
         }
 
         $flag_phone = true;
@@ -140,12 +152,9 @@ class CustomerController extends Controller
 
         $flag_mail=true;
         //Verifica si el mail ingresado ya se encuentra registrado
-        if($exist_mail->count() == 1){
-            if($exist_mail[0]->id != $customer->id){
-                $flag_mail=false;
-                $request->session()->flash('fail_msg','Un cliente ya tiene este correo electrónico');
-
-            }
+        if($exist_mail->count() == 1 && ($exist_mail[0]->id != $customer->id)){
+            $flag_mail=false;
+            $request->session()->flash('fail_msg','Un cliente ya tiene este correo electrónico');
         }
 
         if($flag_cc && $flag_phone && $flag_mail){
@@ -155,11 +164,14 @@ class CustomerController extends Controller
             $exist_customer->last_name = $dat['last_name'];
             $exist_customer->address = $dat['address'];
             $exist_customer->mail = $dat['mail'];
+
             $exist_customer->save();
 
             $exist_phone = Customer_phone::where('customer_id','=',$dat['id'])->first();
             $exist_phone->number = $dat['phone'];
+
             $exist_phone->save();
+
             $request->session()->flash('check_msg','Se actualizaron los datos del cliente con éxito');
         }
         return redirect()->route('view_customer');

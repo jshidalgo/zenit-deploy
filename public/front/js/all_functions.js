@@ -858,7 +858,7 @@ function show_edit_customer() {
             document.getElementById('last-name-customer-edit').value=data[0].last_name;
             document.getElementById('addr-customer-edit').value=data[0].address;
             document.getElementById('mail-customer-edit').value=data[0].mail;
-            document.getElementById('phone-customer-edit').value=data[1].number;
+            document.getElementById('phone-customer-edit').value=data[0].number;
         });
         //Mostrar modal para editar
         $('#modal-edit-customer').modal('show');

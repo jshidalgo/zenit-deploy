@@ -23,6 +23,7 @@ class VehicleController extends Controller
     const BRANDS_ID = 'brands.id';
     const VEHICLES_ALL = 'vehicles.*';
     const BRANDS_NAME_AS_BRAND = 'brands.name as brand';
+    const VEHICLES_ID = 'vehicles.id';
 
     /**
      * Función que crea un nuevo vehiculo
@@ -106,8 +107,8 @@ class VehicleController extends Controller
 
         return DB::table('vehicles')
             ->join('brands',VehicleController::VEHICLES_BRAND_ID,'=',VehicleController::BRANDS_ID)
-            ->where('vehicles.id','=',$id)
-            ->select(VehicleController::BRANDS_NAME_AS_BRAND,VehicleController::VEHICLES_BRAND_ID, 'vehicles.color','vehicles.cylinder_capacity','vehicles.license_plate','vehicles.model','vehicles.name','vehicles.id',)
+            ->where(VehicleController::VEHICLES_ID,'=',$id)
+            ->select(VehicleController::BRANDS_NAME_AS_BRAND,VehicleController::VEHICLES_BRAND_ID, 'vehicles.color','vehicles.cylinder_capacity','vehicles.license_plate','vehicles.model','vehicles.name',VehicleController::VEHICLES_ID,)
             ->get();
 
     }
@@ -122,7 +123,7 @@ class VehicleController extends Controller
 
         $vehicle = DB::table('vehicles')
             ->join('brands',VehicleController::VEHICLES_BRAND_ID,'=',VehicleController::BRANDS_ID)
-            ->where('vehicles.id','=',$dat['id'])
+            ->where(VehicleController::VEHICLES_ID,'=',$dat['id'])
             ->select(VehicleController::VEHICLES_ALL, VehicleController::BRANDS_NAME_AS_BRAND,'vehicles.id as vehicle_id')
             ->first();
 

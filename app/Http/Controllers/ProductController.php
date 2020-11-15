@@ -26,6 +26,8 @@ class ProductController extends Controller
     const PRODUCT_ORDERS_PURCHASE_ID = 'product_orders.purchase_id';
     const PROVIDERS_ID = 'providers.id';
     const PURCHASES_PROVIDER_ID = 'purchases.provider_id';
+    const PURCHASES_ID_AS_PURCHASE_ID = 'purchases.id as purchase_id';
+    const PROVIDERS_NAME_AS_PROVIDER_NAME = 'providers.name as provider_name';
 
     /**
      * metodo que permite crear un producto sin ningun tipo de trazabilidad
@@ -79,7 +81,7 @@ class ProductController extends Controller
                 ->orWhere('products.name','like','%'.$word.'%')
                 ->orWhere('products.units_available','like','%'.$word.'%')
                 ->orWhere('products.sale_price','like','%'.$word.'%')
-                ->select('purchases.id as purchase_id', 'providers.name as provider_name', ProductController::PRODUCT_ORDERS_PRODUCT_ID, 'products.*')
+                ->select(ProductController::PURCHASES_ID_AS_PURCHASE_ID, ProductController::PROVIDERS_NAME_AS_PROVIDER_NAME, ProductController::PRODUCT_ORDERS_PRODUCT_ID, 'products.*')
                 ->get();
 
         } else {
@@ -90,7 +92,7 @@ class ProductController extends Controller
                         ->join('providers', ProductController::PROVIDERS_ID, '=', ProductController::PURCHASES_PROVIDER_ID);
                 })
                 ->where('products.deleted_at', '=', null)
-                ->select('purchases.id as purchase_id', 'providers.name as provider_name', ProductController::PRODUCT_ORDERS_PRODUCT_ID, 'products.*')
+                ->select(ProductController::PURCHASES_ID_AS_PURCHASE_ID, ProductController::PROVIDERS_NAME_AS_PROVIDER_NAME, ProductController::PRODUCT_ORDERS_PRODUCT_ID, 'products.*')
                 ->get();
 
         }
@@ -112,7 +114,7 @@ class ProductController extends Controller
             })
             ->where(ProductController::PRODUCTS_ID, '=', $id)
             ->where('products.deleted_at', '=', null)
-            ->select('purchases.id as purchase_id', 'providers.name as provider_name', ProductController::PRODUCT_ORDERS_PRODUCT_ID,
+            ->select(ProductController::PURCHASES_ID_AS_PURCHASE_ID, ProductController::PROVIDERS_NAME_AS_PROVIDER_NAME, ProductController::PRODUCT_ORDERS_PRODUCT_ID,
                 'products.code', 'products.description','products.id','products.name','products.sale_price','products.units_available')
             ->get();
     }
