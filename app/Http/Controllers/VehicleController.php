@@ -4,16 +4,30 @@ namespace App\Http\Controllers;
 
 use App\Models\Brand;
 use App\Models\Vehicle;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\View\View;
 
+/**
+ * Class VehicleController
+ * @package App\Http\Controllers
+ */
 class VehicleController extends Controller
 {
+    const VEHICLES_BRAND_ID = 'vehicles.brand_id';
+    const BRANDS_ID = 'brands.id';
+    const VEHICLES_ALL = 'vehicles.*';
+    const BRANDS_NAME_AS_BRAND = 'brands.name as brand';
+
     /**
      * Función que crea un nuevo vehiculo
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function create_vehicle(Request $request)
     {
@@ -48,7 +62,7 @@ class VehicleController extends Controller
             if ($vehicle->save()) {
                 $request->session()->flash('check_msg', 'El vehículo se registro con éxito');
             } else {
-                $request->session()->flash('fail_msg', 'Erro en el registro del vehículo');
+                $request->session()->flash('fail_msg', 'Error en el registro del vehículo');
             }
         } else {
             $request->session()->flash('fail_msg', 'Este vehículo ya se encuentra registrado');
@@ -59,8 +73,7 @@ class VehicleController extends Controller
      * Función que busca vehiculos a partir de una palabra
      *
      * @param Request $request
-     * @param $word
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function show_view_vehicle(Request $request)
     {
@@ -70,59 +83,56 @@ class VehicleController extends Controller
         if (isset($dat) && !empty($dat)) {
             $word = $dat['search'];
             $vehicles['vehicles'] = DB::table('vehicles')
-                ->join('brands','vehicles.brand_id','=','brands.id')
+                ->join('brands',VehicleController::VEHICLES_BRAND_ID,'=',VehicleController::BRANDS_ID)
                 ->where('license_plate','like','%'.$word.'%')
-                ->select('vehicles.*', 'brands.name as brand')
+                ->select(VehicleController::VEHICLES_ALL, VehicleController::BRANDS_NAME_AS_BRAND)
                 ->get();
         } else {
             //Vehiculos con sus correspondientes marcas
             $vehicles['vehicles'] = DB::table('vehicles')
-                ->join('brands', 'brands.id', '=', 'vehicles.brand_id')
+                ->join('brands', VehicleController::BRANDS_ID, '=', VehicleController::VEHICLES_BRAND_ID)
                 ->where('vehicles.deleted_at','=',null)
-                ->select('vehicles.*', 'brands.name as brand')
+                ->select(VehicleController::VEHICLES_ALL, VehicleController::BRANDS_NAME_AS_BRAND)
                 ->get();
         }
         return view('vehicle',$vehicles);
     }
     /**
      * Función que obtiene un vehiculo mediante su ID
-     * @param $cc
-     * @return array
+     * @param $id
+     * @return array|Model|Builder|object
      */
     public function get_vehicle($id){
 
-        $result['result'] = DB::table('vehicles')
-            ->join('brands','vehicles.brand_id','=','brands.id')
+        return DB::table('vehicles')
+            ->join('brands',VehicleController::VEHICLES_BRAND_ID,'=',VehicleController::BRANDS_ID)
             ->where('vehicles.id','=',$id)
-            ->select('vehicles.*', 'brands.name as brand','vehicles.id as vehicle_id')
-            ->first();
+            ->select(VehicleController::BRANDS_NAME_AS_BRAND,VehicleController::VEHICLES_BRAND_ID, 'vehicles.color','vehicles.cylinder_capacity','vehicles.license_plate','vehicles.model','vehicles.name','vehicles.id',)
+            ->get();
 
-        return $result;
     }
 
     /**
      * Función que edita un vehiculo
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function edit_vehicle(Request $request){
         $dat = $request->get('dat');
 
         $vehicle = DB::table('vehicles')
-            ->join('brands','vehicles.brand_id','=','brands.id')
+            ->join('brands',VehicleController::VEHICLES_BRAND_ID,'=',VehicleController::BRANDS_ID)
             ->where('vehicles.id','=',$dat['id'])
-            ->select('vehicles.*', 'brands.name as brand','vehicles.id as vehicle_id')
+            ->select(VehicleController::VEHICLES_ALL, VehicleController::BRANDS_NAME_AS_BRAND,'vehicles.id as vehicle_id')
             ->first();
 
         $exist_vehicle = Vehicle::where('license_plate','=',$dat['plate'])->get();
         $exist_brand = Brand::where('name','=',$dat['brand'])->get();
 
         $flag_vehicle = true;
-        if($exist_vehicle->count() == 1){
-            if($exist_vehicle[0]->id != $vehicle->vehicle_id ){
-                $flag_vehicle=false;
-                $request->session()->flash('fail_msg','Ya existe un vehiculo con esta placa');
-            }
+        if($exist_vehicle->count() == 1 && ($exist_vehicle[0]->id != $vehicle->vehicle_id)){
+            $flag_vehicle=false;
+            $request->session()->flash('fail_msg','Ya existe un vehiculo con esta placa');
         }
 
         $flag_brand = false;
@@ -132,14 +142,14 @@ class VehicleController extends Controller
 
         if($flag_vehicle){
             $exist_vehicle = Vehicle::find($dat['id']);
-            $exist_vehicle->license_plate = $dat['plate'];
+            $exist_vehicle->license_plate = strtoupper($dat['plate']);
             $exist_vehicle->color = $dat['color'];
             $exist_vehicle->cylinder_capacity = $dat['cylinder'];
             $exist_vehicle->model = $dat['model'];
             $exist_vehicle->name = $dat['name'];
             if($flag_brand){
                 $new_brand = new Brand();
-                $new_brand->name = $dat['brand'];
+                $new_brand->name = strtoupper($dat['brand']);
                 $new_brand->save();
                 $exist_vehicle->brand_id = $new_brand->id;
             }

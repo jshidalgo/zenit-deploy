@@ -21,6 +21,21 @@ use Illuminate\View\View;
  */
 class ProviderController extends Controller
 {
+    //constantes de bd
+    const DEPARTMENTS_COUNTRY_ID = 'departments.country_id';
+    const COUNTRIES_ID = 'countries.id';
+    const CITIES_DEPARTMENT_ID = 'cities.department_id';
+    const DEPARTMENTS_ID = 'departments.id';
+    const PROVIDERS_CITY_ID = 'providers.city_id';
+    const CITIES_ID = 'cities.id';
+    const PROVIDER_PHONES_PROVIDER_ID = 'provider_phones.provider_id';
+    const PROVIDERS_ID = 'providers.id';
+    const CITIES_NAME_AS_CITY = 'cities.name as city';
+    const CITIES_ID_AS_CITY_ID = 'cities.id as city_id';
+    const DEPARTMENTS_NAME_AS_DEPARTMENT = 'departments.name as departament';
+    const COUNTRIES_NAME_AS_COUNTRY = 'countries.name as country';
+    const PROVIDER_PHONE_NUMBER = 'provider_phones.number';
+
     /**
      * Funcion que se encarga de registrar un nuevo proveedor
      * @param Request $request
@@ -130,11 +145,11 @@ class ProviderController extends Controller
         if (isset($dat) && !empty($dat)) {
             $word = $dat['search'];
             $provider['provider'] = DB::table('countries')
-                ->join('departments', 'departments.country_id', '=', 'countries.id')
-                ->join('cities', 'cities.department_id', '=', 'departments.id')
-                ->join('providers','providers.city_id','=','cities.id')
-                ->join('provider_phones', 'provider_phones.provider_id', '=', 'providers.id')
-                ->select('cities.name as city', 'cities.id as city_id', 'departments.name as departament', 'countries.name as country', 'providers.*','provider_phones.number')
+                ->join('departments', ProviderController::DEPARTMENTS_COUNTRY_ID, '=', ProviderController::COUNTRIES_ID)
+                ->join('cities', ProviderController::CITIES_DEPARTMENT_ID, '=', ProviderController::DEPARTMENTS_ID)
+                ->join('providers',ProviderController::PROVIDERS_CITY_ID,'=',ProviderController::CITIES_ID)
+                ->join('provider_phones', ProviderController::PROVIDER_PHONES_PROVIDER_ID, '=', ProviderController::PROVIDERS_ID)
+                ->select(ProviderController::CITIES_NAME_AS_CITY, ProviderController::CITIES_ID_AS_CITY_ID, ProviderController::DEPARTMENTS_NAME_AS_DEPARTMENT, ProviderController::COUNTRIES_NAME_AS_COUNTRY, 'providers.*',ProviderController::PROVIDER_PHONE_NUMBER)
                 ->where('providers.nit','like','%'.$word.'%')
                 ->orWhere('providers.name','like','%'.$word.'%')
                 ->orWhere('providers.mail','like','%'.$word.'%')
@@ -147,11 +162,11 @@ class ProviderController extends Controller
         } else {
             //datos de los proveedores con su respectivo numero y ubicacion
             $provider['provider'] = DB::table('countries')
-                ->join('departments', 'departments.country_id', '=', 'countries.id')
-                ->join('cities', 'cities.department_id', '=', 'departments.id')
-                ->join('providers','providers.city_id','=','cities.id')
-                ->join('provider_phones', 'provider_phones.provider_id', '=', 'providers.id')
-                ->select('cities.name as city', 'cities.id as city_id', 'departments.name as departament', 'countries.name as country', 'providers.*','provider_phones.number')
+                ->join('departments', ProviderController::DEPARTMENTS_COUNTRY_ID, '=', ProviderController::COUNTRIES_ID)
+                ->join('cities', ProviderController::CITIES_DEPARTMENT_ID, '=', ProviderController::DEPARTMENTS_ID)
+                ->join('providers',ProviderController::PROVIDERS_CITY_ID,'=',ProviderController::CITIES_ID)
+                ->join('provider_phones', ProviderController::PROVIDER_PHONES_PROVIDER_ID, '=', ProviderController::PROVIDERS_ID)
+                ->select(ProviderController::CITIES_NAME_AS_CITY, ProviderController::CITIES_ID_AS_CITY_ID, ProviderController::DEPARTMENTS_NAME_AS_DEPARTMENT, ProviderController::COUNTRIES_NAME_AS_COUNTRY, 'providers.*',ProviderController::PROVIDER_PHONE_NUMBER)
                 ->where('providers.deleted_at','=',null)
                 ->get();
 
@@ -167,14 +182,14 @@ class ProviderController extends Controller
     public function get_provider($id){
 
         return DB::table('countries')
-            ->join('departments', 'departments.country_id', '=', 'countries.id')
-            ->join('cities', 'cities.department_id', '=', 'departments.id')
-            ->join('providers','providers.city_id','=','cities.id')
-            ->join('provider_phones', 'provider_phones.provider_id', '=', 'providers.id')
-            ->select('cities.name as city', 'cities.id as city_id', 'departments.name as departament', 'countries.name as country','provider_phones.number',
-                'providers.address','providers.id','providers.mail','providers.name','providers.nit',)
+            ->join('departments', ProviderController::DEPARTMENTS_COUNTRY_ID, '=', ProviderController::COUNTRIES_ID)
+            ->join('cities', ProviderController::CITIES_DEPARTMENT_ID, '=', ProviderController::DEPARTMENTS_ID)
+            ->join('providers',ProviderController::PROVIDERS_CITY_ID,'=',ProviderController::CITIES_ID)
+            ->join('provider_phones', ProviderController::PROVIDER_PHONES_PROVIDER_ID, '=', ProviderController::PROVIDERS_ID)
+            ->select(ProviderController::CITIES_NAME_AS_CITY, ProviderController::CITIES_ID_AS_CITY_ID, ProviderController::DEPARTMENTS_NAME_AS_DEPARTMENT, ProviderController::COUNTRIES_NAME_AS_COUNTRY,ProviderController::PROVIDER_PHONE_NUMBER,
+                'providers.address',ProviderController::PROVIDERS_ID,'providers.mail','providers.name','providers.nit',)
             ->where('providers.deleted_at','=',null)
-            ->where('providers.id','=',$id)
+            ->where(ProviderController::PROVIDERS_ID,'=',$id)
             ->get();
 
     }
@@ -188,8 +203,8 @@ class ProviderController extends Controller
         $dat = $request->get('dat');
 
         $provider = DB::table('providers')
-            ->join('provider_phones','providers.id','=','provider_phones.provider_id')
-            ->where('providers.id','=',$dat['id'])
+            ->join('provider_phones',ProviderController::PROVIDERS_ID,'=',ProviderController::PROVIDER_PHONES_PROVIDER_ID)
+            ->where(ProviderController::PROVIDERS_ID,'=',$dat['id'])
             ->get()->first();
 
         $exist_provider = Provider::where('nit','=',$dat['nit'])->get();
@@ -199,11 +214,9 @@ class ProviderController extends Controller
         $flag_nit = true;
 
         //Verifica si la el nit se encuentra registrado
-        if($exist_provider->count() == 1) {
-            if($exist_provider[0]->id != $provider->id){
-                $flag_nit=false;
-                $request->session()->flash('fail_msg','Ya existe un proveedor con este nit');
-            }
+        if($exist_provider->count() == 1 && ($exist_provider[0]->id != $provider->id)) {
+            $flag_nit=false;
+            $request->session()->flash('fail_msg','Ya existe un proveedor con este nit');
         }
 
         $flag_phone = true;
@@ -220,12 +233,9 @@ class ProviderController extends Controller
 
         $flag_mail=true;
         //Verifica si el mail ingresado ya se encuentra registrado
-        if($exist_mail->count() == 1){
-            if($exist_mail[0]->id != $provider->id){
-                $flag_mail=false;
-                $request->session()->flash('fail_msg','Un proveedor ya tiene este correo electrónico');
-
-            }
+        if($exist_mail->count() == 1 && ($exist_mail[0]->id != $provider->id)){
+            $flag_mail=false;
+            $request->session()->flash('fail_msg','Un proveedor ya tiene este correo electrónico');
         }
 
         if($flag_nit && $flag_phone && $flag_mail){
