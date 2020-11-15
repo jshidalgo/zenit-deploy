@@ -85,7 +85,7 @@
                     <form id="form-add-provider" method="post" action="{{route('add_provider')}}">
                         @csrf
                         <div class="row">
-                            <label for="nit">Nit</label>
+                            <label for="nit-provider">Nit</label>
                             <input name="dat[nit]" id="nit-provider" type="text" placeholder="Nit">
                             <span class="msg-error-nit">Ingrese el Nit del proveedor</span>
                         </div>
@@ -154,7 +154,7 @@
                         @csrf
                         <div class="row">
                             <label for="id-provider-edit">ID</label>
-                            <input name="dat[id]" id="id-provider-edit" type="text" placeholder="ID" readonly>
+                            <input name="dat[id]" id="id-provider-edit" type="text" placeholder="ID" class="readonly" readonly>
                         </div>
                         <div class="row">
                             <label for="nit-provider-edit">Nit</label>

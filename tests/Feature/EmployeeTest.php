@@ -5,7 +5,10 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-
+/**
+ * Class EmployeeTest
+ * @package Tests\Feature
+ */
 class EmployeeTest extends TestCase
 {
     use RefreshDatabase;
@@ -21,7 +24,7 @@ class EmployeeTest extends TestCase
         $response->assertStatus(200);
     }
     /**
-     * test que permite comproblar el la vista por parte del usuario
+     * test que permite comprobar el la vista por parte del usuario
      * de un dato que se encuentra en la BD
      * @return void
      */
@@ -223,9 +226,10 @@ class EmployeeTest extends TestCase
             "mail"=>  $data['dat']['mail'],
             "deleted_at"=> null
         ]);
+
         //comprobacion de dato agregado a la table telefonos empleados
         $this->assertDatabaseMissing('employee_phones', [
-            "employee_id" => $data['dat']['cc'],
+            "employee_id" => '2',
             "number" => $data['dat']['phone']
         ]);
         //comprobacion de mensaje de respuesta de exito

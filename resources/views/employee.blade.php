@@ -38,7 +38,7 @@
                     <th scope="col">ID</th>
                     <th scope="col">Cédula</th>
                     <th scope="col">Nombre</th>
-                    <th scope="col"> Apellidos</th>
+                    <th scope="col">Apellidos</th>
                     <th scope="col">Télefono</th>
                     <th scope="col">Dirección</th>
                     <th scope="col">Correo</th>
