@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Employee;
 use App\Models\Employee_phone;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\View\View;
 
 /**
  * Class EmployeeController
@@ -17,7 +21,7 @@ class EmployeeController extends Controller
     /**
      * Funcion que se encarga de registrar un nuevo empleado
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function create_employee(Request $request){
 
@@ -65,8 +69,7 @@ class EmployeeController extends Controller
      * Función que busca empleado a partir de una palabra
      * Esta función solo tiene en cuenta la cédula, nombre y los apellidos
      * @param Request $request
-     * @param $word  - palabra recibida para la busqueda
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function show_view_employee(Request $request){
 
@@ -74,6 +77,7 @@ class EmployeeController extends Controller
         $employees['fail_msg'] = Session::get('fail_msg');
         $employees['check_msg'] = Session::get('check_msg');
         if(isset($dat) && !empty($dat)){
+            //palabra recibida
             $word = $dat['search'];
             $employees['employees'] = DB::table('employees')
                 ->join('employee_phones', 'employee_phones.employee_id','=', 'employees.id')
@@ -97,7 +101,7 @@ class EmployeeController extends Controller
     /**
      * Función que obtiene un empleado mediante su cédula
      * @param $cc
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
     public function get_employee($cc){
 
@@ -112,7 +116,7 @@ class EmployeeController extends Controller
     /**
      * Función que se encarga de modificar un empleado
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function edit_employee(Request $request){
         $dat = $request->get('dat');
