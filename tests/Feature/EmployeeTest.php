@@ -546,7 +546,7 @@ class EmployeeTest extends TestCase
     }
 
     /**
-     * test que permite comprobar el cambio del campo delete_at de la tabla de empleados y telefonos de empleados
+     * test que permite comprobar el cambio del campo delete_at de la tabla de empleados y telefonos de empleados 
      * @covers ::delete_employee
      * @covers \App\Models\Employee
      * @covers \App\Models\Employee_phone
