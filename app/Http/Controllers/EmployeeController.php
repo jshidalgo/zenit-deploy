@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
+/**
+ * Class EmployeeController
+ * @package App\Http\Controllers
+ */
 class EmployeeController extends Controller
 {
     /**
@@ -19,12 +23,12 @@ class EmployeeController extends Controller
 
         $dat=$request->get('dat');
 
-        $exist_epmloyee = Employee::where('identification_card','=',$dat['cc'])->get();
+        $exist_employee = Employee::where('identification_card','=',$dat['cc'])->get();
         $exist_phone = Employee_phone::where('number','=',$dat['phone'])->get();
         $exist_mail = Employee::where('mail','=',$dat['mail'])->get();
 
         //Verifica que el empleado ya este registrado
-        if(isset($exist_epmloyee) &&  $exist_epmloyee->count() == 0){
+        if(isset($exist_employee) &&  $exist_employee->count() == 0){
 
             //Verifica si el telefono ingresado ya esta registrado
             if(isset($exist_phone) &&  $exist_phone->count() == 0){
@@ -61,7 +65,7 @@ class EmployeeController extends Controller
      * Función que busca empleado a partir de una palabra
      * Esta función solo tiene en cuenta la cédula, nombre y los apellidos
      * @param Request $request
-     * @param $word
+     * @param $word  - palabra recibida para la busqueda
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show_view_employee(Request $request){
@@ -72,13 +76,19 @@ class EmployeeController extends Controller
         if(isset($dat) && !empty($dat)){
             $word = $dat['search'];
             $employees['employees'] = DB::table('employees')
+                ->join('employee_phones', 'employee_phones.employee_id','=', 'employees.id')
                 ->where('identification_card','like','%'.$word.'%')
                 ->orWhere('name','like','%'.$word.'%')
                 ->orWhere('last_name','like','%'.$word.'%')
+                ->select('employees.*','employee_phones.number')
                 ->get();
 
         }else{
-            $employees['employees'] = Employee::where('deleted_at','=',null)->get();
+            $employees['employees'] = DB::table('employees')
+                ->join('employee_phones', 'employee_phones.employee_id','=', 'employees.id')
+                ->where('employees.deleted_at','=',null)
+                ->select('employees.*','employee_phones.number')
+                ->get();
         }
 
         return view('employee',$employees);
@@ -87,15 +97,16 @@ class EmployeeController extends Controller
     /**
      * Función que obtiene un empleado mediante su cédula
      * @param $cc
-     * @return array
+     * @return \Illuminate\Support\Collection
      */
     public function get_employee($cc){
-        echo "llegue a get";
-        $employee = Employee::where('identification_card','=',$cc)->first();
-        $phone = Employee_phone::where('employee_id','=',$employee->id)->first();
-        $result = [$employee, $phone];
 
-        return $result;
+        return DB::table('employees')
+            ->join('employee_phones', 'employee_phones.employee_id','=', 'employees.id')
+            ->where('employees.identification_card','=',$cc)
+            ->select('employees.id','employees.identification_card','employees.name','employees.last_name','employees.address','employees.mail','employee_phones.number')
+            ->get();
+
     }
 
     /**
@@ -161,6 +172,7 @@ class EmployeeController extends Controller
             $exist_phone->save();
             $request->session()->flash('check_msg','Se actualizaron los datos del empleado con éxito');
         }
+
         return redirect()->route('view_employee');
     }
 

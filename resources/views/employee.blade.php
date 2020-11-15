@@ -45,7 +45,7 @@
                 </tr>
                 </tfoot>
                 <tbody>
-                @if($employees!=null)
+
                 @foreach($employees as $aux)
 
                     <tr>
@@ -54,12 +54,12 @@
                         <td>{{$aux->identification_card}}</td>
                         <td>{{$aux->name}}</td>
                         <td>{{$aux->last_name}}</td>
-                        <td>NN</td>
+                        <td>{{$aux->number}}</td>
                         <td>{{$aux->address}}</td>
                         <td>{{$aux->mail}}</td>
                     </tr>
                 @endforeach
-                @endif
+
                 </tbody>
             </table>
         </div>
@@ -136,36 +136,36 @@
                     <form id="form-edit-employee" method="POST" action="{{route('edit_employee')}}">
                         @csrf
                         <div class="row">
-                            <label for="id-employee">ID</label>
-                            <input name="dat[id]" id="id-employee-edit" type="text" placeholder="ID" readonly>
+                            <label for="id-employee-edit">ID</label>
+                            <input name="dat[id]" id="id-employee-edit" type="text" placeholder="ID" class="readonly" readonly>
                         </div>
                         <div class="row">
-                            <label for="cc-employee">Cédula cliente</label>
+                            <label for="cc-employee-edit">Cédula cliente</label>
                             <input name="dat[cc]" id="cc-employee-edit" type="text" placeholder="Cédula">
                             <span class="msg-error-cc-edit">Ingrese una cédula</span>
                         </div>
                         <div class="row">
-                            <label for="name-employee">Nombre</label>
+                            <label for="name-employee-edit">Nombre</label>
                             <input name="dat[name]" id="name-employee-edit" type="text" placeholder="Nombre">
                             <span class="msg-error-name-edit">Ingrese un nombre</span>
                         </div>
                         <div class="row">
-                            <label for="last-name-employee">Apellidos</label>
+                            <label for="last-name-employee-edit">Apellidos</label>
                             <input  name="dat[last_name]" id="last-name-employee-edit" type="text" placeholder="Apellidos">
                             <span class="msg-error-last-name-edit">Ingrese los apellidos</span>
                         </div>
                         <div class="row">
-                            <label for="phone-employee">Télefono</label>
+                            <label for="phone-employee-edit">Télefono</label>
                             <input name="dat[phone]" id="phone-employee-edit" type="text" placeholder="Teléfono">
                             <span class="msg-error-phone-edit">Ingrese un teléfono</span>
                         </div>
                         <div class="row">
-                            <label for="addr-employee">Dirección</label>
+                            <label for="addr-employee-edit">Dirección</label>
                             <input name="dat[address]" id="addr-employee-edit" type="text"  placeholder="Dirección">
                             <span class="msg-error-address-edit">Ingrese una Dirección</span>
                         </div>
                         <div class="row">
-                            <label for="mail-employee">Correo</label>
+                            <label for="mail-employee-edit">Correo</label>
                             <input name="dat[mail]" id="mail-employee-edit" type="text" placeholder="Correo electrónico">
                             <span class="msg-error-mail-edit">Ingrese un correo electrónico</span>
                             <span class="msg-error-invalid-mail-edit">Ingrese un correo electrónico valido</span>
