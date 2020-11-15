@@ -697,9 +697,6 @@ header {
         border-radius: 12px;
         border: solid 1px gray;
         padding-left: 10px; }
-      #view-vehicle #modal-add-vehicle .modal-dialog .modal-content .modal-body .row input.readonly {
-        background-color: #e9ecef;
-        opacity: 1; }
       #view-vehicle #modal-add-vehicle .modal-dialog .modal-content .modal-body .row span {
         display: none;
         width: 60%;
@@ -741,6 +738,9 @@ header {
         border-radius: 12px;
         border: solid 1px gray;
         padding-left: 10px; }
+      #view-vehicle #modal-edit-vehicle .modal-dialog .modal-content .modal-body .row input.readonly {
+        background-color: #e9ecef;
+        opacity: 1; }
       #view-vehicle #modal-edit-vehicle .modal-dialog .modal-content .modal-body .row span {
         display: none;
         width: 60%;

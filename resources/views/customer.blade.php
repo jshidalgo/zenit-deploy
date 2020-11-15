@@ -52,7 +52,7 @@
                         <td>{{$aux->identification_card}}</td>
                         <td>{{$aux->name}}</td>
                         <td>{{$aux->last_name}}</td>
-                        <td>NN</td>
+                        <td>{{$aux->number}}</td>
                         <td>{{$aux->mail}}</td>
                         <td>{{$aux->address}}</td>
                     </tr>
@@ -134,7 +134,7 @@
                         @csrf
                         <div class="row">
                             <label for="id-customer-edit">ID</label>
-                            <input name="dat[id]" id="id-customer-edit" type="text" placeholder="ID" readonly>
+                            <input name="dat[id]" id="id-customer-edit" type="text" placeholder="ID" class="readonly" readonly>
                         </div>
                         <div class="row">
                             <label for="cc-customer-edit">Cédula cliente</label>
