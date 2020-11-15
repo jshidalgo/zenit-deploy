@@ -7,6 +7,8 @@ use Tests\TestCase;
 
 /**
  * Class EmployeeTest
+ * @coversDefaultClass \App\Http\Controllers\EmployeeController
+ * @cove
  * @package Tests\Feature
  */
 class EmployeeTest extends TestCase
@@ -14,7 +16,7 @@ class EmployeeTest extends TestCase
     use RefreshDatabase;
     /**
      * test que permite comproblar el funcionamiento basico de la vista de empleados
-     *
+     * @covers ::show_view_employee
      * @return void
      */
     public function test_employee_page_test()
@@ -26,6 +28,8 @@ class EmployeeTest extends TestCase
     /**
      * test que permite comprobar el la vista por parte del usuario
      * de un dato que se encuentra en la BD
+     * @covers ::show_view_employee
+     * @covers ::create_employee
      * @return void
      */
     public function test_employee_view_test()
@@ -55,7 +59,10 @@ class EmployeeTest extends TestCase
 
     /**
      * test que permite agregar un empleado que no existe
-     *
+     * @covers ::create_employee
+     * @covers \App\Models\Employee
+     * @covers \App\Models\Employee_phone
+     * @covers \App\Http\Controllers\EmployeePhoneController
      * @return void
      */
     public function test_employee_add_test()
@@ -92,6 +99,10 @@ class EmployeeTest extends TestCase
 
     /**
      * test que permite comprobar la no repetición de cedulas
+     * @covers ::create_employee
+     * @covers \App\Models\Employee
+     * @covers \App\Models\Employee_phone
+     * @covers \App\Http\Controllers\EmployeePhoneController
      */
     public function test_employee_add_identificationCard_repeat_test()
     {
@@ -140,6 +151,10 @@ class EmployeeTest extends TestCase
 
     /**
      * test que permite comprobar la no repetición de un correo electronico
+     * @covers ::create_employee
+     * @covers \App\Models\Employee
+     * @covers \App\Models\Employee_phone
+     * @covers \App\Http\Controllers\EmployeePhoneController
      */
     public function test_employee_add_mail_repeat_test()
     {
@@ -188,6 +203,10 @@ class EmployeeTest extends TestCase
 
     /**
      * test que permite comprobar la no repetición de un telefono
+     * @covers ::create_employee
+     * @covers \App\Models\Employee
+     * @covers \App\Models\Employee_phone
+     * @covers \App\Http\Controllers\EmployeePhoneController
      */
     public function test_employee_add_phone_repeat_test()
     {
@@ -238,6 +257,11 @@ class EmployeeTest extends TestCase
 
     /**
      * test que permite comprobar la la obtencion de un empleado a partir de su cc
+     * @covers ::create_employee
+     * @covers ::get_employee
+     * @covers \App\Models\Employee
+     * @covers \App\Models\Employee_phone
+     * @covers \App\Http\Controllers\EmployeePhoneController
      */
     public function test_get_employee_test()
     {
@@ -272,6 +296,10 @@ class EmployeeTest extends TestCase
 
     /**
      * test que permite comprobar la actualizacion de los datos de un empleado adecuadamente
+     * @covers ::edit_employee
+     * @covers \App\Models\Employee
+     * @covers \App\Models\Employee_phone
+     * @covers \App\Http\Controllers\EmployeePhoneController
      */
     public function test_employee_edit_test()
     {
@@ -324,6 +352,10 @@ class EmployeeTest extends TestCase
 
     /**
      * test que permite comprobar que no se actualiza la cedula de un empleado al ingersar una cedula de un empleado existente
+     * @covers ::edit_employee
+     * @covers \App\Models\Employee
+     * @covers \App\Models\Employee_phone
+     * @covers \App\Http\Controllers\EmployeePhoneController
      */
     public function test_employee_edit_identificationCard_repeat_test()
     {
@@ -385,6 +417,10 @@ class EmployeeTest extends TestCase
 
     /**
      * test que permite comprobar que no se actualiza en telefono de un empleado al ingresar un numero de telefono existente para otra empleado
+     * @covers ::edit_employee
+     * @covers \App\Models\Employee
+     * @covers \App\Models\Employee_phone
+     * @covers \App\Http\Controllers\EmployeePhoneController
      */
     public function test_employee_edit_phone_repeat_test()
     {
@@ -446,6 +482,10 @@ class EmployeeTest extends TestCase
 
     /**
      * test que permite comprobar que no se actualiza en correo electronico de un empleado al ingresar un correo existente para otra empleado
+     * @covers ::edit_employee
+     * @covers \App\Models\Employee
+     * @covers \App\Models\Employee_phone
+     * @covers \App\Http\Controllers\EmployeePhoneController
      */
     public function test_employee_edit_email_repeat_test()
     {
@@ -507,6 +547,10 @@ class EmployeeTest extends TestCase
 
     /**
      * test que permite comprobar el cambio del campo delete_at de la tabla de empleados y telefonos de empleados
+     * @covers ::delete_employee
+     * @covers \App\Models\Employee
+     * @covers \App\Models\Employee_phone
+     * @covers \App\Http\Controllers\EmployeePhoneController
      */
     public function test_employee_delete_test()
     {
