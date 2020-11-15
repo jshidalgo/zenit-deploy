@@ -695,14 +695,13 @@ function show_edit_vehicle() {
                 _token:'{{csrf_token()}}'
             }
         }).done(function(data) {
-            //console.log(data);
-            document.getElementById('id-vehicle-edit').value=data['result'].id;
-            document.getElementById('plate-vehicle-edit').value=data['result'].license_plate;
-            document.getElementById('color-vehicle-edit').value=data['result'].color;
-            document.getElementById('cylinder-vehicle-edit').value=data['result'].cylinder_capacity;
-            document.getElementById('name-vehicle-edit').value=data['result'].name;
-            document.getElementById('model-vehicle-edit').value=data['result'].model;
-            document.getElementById('brand-vehicle-edit').value=data['result'].brand;
+            document.getElementById('id-vehicle-edit').value=data[0].id;
+            document.getElementById('plate-vehicle-edit').value=data[0].license_plate;
+            document.getElementById('color-vehicle-edit').value=data[0].color;
+            document.getElementById('cylinder-vehicle-edit').value=data[0].cylinder_capacity;
+            document.getElementById('name-vehicle-edit').value=data[0].name;
+            document.getElementById('model-vehicle-edit').value=data[0].model;
+            document.getElementById('brand-vehicle-edit').value=data[0].brand;
         });
         //Mostrar modal para editar
         $('#modal-edit-vehicle').modal('show');
