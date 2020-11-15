@@ -9,14 +9,17 @@ php:
 addons:
   sonarcloud:
     organization: "zenit"
-   
+    
+git:
+  depth: false
+  
 before_script:
   - composer self-update
   - composer install --no-interaction
   - npm install
   
 script:
-  - vendor/bin/phpunit --coverage-text
   - npm run production
+  - vendor/bin/phpunit -c phpunit.xml.dist --coverage-clover=coverage-report.clover --log-junit=test-report.xml
   - sonar-scanner
   
