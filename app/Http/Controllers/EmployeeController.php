@@ -4,27 +4,39 @@ namespace App\Http\Controllers;
 
 use App\Models\Employee;
 use App\Models\Employee_phone;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\View\View;
 
+/**
+ * Class EmployeeController
+ * @package App\Http\Controllers
+ */
 class EmployeeController extends Controller
 {
+    //constantes de acceso de la BD
+    const EMPLOYEE_PHONE_ID = "employee_phones.employee_id";
+    const EMPLOYEES_ID = 'employees.id';
+
     /**
      * Funcion que se encarga de registrar un nuevo empleado
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function create_employee(Request $request){
 
         $dat=$request->get('dat');
 
-        $exist_epmloyee = Employee::where('identification_card','=',$dat['cc'])->get();
+        $exist_employee = Employee::where('identification_card','=',$dat['cc'])->get();
         $exist_phone = Employee_phone::where('number','=',$dat['phone'])->get();
         $exist_mail = Employee::where('mail','=',$dat['mail'])->get();
 
         //Verifica que el empleado ya este registrado
-        if(isset($exist_epmloyee) &&  $exist_epmloyee->count() == 0){
+        if(isset($exist_employee) &&  $exist_employee->count() == 0){
 
             //Verifica si el telefono ingresado ya esta registrado
             if(isset($exist_phone) &&  $exist_phone->count() == 0){
@@ -61,24 +73,31 @@ class EmployeeController extends Controller
      * Función que busca empleado a partir de una palabra
      * Esta función solo tiene en cuenta la cédula, nombre y los apellidos
      * @param Request $request
-     * @param $word
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function show_view_employee(Request $request){
 
         $dat = $request->get('dat');
         $employees['fail_msg'] = Session::get('fail_msg');
         $employees['check_msg'] = Session::get('check_msg');
+
         if(isset($dat) && !empty($dat)){
+            //palabra recibida
             $word = $dat['search'];
             $employees['employees'] = DB::table('employees')
+                ->join('employee_phones', EmployeeController::EMPLOYEE_PHONE_ID,'=', EmployeeController::EMPLOYEES_ID)
                 ->where('identification_card','like','%'.$word.'%')
                 ->orWhere('name','like','%'.$word.'%')
                 ->orWhere('last_name','like','%'.$word.'%')
+                ->select('employees.*','employee_phones.number')
                 ->get();
 
         }else{
-            $employees['employees'] = Employee::where('deleted_at','=',null)->get();
+            $employees['employees'] = DB::table('employees')
+                ->join('employee_phones', EmployeeController::EMPLOYEE_PHONE_ID,'=', EmployeeController::EMPLOYEES_ID)
+                ->where('employees.deleted_at','=',null)
+                ->select('employees.*','employee_phones.number')
+                ->get();
         }
 
         return view('employee',$employees);
@@ -87,28 +106,29 @@ class EmployeeController extends Controller
     /**
      * Función que obtiene un empleado mediante su cédula
      * @param $cc
-     * @return array
+     * @return Collection
      */
     public function get_employee($cc){
-        echo "llegue a get";
-        $employee = Employee::where('identification_card','=',$cc)->first();
-        $phone = Employee_phone::where('employee_id','=',$employee->id)->first();
-        $result = [$employee, $phone];
 
-        return $result;
+        return DB::table('employees')
+            ->join('employee_phones', EmployeeController::EMPLOYEE_PHONE_ID,'=', EmployeeController::EMPLOYEES_ID)
+            ->where('employees.identification_card','=',$cc)
+            ->select(EmployeeController::EMPLOYEES_ID,'employees.identification_card','employees.name','employees.last_name','employees.address','employees.mail','employee_phones.number')
+            ->get();
+
     }
 
     /**
      * Función que se encarga de modificar un empleado
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function edit_employee(Request $request){
         $dat = $request->get('dat');
 
         $employee = DB::table('employees')
-            ->join('employee_phones','employees.id','=','employee_phones.employee_id')
-            ->where('employees.id','=',$dat['id'])
+            ->join('employee_phones',EmployeeController::EMPLOYEES_ID,'=',EmployeeController::EMPLOYEE_PHONE_ID)
+            ->where(EmployeeController::EMPLOYEES_ID,'=',$dat['id'])
             ->get()->first();
 
         $exist_employee = Employee::where('identification_card','=',$dat['cc'])->get();
@@ -161,6 +181,7 @@ class EmployeeController extends Controller
             $exist_phone->save();
             $request->session()->flash('check_msg','Se actualizaron los datos del empleado con éxito');
         }
+
         return redirect()->route('view_employee');
     }
 

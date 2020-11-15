@@ -7,16 +7,24 @@ use App\Models\Country;
 use App\Models\Department;
 use App\Models\Provider;
 use App\Models\Provider_phone;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\View\View;
 
+/**
+ * Class ProviderController
+ * @package App\Http\Controllers
+ */
 class ProviderController extends Controller
 {
     /**
      * Funcion que se encarga de registrar un nuevo proveedor
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function create_provider(Request $request)
     {
@@ -65,15 +73,19 @@ class ProviderController extends Controller
 
         return redirect()->route('view_provider');
     }
+
     /**
      * funcion que permite buscar y crear de ser necesario una ubiacion
-     * @param - nombre de los lugares
+     * @param $ciudad
+     * @param $departamento
+     * @param $pais
+     * @return mixed - identificador de la ciudad
      */
     public function buscarUbicacion($ciudad,$departamento,$pais){
         //país
         $queryCountry = DB::table('countries')->where("code", "=", $pais)->get();
         if (isset($queryCountry) &&  $queryCountry->count() == 0) {
-            echo "no existe el pais";
+            //echo "no existe el pais";
             //no existe el pais, se crea
             $country = new Country();
             $country->code = $pais;
@@ -108,8 +120,7 @@ class ProviderController extends Controller
     /**
      * Función que busca un provedor a partir de una palabra
      * @param Request $request
-     * @param $word
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function show_view_provider(Request $request)
     {
@@ -143,12 +154,7 @@ class ProviderController extends Controller
                 ->select('cities.name as city', 'cities.id as city_id', 'departments.name as departament', 'countries.name as country', 'providers.*','provider_phones.number')
                 ->where('providers.deleted_at','=',null)
                 ->get();
-            //var_dump($provider);
-            // foreach ($provider as $key => $value) {
-            //     echo $key;
-            //     echo '=';
-            //     echo $value;
-            // }
+
         }
         return view("provider", $provider);
     }
@@ -156,27 +162,27 @@ class ProviderController extends Controller
     /**
      * Función que obtiene un proveedor mediante su id
      * @param $id
-     * @return array
+     * @return Collection
      */
     public function get_provider($id){
 
-        $provider = DB::table('countries')
+        return DB::table('countries')
             ->join('departments', 'departments.country_id', '=', 'countries.id')
             ->join('cities', 'cities.department_id', '=', 'departments.id')
             ->join('providers','providers.city_id','=','cities.id')
             ->join('provider_phones', 'provider_phones.provider_id', '=', 'providers.id')
-            ->select('cities.name as city', 'cities.id as city_id', 'departments.name as departament', 'countries.name as country', 'providers.*','provider_phones.number')
+            ->select('cities.name as city', 'cities.id as city_id', 'departments.name as departament', 'countries.name as country','provider_phones.number',
+                'providers.address','providers.id','providers.mail','providers.name','providers.nit',)
             ->where('providers.deleted_at','=',null)
             ->where('providers.id','=',$id)
             ->get();
 
-        return $provider;
     }
 
     /**
      * Función que edita un proveedor
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function edit_provider(Request $request){
         $dat = $request->get('dat');
@@ -232,9 +238,7 @@ class ProviderController extends Controller
             $exist_provider->city_id = $this->buscarUbicacion($dat['city'],$dat['departament'],$dat['country']);
             $exist_provider->save();
 
-            var_dump($dat['id']);
             $exist_phone = Provider_phone::where('provider_id','=',$dat['id'])->first();
-            var_dump($exist_phone);
             $exist_phone->number = $dat['phone'];
             $exist_phone->save();
             $request->session()->flash('check_msg','Se actualizaron los datos del proveedor con éxito');

@@ -161,7 +161,7 @@ function show_edit_employee() {
             document.getElementById('last-name-employee-edit').value=data[0].last_name;
             document.getElementById('addr-employee-edit').value=data[0].address;
             document.getElementById('mail-employee-edit').value=data[0].mail;
-            // document.getElementById('phone-employee-edit').value=data[1].number; // Hay que definir lo de los numeros, data[0] viene en null
+            document.getElementById('phone-employee-edit').value=data[0].number;
         });
         //Mostrar modal para editar
         $('#modal-edit-employee').modal('show');

@@ -146,6 +146,9 @@ header {
         border-radius: 12px;
         border: solid 1px gray;
         padding-left: 10px; }
+      #view-employee #modal-edit-employee .modal-dialog .modal-content .modal-body .row input.readonly {
+        background-color: #e9ecef;
+        opacity: 1; }
       #view-employee #modal-edit-employee .modal-dialog .modal-content .modal-body .row span {
         display: none;
         width: 60%;
@@ -270,6 +273,9 @@ header {
         border-radius: 12px;
         border: solid 1px gray;
         padding-left: 10px; }
+      #view-provider #modal-edit-provider .modal-dialog .modal-content .modal-body .row input.readonly {
+        background-color: #e9ecef;
+        opacity: 1; }
       #view-provider #modal-edit-provider .modal-dialog .modal-content .modal-body .row span {
         display: none;
         width: 60%;
@@ -426,6 +432,9 @@ header {
         border-radius: 12px;
         border: solid 1px gray;
         padding-left: 10px; }
+      #view-purchase #modal-edit-purchase .modal-dialog .modal-content .modal-body .row input.readonly {
+        background-color: #e9ecef;
+        opacity: 1; }
       #view-purchase #modal-edit-purchase .modal-dialog .modal-content .modal-body .row span {
         display: none;
         width: 60%;
@@ -592,6 +601,9 @@ header {
         border-radius: 12px;
         border: solid 1px gray;
         padding-left: 10px; }
+      #view-product #modal-edit-product .modal-dialog .modal-content .modal-body .row input.readonly {
+        background-color: #e9ecef;
+        opacity: 1; }
       #view-product #modal-edit-product .modal-dialog .modal-content .modal-body .row span {
         display: none;
         width: 60%;
@@ -685,6 +697,9 @@ header {
         border-radius: 12px;
         border: solid 1px gray;
         padding-left: 10px; }
+      #view-vehicle #modal-add-vehicle .modal-dialog .modal-content .modal-body .row input.readonly {
+        background-color: #e9ecef;
+        opacity: 1; }
       #view-vehicle #modal-add-vehicle .modal-dialog .modal-content .modal-body .row span {
         display: none;
         width: 60%;
@@ -850,6 +865,9 @@ header {
         border-radius: 12px;
         border: solid 1px gray;
         padding-left: 10px; }
+      #view-customer #modal-edit-customer .modal-dialog .modal-content .modal-body .row input.readonly {
+        background-color: #e9ecef;
+        opacity: 1; }
       #view-customer #modal-edit-customer .modal-dialog .modal-content .modal-body .row span {
         display: none;
         width: 60%;
