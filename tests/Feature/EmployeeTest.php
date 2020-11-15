@@ -7,8 +7,6 @@ use Tests\TestCase;
 
 /**
  * Class EmployeeTest
- * @coversDefaultClass \App\Http\Controllers\EmployeeController
- * @cove
  * @package Tests\Feature
  */
 class EmployeeTest extends TestCase
@@ -16,8 +14,6 @@ class EmployeeTest extends TestCase
     use RefreshDatabase;
     /**
      * test que permite comproblar el funcionamiento basico de la vista de empleados
-     * @covers ::show_view_employee
-     * @return void
      */
     public function test_employee_page_test()
     {
@@ -28,8 +24,6 @@ class EmployeeTest extends TestCase
     /**
      * test que permite comprobar el la vista por parte del usuario
      * de un dato que se encuentra en la BD
-     * @covers ::show_view_employee
-     * @covers ::create_employee
      * @return void
      */
     public function test_employee_view_test()
@@ -58,12 +52,39 @@ class EmployeeTest extends TestCase
     }
 
     /**
-     * test que permite agregar un empleado que no existe
-     * @covers ::create_employee
-     * @covers \App\Models\Employee
-     * @covers \App\Models\Employee_phone
-     * @covers \App\Http\Controllers\EmployeePhoneController
+     * test que permite comprobar el la vista la busqueda de un empleado
+     * de un dato que se encuentra en la BD
      * @return void
+     */
+    public function test_employee_find_view_test()
+    {
+        // Datos de un empleado
+        $data['dat'] = array(
+            "cc" => "1004",
+            "name" => "Alfredo",
+            "last_name" => "Jimenez Murcia",
+            "phone" => "31235",
+            "address" => "calle #3",
+            "mail" => "afc@mail.com",
+        );
+        //Acceso a la funcion que permite agregar un empleado
+        $this->post(route('add_employee'), $data);
+
+        $find['dat'] = array(
+            "search" => "1004"
+        );
+        //llamado a la vista de empleados
+        $response = $this->get(route('view_employee',$find));
+
+        //comprobacion de visualizacion correcta por parte de el usuario
+        $response->assertSeeInOrder(['Gestión de empleados','Agrega, actualiza o elimina registros de empleados',
+            'ID','Cédula','Nombre','Apellidos','Télefono','Dirección','Correo',
+            $data['dat']['cc'],$data['dat']['name'],$data['dat']['last_name'],$data['dat']['phone'],$data['dat']['address'],$data['dat']['mail']
+        ]);
+
+    }
+    /**
+     * test que permite agregar un empleado que no existe
      */
     public function test_employee_add_test()
     {
@@ -99,10 +120,6 @@ class EmployeeTest extends TestCase
 
     /**
      * test que permite comprobar la no repetición de cedulas
-     * @covers ::create_employee
-     * @covers \App\Models\Employee
-     * @covers \App\Models\Employee_phone
-     * @covers \App\Http\Controllers\EmployeePhoneController
      */
     public function test_employee_add_identificationCard_repeat_test()
     {
@@ -151,10 +168,6 @@ class EmployeeTest extends TestCase
 
     /**
      * test que permite comprobar la no repetición de un correo electronico
-     * @covers ::create_employee
-     * @covers \App\Models\Employee
-     * @covers \App\Models\Employee_phone
-     * @covers \App\Http\Controllers\EmployeePhoneController
      */
     public function test_employee_add_mail_repeat_test()
     {
@@ -203,10 +216,6 @@ class EmployeeTest extends TestCase
 
     /**
      * test que permite comprobar la no repetición de un telefono
-     * @covers ::create_employee
-     * @covers \App\Models\Employee
-     * @covers \App\Models\Employee_phone
-     * @covers \App\Http\Controllers\EmployeePhoneController
      */
     public function test_employee_add_phone_repeat_test()
     {
@@ -257,11 +266,6 @@ class EmployeeTest extends TestCase
 
     /**
      * test que permite comprobar la la obtencion de un empleado a partir de su cc
-     * @covers ::create_employee
-     * @covers ::get_employee
-     * @covers \App\Models\Employee
-     * @covers \App\Models\Employee_phone
-     * @covers \App\Http\Controllers\EmployeePhoneController
      */
     public function test_get_employee_test()
     {
@@ -296,10 +300,6 @@ class EmployeeTest extends TestCase
 
     /**
      * test que permite comprobar la actualizacion de los datos de un empleado adecuadamente
-     * @covers ::edit_employee
-     * @covers \App\Models\Employee
-     * @covers \App\Models\Employee_phone
-     * @covers \App\Http\Controllers\EmployeePhoneController
      */
     public function test_employee_edit_test()
     {
@@ -352,10 +352,6 @@ class EmployeeTest extends TestCase
 
     /**
      * test que permite comprobar que no se actualiza la cedula de un empleado al ingersar una cedula de un empleado existente
-     * @covers ::edit_employee
-     * @covers \App\Models\Employee
-     * @covers \App\Models\Employee_phone
-     * @covers \App\Http\Controllers\EmployeePhoneController
      */
     public function test_employee_edit_identificationCard_repeat_test()
     {
@@ -417,10 +413,6 @@ class EmployeeTest extends TestCase
 
     /**
      * test que permite comprobar que no se actualiza en telefono de un empleado al ingresar un numero de telefono existente para otra empleado
-     * @covers ::edit_employee
-     * @covers \App\Models\Employee
-     * @covers \App\Models\Employee_phone
-     * @covers \App\Http\Controllers\EmployeePhoneController
      */
     public function test_employee_edit_phone_repeat_test()
     {
@@ -482,11 +474,7 @@ class EmployeeTest extends TestCase
 
     /**
      * test que permite comprobar que no se actualiza en correo electronico de un empleado al ingresar un correo existente para otra empleado
-     * @covers ::edit_employee
-     * @covers \App\Models\Employee
-     * @covers \App\Models\Employee_phone
-     * @covers \App\Http\Controllers\EmployeePhoneController
-     */
+    */
     public function test_employee_edit_email_repeat_test()
     {
         //datos de entrada
@@ -546,11 +534,7 @@ class EmployeeTest extends TestCase
     }
 
     /**
-     * test que permite comprobar el cambio del campo delete_at de la tabla de empleados y telefonos de empleados 
-     * @covers ::delete_employee
-     * @covers \App\Models\Employee
-     * @covers \App\Models\Employee_phone
-     * @covers \App\Http\Controllers\EmployeePhoneController
+     * test que permite comprobar el cambio del campo delete_at de la tabla de empleados y telefonos de empleados
      */
     public function test_employee_delete_test()
     {
@@ -591,6 +575,53 @@ class EmployeeTest extends TestCase
 
         //comprobacion parematro delete_at no es null
         $this->assertDatabaseMissing('employee_phones', [
+            "number" => $data['dat']['phone'],
+            "deleted_at"=> null
+        ]);
+    }
+
+    /**
+     * test que permite comprobar el cambio del campo delete_at de la tabla de empleados y telefonos de empleados
+     */
+    public function test_employee_delete_noData_test()
+    {
+        //datos de entrada
+
+        $data['dat'] = array(
+            "cc" => "1004",
+            "name" => "Alfredo",
+            "last_name" => "Jimenez Murcia",
+            "phone" => "31235",
+            "address" => "calle #3",
+            "mail" => "afc@mail.com",
+        );
+
+        //Acceso a la funcion que permite agregar un empleado
+        $this->post(route('add_employee'), $data);
+
+        //petecion de eliminacion de los empleado
+        $del=[
+            "_token" => csrf_token(),
+            "selected"=> array()
+        ];
+
+        $response = $this->delete('/empleados',$del);
+
+        //retorno exitoso de eliminacion
+        $response->assertExactJson(array(0));
+
+        //comprobacion parematro delete_at no es null
+        $this->assertDatabaseHas('employees', [
+            "identification_card"=>  $data['dat']['cc'],
+            "name"=>  $data['dat']['name'],
+            "last_name"=>  $data['dat']['last_name'],
+            "address"=>  $data['dat']['address'],
+            "mail"=>  $data['dat']['mail'],
+            "deleted_at"=> null
+        ]);
+
+        //comprobacion parematro delete_at no es null
+        $this->assertDatabaseHas('employee_phones', [
             "number" => $data['dat']['phone'],
             "deleted_at"=> null
         ]);

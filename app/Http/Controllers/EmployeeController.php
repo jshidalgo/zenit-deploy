@@ -18,6 +18,10 @@ use Illuminate\View\View;
  */
 class EmployeeController extends Controller
 {
+    //constantes de acceso de la BD
+    const EMPLOYEE_PHONE_ID = "employee_phones.employee_id";
+    const EMPLOYEES_ID = 'employees.id';
+
     /**
      * Funcion que se encarga de registrar un nuevo empleado
      * @param Request $request
@@ -76,11 +80,12 @@ class EmployeeController extends Controller
         $dat = $request->get('dat');
         $employees['fail_msg'] = Session::get('fail_msg');
         $employees['check_msg'] = Session::get('check_msg');
+
         if(isset($dat) && !empty($dat)){
             //palabra recibida
             $word = $dat['search'];
             $employees['employees'] = DB::table('employees')
-                ->join('employee_phones', 'employee_phones.employee_id','=', 'employees.id')
+                ->join('employee_phones', EmployeeController::EMPLOYEE_PHONE_ID,'=', EmployeeController::EMPLOYEES_ID)
                 ->where('identification_card','like','%'.$word.'%')
                 ->orWhere('name','like','%'.$word.'%')
                 ->orWhere('last_name','like','%'.$word.'%')
@@ -89,7 +94,7 @@ class EmployeeController extends Controller
 
         }else{
             $employees['employees'] = DB::table('employees')
-                ->join('employee_phones', 'employee_phones.employee_id','=', 'employees.id')
+                ->join('employee_phones', EmployeeController::EMPLOYEE_PHONE_ID,'=', EmployeeController::EMPLOYEES_ID)
                 ->where('employees.deleted_at','=',null)
                 ->select('employees.*','employee_phones.number')
                 ->get();
@@ -106,9 +111,9 @@ class EmployeeController extends Controller
     public function get_employee($cc){
 
         return DB::table('employees')
-            ->join('employee_phones', 'employee_phones.employee_id','=', 'employees.id')
+            ->join('employee_phones', EmployeeController::EMPLOYEE_PHONE_ID,'=', EmployeeController::EMPLOYEES_ID)
             ->where('employees.identification_card','=',$cc)
-            ->select('employees.id','employees.identification_card','employees.name','employees.last_name','employees.address','employees.mail','employee_phones.number')
+            ->select(EmployeeController::EMPLOYEES_ID,'employees.identification_card','employees.name','employees.last_name','employees.address','employees.mail','employee_phones.number')
             ->get();
 
     }
@@ -122,8 +127,8 @@ class EmployeeController extends Controller
         $dat = $request->get('dat');
 
         $employee = DB::table('employees')
-            ->join('employee_phones','employees.id','=','employee_phones.employee_id')
-            ->where('employees.id','=',$dat['id'])
+            ->join('employee_phones',EmployeeController::EMPLOYEES_ID,'=',EmployeeController::EMPLOYEE_PHONE_ID)
+            ->where(EmployeeController::EMPLOYEES_ID,'=',$dat['id'])
             ->get()->first();
 
         $exist_employee = Employee::where('identification_card','=',$dat['cc'])->get();

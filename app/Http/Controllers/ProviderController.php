@@ -238,9 +238,7 @@ class ProviderController extends Controller
             $exist_provider->city_id = $this->buscarUbicacion($dat['city'],$dat['departament'],$dat['country']);
             $exist_provider->save();
 
-//            var_dump($dat['id']);
             $exist_phone = Provider_phone::where('provider_id','=',$dat['id'])->first();
-//            var_dump($exist_phone);
             $exist_phone->number = $dat['phone'];
             $exist_phone->save();
             $request->session()->flash('check_msg','Se actualizaron los datos del proveedor con éxito');

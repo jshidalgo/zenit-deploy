@@ -58,6 +58,40 @@ class ProviderTest extends TestCase
     }
 
     /**
+     * test que permite comprobar el la vista por parte del usuario
+     * de un dato que se encuentra en la BD
+     * @return void
+     */
+    public function test_provider_find_view_test()
+    {
+        // Datos de un proveedor
+        $data['dat'] = array(
+            "nit" => "07371413",
+            "name" => "Carlos Nissan",
+            "mail" => "carlos@nissan.com",
+            "phone" => "753817",
+            "country" => "Colombia",
+            "departament" => "Quindío",
+            "city" => "Armenia",
+            "address" => "calle #3",
+        );
+        //Acceso a la funcion que permite agregar un proveedor
+        $this->post(route('add_provider'), $data);
+
+        $find['dat'] = array(
+            'search' => '07371413'
+        );
+        //llamado a la vista de proveedores
+        $response = $this->get(route('view_provider', $find));
+
+        //comprobacion de visualizacion correcta por parte de el usuario
+        $response->assertSee(['Gestión de proveedores','Agrega, actualiza o elimina registros de proveedores',
+            'ID','Nit','Nombre','Correo','Télefono','País','Departamento','Ciudad','Dirección',
+            "1",$data['dat']['nit'],$data['dat']['name'],$data['dat']['mail'],$data['dat']['phone'],$data['dat']['country'],$data['dat']['departament'],$data['dat']['city'],$data['dat']['address']
+        ]);
+
+    }
+    /**
      * test que permite agregar o verificar la existencia de una ubicacion
      *
      * @return void
@@ -636,6 +670,55 @@ class ProviderTest extends TestCase
         ]);
         //comprobacion de dato agregado a la table telefonos proveedores
         $this->assertDatabaseMissing('provider_phones', [
+            "number" => $data['dat']['phone'],
+            "deleted_at"=> null
+        ]);
+    }
+
+    /**
+     * test que permite validar la eliminacion de un proveedor
+     *
+     * @return void
+     */
+    public function test_provider_delete_noData_test()
+    {
+        // Datos de un proveedor
+        $data['dat'] = array(
+            "nit" => "00-7371413",
+            "name" => "Carlos Nissan",
+            "mail" => "carlos@nissan.com",
+            "phone" => "753817",
+            "country" => "Colombia",
+            "departament" => "Quindío",
+            "city" => "Armenia",
+            "address" => "calle #3",
+        );
+
+        //Acceso a la funcion que permite agregar un proveedor
+        $this->post(route('add_provider'), $data);
+
+        //petecion de eliminacion de proveedor
+        $del=[
+            "_token" => csrf_token(),
+            "selected"=> array() //id del proveedor
+        ];
+
+        //peticion de eliminacion
+        $response = $this->delete('/proveedores',$del);
+
+        //retorno exitoso de eliminacion
+        $response->assertExactJson(array(0));
+
+        //comprobacion de dato agregado a tabla de proveedores
+        $this->assertDatabaseHas('providers', [
+            "nit"=>  $data['dat']['nit'],
+            "name"=>  $data['dat']['name'],
+            "address"=>  $data['dat']['address'],
+            "mail"=>  $data['dat']['mail'],
+            "deleted_at"=> null
+        ]);
+        //comprobacion de dato agregado a la table telefonos proveedores
+        $this->assertDatabaseHas('provider_phones', [
             "number" => $data['dat']['phone'],
             "deleted_at"=> null
         ]);
