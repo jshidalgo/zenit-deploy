@@ -4,15 +4,34 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Product_order;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
+/**
+ * Class ProductController
+ * @package App\Http\Controllers
+ */
 class ProductController extends Controller
 {
+    //constantes de acceso a BD
+    const PRODUCT_ORDERS_PRODUCT_ID = 'product_orders.product_id';
+    const PRODUCTS_ID = 'products.id';
+    const PURCHASES_ID = 'purchases.id';
+    const PRODUCT_ORDERS_PURCHASE_ID = 'product_orders.purchase_id';
+    const PROVIDERS_ID = 'providers.id';
+    const PURCHASES_PROVIDER_ID = 'purchases.provider_id';
+
     /**
      * metodo que permite crear un producto sin ningun tipo de trazabilidad
      * No recomendable
+     * @param Request $request
+     * @return RedirectResponse
      */
     public function create_product(Request $request)
     {
@@ -41,8 +60,7 @@ class ProductController extends Controller
      * Función que busca empleado a partir de una palabra
      * Esta función solo tiene en cuenta la cédula, nombre y los apellidos
      * @param Request $request
-     * @param $word
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function show_view_product(Request $request)
     {
@@ -53,73 +71,63 @@ class ProductController extends Controller
             $word = $dat['search'];
             $product['product'] = DB::table('products')
                 ->leftJoin('product_orders', function ($join) {
-                    $join->on('product_orders.product_id', '=', 'products.id')
-                        ->join('purchases', 'purchases.id', '=', 'product_orders.purchase_id')
-                        ->join('providers', 'providers.id', '=', 'purchases.provider_id');
+                    $join->on(ProductController::PRODUCT_ORDERS_PRODUCT_ID, '=', ProductController::PRODUCTS_ID)
+                        ->join('purchases', ProductController::PURCHASES_ID, '=', ProductController::PRODUCT_ORDERS_PURCHASE_ID)
+                        ->join('providers', ProductController::PROVIDERS_ID, '=', ProductController::PURCHASES_PROVIDER_ID);
                 })
                 ->Where('products.code','like','%'.$word.'%')
                 ->orWhere('products.name','like','%'.$word.'%')
                 ->orWhere('products.units_available','like','%'.$word.'%')
                 ->orWhere('products.sale_price','like','%'.$word.'%')
-                ->select('purchases.id as purchase_id', 'providers.name as provider_name', 'product_orders.product_id', 'products.*')
+                ->select('purchases.id as purchase_id', 'providers.name as provider_name', ProductController::PRODUCT_ORDERS_PRODUCT_ID, 'products.*')
                 ->get();
-            // foreach ($product as $key => $value) {
-            //         echo $key;
-            //         echo "=";
-            //         echo $value;
-            //     }
 
         } else {
             $product['product'] = DB::table('products')
                 ->leftJoin('product_orders', function ($join) {
-                    $join->on('product_orders.product_id', '=', 'products.id')
-                        ->join('purchases', 'purchases.id', '=', 'product_orders.purchase_id')
-                        ->join('providers', 'providers.id', '=', 'purchases.provider_id');
+                    $join->on(ProductController::PRODUCT_ORDERS_PRODUCT_ID, '=', ProductController::PRODUCTS_ID)
+                        ->join('purchases', ProductController::PURCHASES_ID, '=', ProductController::PRODUCT_ORDERS_PURCHASE_ID)
+                        ->join('providers', ProductController::PROVIDERS_ID, '=', ProductController::PURCHASES_PROVIDER_ID);
                 })
                 ->where('products.deleted_at', '=', null)
-                ->select('purchases.id as purchase_id', 'providers.name as provider_name', 'product_orders.product_id', 'products.*')
+                ->select('purchases.id as purchase_id', 'providers.name as provider_name', ProductController::PRODUCT_ORDERS_PRODUCT_ID, 'products.*')
                 ->get();
-            // foreach ($product as $key => $value) {
-            //     echo $key;
-            //     echo "=";
-            //     echo $value;
-            // }
+
         }
         return view("product", $product);
     }
 
     /**
      * Función que obtiene un producto por medio de su id
-     * @param $cod
-     * @return array
+     * @param $id
+     * @return Collection
      */
     public function get_product($id)
     {
-        $product = DB::table('products')
+        return DB::table('products')
             ->leftJoin('product_orders', function ($join) {
-                $join->on('product_orders.product_id', '=', 'products.id')
-                    ->join('purchases', 'purchases.id', '=', 'product_orders.purchase_id')
-                    ->join('providers', 'providers.id', '=', 'purchases.provider_id');
+                $join->on(ProductController::PRODUCT_ORDERS_PRODUCT_ID, '=', ProductController::PRODUCTS_ID)
+                    ->join('purchases', ProductController::PURCHASES_ID, '=', ProductController::PRODUCT_ORDERS_PURCHASE_ID)
+                    ->join('providers', ProductController::PROVIDERS_ID, '=', ProductController::PURCHASES_PROVIDER_ID);
             })
-            ->where('products.id', '=', $id)
+            ->where(ProductController::PRODUCTS_ID, '=', $id)
             ->where('products.deleted_at', '=', null)
-            ->select('purchases.id as purchase_id', 'providers.name as provider_name', 'product_orders.product_id', 'products.*')
+            ->select('purchases.id as purchase_id', 'providers.name as provider_name', ProductController::PRODUCT_ORDERS_PRODUCT_ID,
+                'products.code', 'products.description','products.id','products.name','products.sale_price','products.units_available')
             ->get();
-
-        return $product;
     }
 
     /**
      * Función que edita un producto
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function edit_product(Request $request)
     {
         $dat = $request->get('dat');
 
         $product = DB::table('products')
-            ->where('products.id','=',$dat['id'])
+            ->where(ProductController::PRODUCTS_ID,'=',$dat['id'])
             ->get()->first();
 
         $exist_product = Product::where('code','=',$dat['cod'])->get();
@@ -127,11 +135,9 @@ class ProductController extends Controller
         $flag_cod = true;
 
         //Verifica si el codigo se encuentra registrado
-        if($exist_product->count() == 1) {
-            if($exist_product[0]->id != $product->id){
-                $flag_cod=false;
-                $request->session()->flash('fail_msg','Ya existe un producto con este código');
-            }
+        if($exist_product->count() == 1 && ($exist_product[0]->id != $product->id)) {
+            $flag_cod=false;
+            $request->session()->flash('fail_msg','Ya existe un producto con este código');
         }
 
         if($flag_cod){

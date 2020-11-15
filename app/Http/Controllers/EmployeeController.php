@@ -21,6 +21,7 @@ class EmployeeController extends Controller
     //constantes de acceso de la BD
     const EMPLOYEE_PHONE_ID = "employee_phones.employee_id";
     const EMPLOYEES_ID = 'employees.id';
+    const EMPLOYEE_PHONE_NUMBER = 'employee_phones.number';
 
     /**
      * Funcion que se encarga de registrar un nuevo empleado
@@ -89,14 +90,14 @@ class EmployeeController extends Controller
                 ->where('identification_card','like','%'.$word.'%')
                 ->orWhere('name','like','%'.$word.'%')
                 ->orWhere('last_name','like','%'.$word.'%')
-                ->select('employees.*','employee_phones.number')
+                ->select('employees.*',EmployeeController::EMPLOYEE_PHONE_NUMBER)
                 ->get();
 
         }else{
             $employees['employees'] = DB::table('employees')
                 ->join('employee_phones', EmployeeController::EMPLOYEE_PHONE_ID,'=', EmployeeController::EMPLOYEES_ID)
                 ->where('employees.deleted_at','=',null)
-                ->select('employees.*','employee_phones.number')
+                ->select('employees.*',EmployeeController::EMPLOYEE_PHONE_NUMBER)
                 ->get();
         }
 
@@ -113,7 +114,7 @@ class EmployeeController extends Controller
         return DB::table('employees')
             ->join('employee_phones', EmployeeController::EMPLOYEE_PHONE_ID,'=', EmployeeController::EMPLOYEES_ID)
             ->where('employees.identification_card','=',$cc)
-            ->select(EmployeeController::EMPLOYEES_ID,'employees.identification_card','employees.name','employees.last_name','employees.address','employees.mail','employee_phones.number')
+            ->select(EmployeeController::EMPLOYEES_ID,'employees.identification_card','employees.name','employees.last_name','employees.address','employees.mail',EmployeeController::EMPLOYEE_PHONE_NUMBER)
             ->get();
 
     }
@@ -138,11 +139,9 @@ class EmployeeController extends Controller
         $flag_cc = true;
 
         //Verifica si la cédula ya se encuentra registrada
-        if($exist_employee->count() == 1) {
-            if($exist_employee[0]->id != $employee->id){
-                $flag_cc=false;
-                $request->session()->flash('fail_msg','Ya existe un empleado con esta cédula');
-            }
+        if($exist_employee->count() == 1 && ($exist_employee[0]->id != $employee->id)) {
+            $flag_cc=false;
+            $request->session()->flash('fail_msg','Ya existe un empleado con esta cédula');
         }
 
         $flag_phone = true;
@@ -159,12 +158,9 @@ class EmployeeController extends Controller
 
         $flag_mail=true;
         //Verifica si el mail ingresado ya se encuentra registrado
-        if($exist_mail->count() == 1){
-            if($exist_mail[0]->id != $employee->id){
-                $flag_mail=false;
-                $request->session()->flash('fail_msg','Un empleado ya tiene este correo electrónico');
-
-            }
+        if($exist_mail->count() == 1 && ($exist_mail[0]->id != $employee->id)){
+            $flag_mail=false;
+            $request->session()->flash('fail_msg','Un empleado ya tiene este correo electrónico');
         }
 
         if($flag_cc && $flag_phone && $flag_mail){

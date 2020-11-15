@@ -26,7 +26,7 @@ class ProviderTest extends TestCase
         $response->assertStatus(200);
     }
     /**
-     * test que permite comprobar el la vista por parte del usuario
+     * test que permite comprobar el la vista de proveedores por parte del usuario
      * de un dato que se encuentra en la BD
      * @return void
      */
