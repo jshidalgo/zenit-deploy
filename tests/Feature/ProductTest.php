@@ -2,8 +2,10 @@
 
 namespace Tests\Feature;
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 
 /**
@@ -21,6 +23,19 @@ class ProductTest extends TestCase
      */
     public function test_product_page_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         $response = $this->get('/productos');
 
         $response->assertStatus(200);
@@ -32,6 +47,19 @@ class ProductTest extends TestCase
      */
     public function test_product_view_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un producto
         $data['dat'] = array(
             "cod" => "2791",
@@ -61,6 +89,19 @@ class ProductTest extends TestCase
      */
     public function test_product_find_view_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un producto
         $data['dat'] = array(
             "cod" => "2791",
@@ -94,6 +135,19 @@ class ProductTest extends TestCase
      */
     public function test_product_add_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un producto
         $data['dat'] = array(
             "cod" => "2791",
@@ -126,6 +180,19 @@ class ProductTest extends TestCase
      */
     public function test_product_add_code_repeat_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un producto
         $data['dat'] = array(
             "cod" => "2791",
@@ -167,6 +234,19 @@ class ProductTest extends TestCase
      */
     public function test_get_provider_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un producto
         $data['dat'] = array(
             "cod" => "2791",
@@ -204,6 +284,19 @@ class ProductTest extends TestCase
      */
     public function test_product_edit_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un producto
         $data['dat'] = array(
             "cod" => "2791",
@@ -248,6 +341,19 @@ class ProductTest extends TestCase
      */
     public function test_product_edit_code_repeat_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un producto
         $data['dat'] = array(
             "cod" => "2791",
@@ -302,6 +408,19 @@ class ProductTest extends TestCase
      */
     public function test_product_delete_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un producto
         $data['dat'] = array(
             "cod" => "2791",
@@ -345,6 +464,19 @@ class ProductTest extends TestCase
      */
     public function test_product_delete_noData_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un producto
         $data['dat'] = array(
             "cod" => "2791",

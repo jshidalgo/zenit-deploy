@@ -3,7 +3,9 @@
 namespace Tests\Feature;
 
 use App\Http\Controllers\ProviderController;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 
 /**
@@ -21,6 +23,19 @@ class ProviderTest extends TestCase
      */
     public function test_provider_page_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         $response = $this->get('/proveedores');
 
         $response->assertStatus(200);
@@ -32,6 +47,19 @@ class ProviderTest extends TestCase
      */
     public function test_provider_view_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un proveedor
         $data['dat'] = array(
             "nit" => "07371413",
@@ -64,6 +92,19 @@ class ProviderTest extends TestCase
      */
     public function test_provider_find_view_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un proveedor
         $data['dat'] = array(
             "nit" => "07371413",
@@ -98,6 +139,19 @@ class ProviderTest extends TestCase
      */
     public function test_location_find_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un ubicacion
         $pais = "Colombia";
         $departamento = "Quindío";
@@ -129,6 +183,19 @@ class ProviderTest extends TestCase
      */
     public function test_provider_add_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un proveedor
         $data['dat'] = array(
             "nit" => "00-7371413",
@@ -167,6 +234,19 @@ class ProviderTest extends TestCase
      */
     public function test_provider_add_nit_repeat_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un proveedor
         $data['dat'] = array(
             "nit" => "00-7371413",
@@ -221,6 +301,19 @@ class ProviderTest extends TestCase
      */
     public function test_provider_add_phone_repeat_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un proveedor
         $data['dat'] = array(
             "nit" => "00-7371413",
@@ -276,6 +369,19 @@ class ProviderTest extends TestCase
      */
     public function test_provider_add_email_repeat_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un proveedor
         $data['dat'] = array(
             "nit" => "00-7371413",
@@ -329,6 +435,19 @@ class ProviderTest extends TestCase
      */
     public function test_get_provider_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un proveedor
         $data['dat'] = array(
             "nit" => "00-7371413",
@@ -370,6 +489,19 @@ class ProviderTest extends TestCase
      */
     public function test_provider_edit_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un proveedor
         $data['dat'] = array(
             "nit" => "00-7371413",
@@ -426,6 +558,19 @@ class ProviderTest extends TestCase
      */
     public function test_provider_edit_nit_repeat_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un proveedor
         $data['dat'] = array(
             "nit" => "00-7371413",
@@ -495,6 +640,19 @@ class ProviderTest extends TestCase
      */
     public function test_provider_edit_phone_repeat_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un proveedor
         $data['dat'] = array(
             "nit" => "00-7371413",
@@ -564,6 +722,19 @@ class ProviderTest extends TestCase
      */
     public function test_provider_edit_email_repeat_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un proveedor
         $data['dat'] = array(
             "nit" => "00-7371413",
@@ -633,6 +804,19 @@ class ProviderTest extends TestCase
      */
     public function test_provider_delete_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un proveedor
         $data['dat'] = array(
             "nit" => "00-7371413",
@@ -682,6 +866,19 @@ class ProviderTest extends TestCase
      */
     public function test_provider_delete_noData_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un proveedor
         $data['dat'] = array(
             "nit" => "00-7371413",

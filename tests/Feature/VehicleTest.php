@@ -2,8 +2,10 @@
 
 namespace Tests\Feature;
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 
 /**
@@ -21,6 +23,19 @@ class VehicleTest extends TestCase
      */
     public function test_vehicle_page_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         $response = $this->get('/vehiculos');
 
         $response->assertStatus(200);
@@ -32,6 +47,19 @@ class VehicleTest extends TestCase
      */
     public function test_vehicle_view_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un vehiculo
         $data['dat'] = array(
             "plate" => "CWU256",
@@ -62,6 +90,19 @@ class VehicleTest extends TestCase
      */
     public function test_vehicle_find_view_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un vehiculo
         $data['dat'] = array(
             "plate" => "CWU256",
@@ -96,6 +137,19 @@ class VehicleTest extends TestCase
      */
     public function test_vehicle_add_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un vehiculo
         $data['dat'] = array(
             "plate" => "CWU256",
@@ -133,6 +187,19 @@ class VehicleTest extends TestCase
      */
     public function test_vehicle_add_licensePlate_repeat_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un vehiculo
         $data['dat'] = array(
             "plate" => "CWU256",
@@ -182,6 +249,19 @@ class VehicleTest extends TestCase
      */
     public function test_vehicle_edit_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un vehiculo
         $data['dat'] = array(
             "plate" => "CWU256",
@@ -231,6 +311,19 @@ class VehicleTest extends TestCase
      */
     public function test_vehicle_edit_licensePlate_repeat_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un vehiculo
         $data['dat'] = array(
             "plate" => "CWU256",
@@ -290,6 +383,19 @@ class VehicleTest extends TestCase
      */
     public function test_get_vehicle_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un proveedor
         $data['dat'] = array(
             "plate" => "CWU256",
@@ -327,6 +433,19 @@ class VehicleTest extends TestCase
      */
     public function test_vehicle_delete_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un proveedor
         $data['dat'] = array(
             "plate" => "CWU256",
@@ -372,6 +491,19 @@ class VehicleTest extends TestCase
      */
     public function test_vehicle_delete_noData_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un proveedor
         $data['dat'] = array(
             "plate" => "CWU256",

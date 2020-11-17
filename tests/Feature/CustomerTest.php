@@ -2,8 +2,10 @@
 
 namespace Tests\Feature;
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 
 /**
@@ -18,6 +20,19 @@ class CustomerTest extends TestCase
      */
     public function test_customer_page_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         $response = $this->get('/clientes');
 
         $response->assertStatus(200);
@@ -29,6 +44,19 @@ class CustomerTest extends TestCase
      */
     public function test_customer_view_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un cliente
         $data['dat'] = array(
             "cc" => "1004",
@@ -60,6 +88,19 @@ class CustomerTest extends TestCase
      */
     public function test_customer_find_view_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un cliente
         $data['dat'] = array(
             "cc" => "1004",
@@ -92,6 +133,19 @@ class CustomerTest extends TestCase
      */
     public function test_customer_add_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un cliente
         $data['dat'] = array(
             "cc" => "1004",
@@ -127,6 +181,19 @@ class CustomerTest extends TestCase
      */
     public function test_customer_add_identificationCard_repeat_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un cliente
         $data['dat'] = array(
             "cc" => "1004",
@@ -175,6 +242,19 @@ class CustomerTest extends TestCase
      */
     public function test_customer_add_phone_repeat_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un cliente
         $data['dat'] = array(
             "cc" => "1004",
@@ -224,6 +304,19 @@ class CustomerTest extends TestCase
      */
     public function test_customer_add_email_repeat_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un cliente
         $data['dat'] = array(
             "cc" => "1004",
@@ -273,6 +366,19 @@ class CustomerTest extends TestCase
      */
     public function test_get_employee_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un cliente
         $data['dat'] = array(
             "cc" => "1004",
@@ -306,6 +412,19 @@ class CustomerTest extends TestCase
      */
     public function test_customer_edit_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un cliente
         $data['dat'] = array(
             "cc" => "1004",
@@ -366,6 +485,19 @@ class CustomerTest extends TestCase
      */
     public function test_customer_edit_identificationCard_repeat_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un cliente
         $data['dat'] = array(
             "cc" => "1004",
@@ -427,6 +559,19 @@ class CustomerTest extends TestCase
      */
     public function test_customer_edit_phone_repeat_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un cliente
         $data['dat'] = array(
             "cc" => "1004",
@@ -488,6 +633,19 @@ class CustomerTest extends TestCase
      */
     public function test_customer_edit_email_repeat_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un cliente
         $data['dat'] = array(
             "cc" => "1004",
@@ -549,6 +707,19 @@ class CustomerTest extends TestCase
      */
     public function test_employee_delete_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un cliente
         $data['dat'] = array(
             "cc" => "10065",
@@ -595,6 +766,19 @@ class CustomerTest extends TestCase
      */
     public function test_employee_delete_noData_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un cliente
         $data['dat'] = array(
             "cc" => "10065",
