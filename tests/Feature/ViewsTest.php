@@ -2,7 +2,15 @@
 
 namespace Tests\Feature;
 
+use App\Http\Controllers\Auth\ConfirmPasswordController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\HomeController;
 use App\Models\User;
+use Database\Factories\UserFactory;
+use GuzzleHttp\Middleware;
+use Illuminate\Foundation\Auth\ConfirmsPasswords;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
@@ -189,13 +197,21 @@ class ViewsTest extends TestCase
 
     }
     /**
+     * test que permite verificar la vista de login
+     */
+    public function test_it_visit_page_of_login()
+    {
+        new ConfirmPasswordController();
+        new LoginController();
+        new RegisterController();
+        new VerificationController();
+
+        $this->get('/login')
+            ->assertStatus(200)
+            ->assertSee('Login');
+    }
+    /**
      * test que permite comproblar el funcionamiento basico de la vista de home
-     * @covers \App\Http\Controllers\Auth\ConfirmPasswordController
-     * @covers \App\Http\Controllers\Auth\ForgotPasswordController
-     * @covers \App\Http\Controllers\Auth\LoginController
-     * @covers \App\Http\Controllers\Auth\RegisterController
-     * @covers \App\Http\Controllers\Auth\ResetPasswordController
-     * @covers \App\Http\Controllers\Auth\VerificationController
      * @return void
      */
     public function test_home_view_test()
@@ -213,7 +229,7 @@ class ViewsTest extends TestCase
         //comprobacion de autenticacion
         $this->assertAuthenticated();
 
-        $response = $this->get('/home');
+        $response = $this->get(route('home'));
 
         $response->assertStatus(200);
 
