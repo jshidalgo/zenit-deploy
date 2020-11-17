@@ -190,7 +190,12 @@ class ViewsTest extends TestCase
     }
     /**
      * test que permite comproblar el funcionamiento basico de la vista de home
-     *
+     * @covers \App\Http\Controllers\Auth\ConfirmPasswordController
+     * @covers \App\Http\Controllers\Auth\ForgotPasswordController
+     * @covers \App\Http\Controllers\Auth\LoginController
+     * @covers \App\Http\Controllers\Auth\RegisterController
+     * @covers \App\Http\Controllers\Auth\ResetPasswordController
+     * @covers \App\Http\Controllers\Auth\VerificationController
      * @return void
      */
     public function test_home_view_test()
