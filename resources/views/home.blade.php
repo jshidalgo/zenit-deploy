@@ -1,31 +1,27 @@
+@extends('layouts.app')
 
-<!DOCTYPE html>
-<html lang="es-ES">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="{{'front/css/bootstrap.min.css'}}" type="text/css">
-        <link rel="stylesheet" href="{{'front/css/styles.css'}}" type="text/css">
-        <link rel="stylesheet" href="{{'front/css/sweetalert2.min.css'}}" type="text/css">
-        <!-- CDN iconos-->
-        <script src="https://kit.fontawesome.com/cdbbd7d001.js" crossorigin="anonymous"></script>
+@section('home')
+{{--<div class="container">--}}
+{{--    <div class="row justify-content-center">--}}
+{{--        <div class="col-md-8">--}}
+{{--            <div class="card">--}}
+{{--                <div class="card-header">{{ __('Dashboard') }}</div>--}}
 
-        <title>Zenit</title>
+{{--                <div class="card-body">--}}
+{{--                    @if (session('status'))--}}
+{{--                        <div class="alert alert-success" role="alert">--}}
+{{--                            {{ session('status') }}--}}
+{{--                        </div>--}}
+{{--                    @endif--}}
 
-    </head>
-    <body>
-    @include('includes.header')
-    <div id="main">
-        @include('includes.menu_bar')
-        @yield('content')
-    </div>
-
-    <script src="{{asset('front/js/jquery-3.5.1.slim.min.js')}}"></script>
-    <script src="{{asset('front/js/jquery-3.5.1.min.js')}}"></script>
-    <script src="{{asset('front/js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('front/js/popper.min.js')}}"></script>
-    <script src="{{asset('front/js/all_functions.js')}}"></script>
-    <script src="{{asset('front/js/sweetalert2.min.js')}}"></script>
-    @yield('scripts')
-    </body>
-</html>
+{{--                    {{ __('You are logged in!') }}--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--</div>--}}
+<div id="main">
+    @include('includes.menu_bar')
+    @yield('content')
+</div>
+@endsection

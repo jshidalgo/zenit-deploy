@@ -2,7 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 
 /**
@@ -17,6 +19,19 @@ class EmployeeTest extends TestCase
      */
     public function test_employee_page_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         $response = $this->get('/empleados');
 
         $response->assertStatus(200);
@@ -28,6 +43,19 @@ class EmployeeTest extends TestCase
      */
     public function test_employee_view_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un empleado
         $data['dat'] = array(
             "cc" => "1004",
@@ -58,6 +86,19 @@ class EmployeeTest extends TestCase
      */
     public function test_employee_find_view_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         // Datos de un empleado
         $data['dat'] = array(
             "cc" => "1004",
@@ -88,6 +129,19 @@ class EmployeeTest extends TestCase
      */
     public function test_employee_add_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         //datos de entrada
 
         $data['dat'] = array(
@@ -123,6 +177,19 @@ class EmployeeTest extends TestCase
      */
     public function test_employee_add_identificationCard_repeat_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         //datos de entrada
 
         $data['dat'] = array(
@@ -171,6 +238,19 @@ class EmployeeTest extends TestCase
      */
     public function test_employee_add_mail_repeat_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         //datos de entrada
 
         $data['dat'] = array(
@@ -219,6 +299,19 @@ class EmployeeTest extends TestCase
      */
     public function test_employee_add_phone_repeat_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         //datos de entrada
 
         $data['dat'] = array(
@@ -269,6 +362,19 @@ class EmployeeTest extends TestCase
      */
     public function test_get_employee_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         //datos de entrada
 
         $data['dat'] = array(
@@ -303,6 +409,19 @@ class EmployeeTest extends TestCase
      */
     public function test_employee_edit_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         //datos de entrada
 
         $data['dat'] = array(
@@ -355,6 +474,19 @@ class EmployeeTest extends TestCase
      */
     public function test_employee_edit_identificationCard_repeat_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         //datos de entrada
 
         $data['dat'] = array(
@@ -416,6 +548,19 @@ class EmployeeTest extends TestCase
      */
     public function test_employee_edit_phone_repeat_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         //datos de entrada
 
         $data['dat'] = array(
@@ -477,6 +622,19 @@ class EmployeeTest extends TestCase
     */
     public function test_employee_edit_email_repeat_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         //datos de entrada
 
         $data['dat'] = array(
@@ -538,6 +696,19 @@ class EmployeeTest extends TestCase
      */
     public function test_employee_delete_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         //datos de entrada
 
         $data['dat'] = array(
@@ -585,6 +756,19 @@ class EmployeeTest extends TestCase
      */
     public function test_employee_delete_noData_test()
     {
+        //crecion de usuario
+        $user = new User();
+        $user->name = 'amdin';
+        $user->email = 'admin@mail.com';
+        $user->password = 'admin312';
+        $user->save();
+
+        //autenticacion de usuario
+        Auth::loginUsingId(1);
+
+        //comprobacion de autenticacion
+        $this->assertAuthenticated();
+
         //datos de entrada
 
         $data['dat'] = array(
