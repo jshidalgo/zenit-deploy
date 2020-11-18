@@ -17,7 +17,7 @@ class CreateRecordsTable extends Migration
             $table->bigIncrements('id');
             $table->date('entry_date');
             $table->double('mileage');
-            $table->date('departure_date');
+            $table->date('departure_date')->nullable(true);
             $table->unsignedBigInteger('customer_id');
             $table->foreign('customer_id')->references('id')->on('customers');
             $table->unsignedBigInteger('employee_id');

@@ -59,9 +59,10 @@
         }
     }
 
-    #modal-add-record{
+    #modal-add-record,
+    #modal-edit-record{
         .modal-dialog{
-            
+
             .modal-content{
                 .modal-header{
                     h2{
@@ -69,91 +70,79 @@
                     }
                 }
                 .modal-body{
-                    margin: 20px 0;
-                    padding: 0 5%;
-                    .row{
-                        margin: 0 0 20px 0;
-
-                        label{
-                            font-size: 15px;
-                            width: 40%;
+                    .col-customer,
+                    .col-vehicle,
+                    .col-employee,
+                    .col-date,
+                    .col-products,
+                    .col-services{
+                        display: flex;
+                        flex-wrap: wrap;
+                        margin-bottom: 20px;
+                         .sub-title {
+                             font-size: 20px;
+                             margin-bottom: 25px;
+                         }
+                    }
+                    .col-date {
+                        label {
+                            width: 28%;
                         }
-                        input{
-                            width: 60%;
-                            border-radius: 12px;
-                            border: solid 1px gray;
-                            padding-left: 10px;
-                        }
-                        input.readonly{
-                            background-color: #e9ecef;
-                            opacity: 1;
-                        }
-                        span{
-                            display: none;
-                            width: 60%;
-                            color: red;
-                            margin-left: auto;
-                            padding: 0 5px;
-                        }
-                        select{
-                            width: 60%;
-                            border-radius: 12px;
-                            border: solid 1px gray;
-                            padding-left: 10px;
-                        }
-                        textarea{
-                            width: 60%;
-                            border-radius: 12px;
-                            border: solid 1px gray;
-                            padding-left: 10px;
-                        }
-                        textarea.readonly{
-                            background-color: #e9ecef;
-                            opacity: 1;
+                        input {
+                            width: 30%;
                         }
                     }
-                    .row-products{
-                        margin: 10px 0 20px 20px;
 
-                        .fa-plus-circle{
-                            display: block;
-                            background: transparent;
-                            color: #4CBC5B;
-                            padding: 7px;
-                            border: 0px;
-                            cursor: pointer;
+                    .col-products {
+                        .col-inventory {
+                            .title-table {
+                                font-size: 20px;
+                                margin-bottom: 25px;
+                            }
+                            table {
+                                input[type=number] {
+                                    max-width: 70px;
+                                }
+                            }
                         }
-                        .fa-minus-circle{
-                            display: none;
-                            background: transparent;
-                            color: #CD3030;
-                            padding: 7px;
-                            border: 0px;
-                            cursor: pointer;
+                        .col-products-used {
+                            .title-table {
+                                font-size: 20px;
+                                margin-bottom: 25px;
+                            }
+                            table {
+                                input[type=number] {
+                                    max-width: 70px;
+                                }
+                            }
                         }
                     }
-                    .row-services{
-                        margin: 10px 0 20px 20px;
-
-                        .fa-plus-circle{
-                            display: block;
-                            background: transparent;
-                            color: #4CBC5B;
-                            padding: 7px;
-                            border: 0px;
-                            cursor: pointer;
+                    .col-services {
+                        .title-table {
+                            font-size: 20px;
+                            margin-bottom: 25px;
                         }
-                        .fa-minus-circle{
+                        #btn-add-service {
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            -ms-transform: translate(-50%, -50%);
+                            transform: translate(-50%, -50%);
+                            padding: 3px 15px;
+                        }
+                        #btn-edit-service {
                             display: none;
-                            background: transparent;
-                            color: #CD3030;
-                            padding: 7px;
-                            border: 0px;
-                            cursor: pointer;
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            -ms-transform: translate(-50%, -50%);
+                            transform: translate(-50%, -50%);
+                            padding: 3px 15px;
                         }
                     }
+
                 }
-                
+
                 .modal-footer{
                     .btn-add-record{
                         border: 0;

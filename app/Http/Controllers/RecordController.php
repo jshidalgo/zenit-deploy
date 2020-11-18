@@ -16,184 +16,7 @@ use Illuminate\Support\Facades\Session;
 
 class RecordController extends Controller
 {
-    /**
-     * Funcion que se encarga de registrar una nueva entrada
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function create_record(Request $request)
-    {
 
-        //datos recibidos
-        $dat = $request->get('dat');
-        $products = $request->get('product');
-        $services = $request->get('service');
-
-        $exist_epmloyee = Employee::where('id', '=', $dat['id_employee'])->get();
-        $exist_customer = Customer::where('id', '=', $dat['id_customer'])->get();
-        $exist_vehicle = Vehicle::where('id', '=', $dat['id_vehicle'])->get();
-        //verificando que el empleado exista
-        if (!(isset($exist_epmloyee) &&  $exist_epmloyee->count() == 0)) {
-            //verificando que el cliente exista
-            if (!(isset($exist_customer) &&  $exist_customer->count() == 0)) {
-                //verificando la existencia del vehiculo
-                if (!(isset($exist_vehicle) &&  $exist_vehicle->count() == 0)) {
-                    //verifica la existencia de los productos
-                    if ($this->verificarProductos($products)) {
-
-                        //crea el seguimiento
-                        $record = new Record();
-                        $record->entry_date = $dat['entry_date'];
-                        $record->mileage = $dat['mileage'];
-                        $record->departure_date = $dat['departure_date'];
-                        $record->customer_id = $exist_customer[0]->id;
-                        $record->employee_id = $exist_epmloyee[0]->id;
-                        $record->vehicle_id = $exist_vehicle[0]->id;
-                        //almacena
-                        $record->save();
-
-                        //buscar productos y almacena los repuestos
-                        //variable que permite conocer que dato del producto
-                        //1= id del producto
-                        //3= cantidad de producto usado
-                        $auxProductos = 1;
-                        //instancia de servicio
-                        $units_available = 0;
-                        $id_product = 0;
-                        $spare = new Spare();
-                        foreach ($products as $key => $value) {
-                            if ($auxProductos == 1) {
-                                //se busca el producto
-                                $id_product = $value;
-                                $product = DB::table('products')->where('id', '=', $id_product)->get();
-
-                                $units_available = $product[0]->units_available;
-
-                                $auxProductos += 1;
-                            } else if ($auxProductos == 3) {
-                                $units_available -= $value;
-                                //actualiza el valor de las unidades disponibles
-                                $product = DB::table('products')->where('id', $id_product)->update(['units_available' => $units_available]);
-                                var_dump($product);
-                                //crea repuesto
-                                $spare = new Spare();
-                                $spare->quantity = $value;
-
-                                $auxProductos += 1;
-                            }else if ($auxProductos == 4) {
-
-                                $spare->price_sale = $value;
-                                $spare->product_id = $id_product;
-                                $spare->record_id = $record->id;
-                                //almacena
-                                $spare->save();
-
-                                $auxProductos = 1;
-                            }
-                            else {
-                                $auxProductos += 1;
-                            }
-                        }
-
-                        //alamcena los servicios y los trabajos
-                        $servicios = $this->obtenerServicios($services);
-                        foreach ($servicios as $key => $service) {
-                            //almacena
-                            $service->save();
-                            //crea los trabajos
-                            $labor = new Labor();
-                            $labor->record_id = $record->id;
-                            $labor->service_id = $service->id;
-                            $labor->save();
-                        }
-                        $request->session()->flash('check_msg','El servicio se registro con éxito');
-                    }else{
-                        $request->session()->flash('fail_msg', 'Error, intente nuevamente, producto no registrado');
-                    }
-                } else {
-                    $request->session()->flash('fail_msg', 'Error, intente nuevamente, vehículo no registrado');
-                }
-            } else {
-                $request->session()->flash('fail_msg', 'Error, intente nuevamente, cliente no registrado');
-            }
-        } else {
-            $request->session()->flash('fail_msg', 'Error, intente nuevamente, empleado no registrado');
-        }
-        return redirect()->route('view_record');
-    }
-
-    /**
-     * Función que permite verificar que los productos seleccionados se encuentre registrados
-     * @param array $products
-     */
-    public function verificarProductos(array $products)
-    {
-        //buscar productos
-        //variable que permite conocer que dato del producto
-        //1= id del producto
-        //3= cantidad de producto usado
-        $auxProductos = 1;
-        //contador de produtos existentes
-        $count = 0;
-        foreach ($products as $key => $value) {
-
-            if ($auxProductos == 1) {
-
-                //se busca el producto
-                $product = DB::table('products')->where('id', '=', $value)->get();
-                if (!(isset($product) &&  $product->count() == 0)) {
-                    $count += 1;
-                }
-                $auxProductos+=1;
-            } else if ($auxProductos == 4) {
-                $auxProductos = 1;
-            } else {
-                $auxProductos += 1;
-            }
-        }
-
-        if ($count == (count($products)/4)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Función que permite extraer los servicios enviados
-     * @param array $services
-     */
-    public function obtenerServicios(array $services)
-    {
-        $servicios = array();
-        //variable que permite conocer que dato del servicio
-        //1= nombre del servicio
-        //2= descripcion del servicio
-        //3= precio del servicio
-        $auxServicios = 1;
-        //instancia de servicio
-        $service = new Service();
-        foreach ($services as $key => $value) {
-            if ($auxServicios == 1) {
-                //creando la instacia del servicio
-                $service = new Service();
-                $service->name = $value;
-                //incremento de aux
-                $auxServicios += 1;
-            } else if ($auxServicios == 2) {
-                //descripcion
-                $service->description = $value;
-                //incremento de aux
-                $auxServicios += 1;
-            } else if ($auxServicios == 3) {
-                //precio
-                $service->price = $value;
-                $servicios[] = $service;
-                $auxServicios = 1;
-            }
-        }
-        return $servicios;
-    }
     /**
      * Función que busca servicios a partir de una palabra
      *
@@ -207,13 +30,12 @@ class RecordController extends Controller
         $data['fail_msg'] = Session::get('fail_msg');
         $data['check_msg'] = Session::get('check_msg');
         if (isset($dat) && !empty($dat)) {
-            // $word = $dat['search'];
-            // $record['record'] = DB::table('record')
-            //     ->where('identification_card','like','%'.$word.'%')
-            //     ->orWhere('name','like','%'.$word.'%')
-            //     ->orWhere('last_name','like','%'.$word.'%')
-            //     ->get();
-
+            $word = $dat['search'];
+            $record['record'] = DB::table('record')
+                ->where('identification_card','like','%'.$word.'%')
+                ->orWhere('name','like','%'.$word.'%')
+                ->orWhere('last_name','like','%'.$word.'%')
+                ->get();
         } else {
             //marcar informacion de las entradas registradas
             $data['record'] = DB::table('records')
@@ -240,127 +62,268 @@ class RecordController extends Controller
             //var_dump($customer);
 
             //informacion de los clientes
-            $data['customer'] = DB::table('customer_phones')
+            $data['customers'] = DB::table('customer_phones')
                 ->join('customers', 'customers.id', '=', 'customer_phones.customer_id')
                 ->select('customers.*', 'customer_phones.*')
                 ->get();
-            //informacion de los vehiculos
-            $data['vehicle'] = DB::table('vehicles')->whereNull('deleted_at')->get();
-            //empleados
-            $data['employee'] = DB::table('employees')->whereNull('deleted_at')->get();
-            //productos
-            $data['product'] = DB::table('products')->whereNull('deleted_at')->get();
 
-            // foreach ($data as $key => $value) {
-            //     echo $key;
-            //     echo '=';
-            //     echo $value;
-            // }
+            $arreglo_customer = array();
+            foreach ($data['customers'] as $customer){
+                $arreglo_customer[$customer->id] = $customer->identification_card ." - ". $customer->name ." ". $customer->last_name;
+            }
+            $data['misClientes']=$arreglo_customer;
+
+
+            //informacion de los vehiculos
+            $data['vehicles'] = DB::table('vehicles')->whereNull('deleted_at')->get();
+
+            $arreglo_vehicle = array();
+            foreach ($data['vehicles'] as $vehicle){
+                $arreglo_vehicle[$vehicle->id] = $vehicle->license_plate ." - ". $vehicle->name;
+            }
+            $data['misVehiculos']=$arreglo_vehicle;
+
+            //empleados
+            $data['employees'] = DB::table('employees')->whereNull('deleted_at')->get();
+            $arreglo_employee = array();
+            foreach ($data['employees'] as $employee){
+                $arreglo_employee[$employee->id] = $employee->identification_card ." - ". $employee->name ." ". $employee->last_name;
+            }
+            $data['misEmpleados']=$arreglo_employee;
+
+            //productos
+            $data['products'] = DB::table('products')->whereNull('deleted_at')->get();
+
+
         }
         return view('record', $data);
     }
 
     /**
-     * Función que obtiene un record mediante su id
-     * @param $cc
-     * @return array
-     */
-    public function get_record($cc){
-        echo "get";
-        // $employee = Employee::where('identification_card','=',$cc)->first();
-        // $phone = Employee_phone::where('employee_id','=',$employee->id)->first();
-        // $result = [$employee, $phone];
-
-        // return $result;
-    }
-
-    /**
-     * Función que se encarga de modificar un record
+     * Funcion que crea un registro
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function edit_record(Request $request){
-        echo "edit";
-        // $dat = $request->get('dat');
+    public function create_record(Request $request){
+        $dat = $request->get('dat');
 
-        // $employee = DB::table('employees')
-        //     ->join('employee_phones','employees.id','=','employee_phones.employee_id')
-        //     ->where('employees.id','=',$dat['id'])
-        //     ->get()->first();
+        $customer = Customer::find($dat['id_customer']);
+        $vehicle = Vehicle::find($dat['id_vehicle']);
+        $employee = Employee::find($dat['id_employee']);
 
-        // $exist_employee = Employee::where('identification_card','=',$dat['cc'])->get();
-        // $exist_phone = Employee_phone::where('number','=',$dat['phone'])->get();
-        // $exist_mail = Employee::where('mail','=',$dat['mail'])->get();
+        $record = new Record();
+        $record->entry_date = $dat['entry_date'];
+        $record->mileage = $dat['mileage'];
+        $record->departure_date = $dat['out_date'];
+        $record->customer_id = $customer->id;
+        $record->employee_id = $employee->id;
+        $record->vehicle_id = $vehicle->id;
+        $record->save();
 
-        // $flag_cc = true;
+        //Carga los productos utilizados y los descuenta del inventario
+        $products_used = json_decode($dat['products_used'],true);
+        foreach ($products_used as $aux){
+            $product = Product::find($aux[0]);
+            $product->units_available-=$aux[1];
+            $product->save();
 
-        // //Verifica si la cédula ya se encuentra registrada
-        // if($exist_employee->count() == 1) {
-        //     if($exist_employee[0]->id != $employee->id){
-        //         $flag_cc=false;
-        //         $request->session()->flash('fail_msg','Ya existe un empleado con esta cédula');
-        //     }
-        // }
+            $spare = new Spare();
+            $spare->quantity = $aux[1];
+            $spare->price_sale = $product->sale_price;
+            $spare->product_id = $product->id;
+            $spare->record_id = $record->id;
+            $spare->save();
+        }
 
-        // $flag_phone = true;
-        // // Verifica si el telefono ingresado ya se encuentra registrado
-        // if($exist_employee->count() >= 1){
-        //     foreach ($exist_phone as $aux){
-        //         if($aux->employee_id != $employee->id){
-        //             $flag_phone=false;
-        //             $request->session()->flash('fail_msg','Un empleado ya tiene este número de teléfono');
-        //         }
-        //     }
+        $services_used = json_decode($dat['services_finished'],true);
+        foreach ($services_used as $aux){
+            $service = new Service();
+            $service->name = $aux[0];
+            $service->description = $aux[1];
+            $service->price = doubleval(substr($aux[2],1));
+            $service->save();
 
-        // }
+            $labor = new Labor();
+            $labor->record_id = $record->id;
+            $labor->service_id = $service->id;
+            $labor->save();
+        }
 
-        // $flag_mail=true;
-        // //Verifica si el mail ingresado ya se encuentra registrado
-        // if($exist_mail->count() == 1){
-        //     if($exist_mail[0]->id != $employee->id){
-        //         $flag_mail=false;
-        //         $request->session()->flash('fail_msg','Un empleado ya tiene este correo electrónico');
-
-        //     }
-        // }
-
-        // if($flag_cc && $flag_phone && $flag_mail){
-        //     $exist_employee = Employee::find($dat['id']);
-        //     $exist_employee->identification_card = $dat['cc'];
-        //     $exist_employee->name = $dat['name'];
-        //     $exist_employee->last_name = $dat['last_name'];
-        //     $exist_employee->address = $dat['address'];
-        //     $exist_employee->mail = $dat['mail'];
-        //     $exist_employee->save();
-
-        //     $exist_phone = Employee_phone::where('employee_id','=',$dat['id'])->first();
-        //     $exist_phone->number = $dat['phone'];
-        //     $exist_phone->save();
-        //     $request->session()->flash('check_msg','Se actualizaron los datos del empleado con éxito');
-        // }
-        // return redirect()->route('view_employee');
+        return redirect()->route('view_record');
     }
 
     /**
-     * Función que elimina empleados
+     * Funcion que obtiene un cluente dado su ID
      * @param Request $request
-     * @return int
+     * @return mixed
      */
-    public function delete_record(Request $request){
+    public function get_customer_id(Request $request){
+        $customer = Customer::find($request->id);
 
-        if(sizeof($request->selected) > 0){
-            foreach ($request->selected as $aux){
-                $record = Record::find($aux);
-                if(!empty($record)){
-                    $labors = Labor::where('record_id','=',$record->id)->get();
-                    foreach ($labors as $labor){
-                        $labor->delete();
-                    }
-                    $record->delete();
-                }
+        return $customer;
+    }
+
+    /**
+     * Funcion que obtiene un vehiculo dado su ID
+     * @param Request $request
+     * @return \Illuminate\Support\Collection
+     */
+    public function get_vehicle_id(Request $request){
+        $vehicle = DB::table('vehicles')
+            ->join('brands','vehicles.brand_id','=','brands.id')
+            ->where('vehicles.id','=',$request->id)
+            ->select('vehicles.*','brands.*','vehicles.name as vehicle_reference','brands.name as brand')
+            ->get();
+
+        return $vehicle;
+    }
+
+    /**
+     * Funcion que obtiene un empleado dado su ID
+     * @param Request $request
+     * @return mixed
+     */
+    public function get_empleado_id(Request $request){
+        $employee = Employee::find($request->id);
+        return $employee;
+    }
+
+    /**
+     * Funcion que obtiene un producto dado su ID
+     * @param Request $request
+     * @return mixed
+     */
+    public function get_product_id(Request $request){
+        $product = Product::find($request->id);
+        return $product;
+    }
+
+    public function get_record($id){
+        $result = array();
+
+        $record = Record::find($id);
+        array_push($result,$record);
+
+        $customer = DB::table('records')->join('customers','customer_id','=','customers.id')->first();
+        array_push($result,$customer);
+
+        $vehicle = DB::table('records')->join('vehicles','vehicle_id','=','vehicles.id')->first();
+        array_push($result,$vehicle);
+
+        $employee = DB::table('records')->join('employees','employee_id','=','employees.id')->first();
+        array_push($result,$employee);
+
+        $products = DB::table('records')
+            ->join('spares','records.id','=','spares.record_id')
+            ->join('products','spares.product_id','=','products.id')
+            ->where('records.id','=',$id)
+            ->select('products.units_available as unit_available','spares.quantity as product_quantity','products.id as product_id','products.name as product_name','products.description as product_description', 'products.sale_price as product_price')
+            ->get();
+        array_push($result,$products);
+
+        $services = DB::table('records')
+                    ->join('labors','records.id','=','labors.record_id')
+                    ->join('services','services.id','=','labors.service_id')
+                    ->where('records.id','=',$id)
+                    ->select('services.id as service_id','services.name as service_name','services.description as service_description','services.price as service_price')
+                    ->get();
+
+        array_push($result,$services);
+
+        return $result;
+    }
+
+    /**
+     * Funcion que obtiene todos los repuestos asociados a un registro
+     * @param Request $request
+     * @return array
+     */
+    public function get_spare_record_id(Request $request){
+        $result = array();
+
+        $resultA = DB::table('records')
+                ->join('spares','records.id','=','spares.record_id')
+                ->join('products','spares.product_id','=','products.id')
+                ->where('records.id','=',$request->id_record)
+                ->where('products.id','=',$request->id_product)
+                ->select('products.id as product_id','spares.quantity as quantity_used','products.units_available as quantity_inventory')
+                ->get();
+        $resultB = Product::find($request->id_product);
+
+        array_push($result,$resultA);
+        array_push($result,$resultB);
+
+        return $result;
+    }
+
+    public function edit_record(Request $request){
+        $dat = $request->get('dat');
+
+        $record = Record::find($dat['id_record']);
+        $record->entry_date = $dat['entry_date_edit'];
+        $record->mileage = $dat['mileage_edit'];
+        $record->departure_date = $dat['out_date_edit'];
+        $record->customer_id = $dat['id_customer'];
+        $record->employee_id = $dat['id_employee'];
+        $record->vehicle_id = $dat['id_vehicle'];
+        $record->save();
+
+        $products_used = json_decode($dat['products_used'],true);
+
+        foreach ($products_used as $aux){
+            //aux[1] cuantas veces se utilizo
+
+            $product = Product::find($aux[0]);
+            $spare_aux = DB::table('spares')
+                ->join('products','spares.product_id','=','products.id')
+                ->where('spares.record_id','=',$record->id)
+                ->where('spares.product_id','=',$product->id)
+                ->select('spares.id as spare_id', 'spares.quantity as spare_quantity')
+                ->first();
+            //Verificamos si existe el repuesto asociado al registro y el producto.
+            //Si no existe nos toca crear un nuevo repuesto realizando la correspondiente asociacion
+            if(!empty($spare_aux)){
+                $spare = Spare::find($spare_aux->spare_id);
+                $product->units_available = $product->units_available + $spare->quantity - intval($aux[1]);
+                $product->save();
+                $spare->quantity = $aux[1];
+                $spare->save();
+            }else{
+                $spare = new Spare();
+                $spare->quantity = $aux[1];
+                $spare->price_sale = $product->sale_price;
+                $spare->product_id = $product->id;
+                $spare->record_id = $record->id;
+                $spare->save();
+                $product->units_available-= $aux[1];
+                $product->save();
             }
-            return 1;
         }
-        return 0;
+        $services_used = json_decode($dat['services_finished'],true);
+
+        foreach ($services_used as $aux){
+            //Si el ID del servicio empieza con p, quiere decir que toca crear un trabajo nuevo
+            if($aux[0][0] != "p"){
+                $service = Service::find($aux[0]);
+                $service->name = $aux[1];
+                $service->description = $aux[2];
+                $service->price = doubleval(substr($aux[3],1));
+                $service->save();
+            }else{
+                $service = new Service();
+                $service->name = $aux[1];
+                $service->description = $aux[2];
+                $service->price = doubleval(substr($aux[3],1));
+                $service->save();
+
+                $labor = new Labor();
+                $labor->record_id = $record->id;
+                $labor->service_id = $service->id;
+                $labor->save();
+            }
+        }
+
+
+        return redirect()->route('view_record');
     }
 }

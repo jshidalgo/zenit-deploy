@@ -74,11 +74,17 @@ Route::group(['middleware'=>['auth']],function () {
     Route::delete('/clientes', [CustomerController::class, 'delete_customer'])->name('delete_customer');
 
     //rutas para los servicios
-    Route::get('/servicios', [RecordController::class, 'show_view_record'])->name('view_record');
-    Route::post('/servicios', [RecordController::class, 'create_record'])->name('add_record');
-    Route::get('/servicios/{id?}', [RecordController::class, 'get_record'])->name('get_record');
-    Route::post('/servicios/editar', [RecordController::class, 'edit_record'])->name('edit_record');
-    Route::delete('/servicios', [RecordController::class, 'delete_record'])->name('delete_record');
+    Route::get('/servicios',[RecordController::class,'show_view_record'])->name('view_record');
+    Route::post('/servicios',[RecordController::class,'create_record'])->name('add_record');
+    Route::post('/servicios/editar',[RecordController::class,'edit_record'])->name('edit_record');
+    Route::delete('/servicios',[RecordController::class,'delete_record'])->name('delete_record');
+
+    Route::get('/servicios/{id?}',[RecordController::class,'get_record'])->name('get_record');
+    Route::get('/servicios/cliente/{id?}',[RecordController::class,'get_customer_id'])->name('get_customer_id');
+    Route::get('/servicios/vehiculo/{id?}',[RecordController::class,'get_vehicle_id'])->name('get_vehicle_id');
+    Route::get('/servicios/empleado/{id?}',[RecordController::class,'get_empleado_id'])->name('get_empleado_id');
+    Route::get('/servicios/producto/{id?}',[RecordController::class,'get_product_id'])->name('get_product_id');
+    Route::get('/servicios/repuestos/{id_record?}',[RecordController::class,'get_spare_record_id'])->name('get_spare_record_id');
 
     //Rutas para las citas
     Route::get('/calendario', [AppointmentController::class, 'show_view_calendar'])->name('view_calendar');

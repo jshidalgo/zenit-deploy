@@ -936,89 +936,96 @@ header {
     margin-top: 40px; }
     #view-record #section-table table .col-check {
       text-align: center; }
-  #view-record #modal-add-record .modal-dialog .modal-content .modal-header h2 {
+  #view-record #modal-add-record .modal-dialog .modal-content .modal-header h2,
+  #view-record #modal-edit-record .modal-dialog .modal-content .modal-header h2 {
     font-size: 20px; }
-  #view-record #modal-add-record .modal-dialog .modal-content .modal-body {
-    margin: 20px 0;
-    padding: 0 5%; }
-    #view-record #modal-add-record .modal-dialog .modal-content .modal-body .row {
-      margin: 0 0 20px 0; }
-      #view-record #modal-add-record .modal-dialog .modal-content .modal-body .row label {
-        font-size: 15px;
-        width: 40%; }
-      #view-record #modal-add-record .modal-dialog .modal-content .modal-body .row input {
-        width: 60%;
-        border-radius: 12px;
-        border: solid 1px gray;
-        padding-left: 10px; }
-      #view-record #modal-add-record .modal-dialog .modal-content .modal-body .row input.readonly {
-        background-color: #e9ecef;
-        opacity: 1; }
-      #view-record #modal-add-record .modal-dialog .modal-content .modal-body .row span {
-        display: none;
-        width: 60%;
-        color: red;
-        margin-left: auto;
-        padding: 0 5px; }
-      #view-record #modal-add-record .modal-dialog .modal-content .modal-body .row select {
-        width: 60%;
-        border-radius: 12px;
-        border: solid 1px gray;
-        padding-left: 10px; }
-      #view-record #modal-add-record .modal-dialog .modal-content .modal-body .row textarea {
-        width: 60%;
-        border-radius: 12px;
-        border: solid 1px gray;
-        padding-left: 10px; }
-      #view-record #modal-add-record .modal-dialog .modal-content .modal-body .row textarea.readonly {
-        background-color: #e9ecef;
-        opacity: 1; }
-    #view-record #modal-add-record .modal-dialog .modal-content .modal-body .row-products {
-      margin: 10px 0 20px 20px; }
-      #view-record #modal-add-record .modal-dialog .modal-content .modal-body .row-products .fa-plus-circle {
-        display: block;
-        background: transparent;
-        color: #4CBC5B;
-        padding: 7px;
-        border: 0px;
-        cursor: pointer; }
-      #view-record #modal-add-record .modal-dialog .modal-content .modal-body .row-products .fa-minus-circle {
-        display: none;
-        background: transparent;
-        color: #CD3030;
-        padding: 7px;
-        border: 0px;
-        cursor: pointer; }
-    #view-record #modal-add-record .modal-dialog .modal-content .modal-body .row-services {
-      margin: 10px 0 20px 20px; }
-      #view-record #modal-add-record .modal-dialog .modal-content .modal-body .row-services .fa-plus-circle {
-        display: block;
-        background: transparent;
-        color: #4CBC5B;
-        padding: 7px;
-        border: 0px;
-        cursor: pointer; }
-      #view-record #modal-add-record .modal-dialog .modal-content .modal-body .row-services .fa-minus-circle {
-        display: none;
-        background: transparent;
-        color: #CD3030;
-        padding: 7px;
-        border: 0px;
-        cursor: pointer; }
-  #view-record #modal-add-record .modal-dialog .modal-content .modal-footer .btn-add-record {
+  #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-customer,
+  #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-vehicle,
+  #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-employee,
+  #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-date,
+  #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-products,
+  #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-services,
+  #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-customer,
+  #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-vehicle,
+  #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-employee,
+  #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-date,
+  #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-products,
+  #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-services {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px; }
+    #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-customer .sub-title,
+    #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-vehicle .sub-title,
+    #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-employee .sub-title,
+    #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-date .sub-title,
+    #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-products .sub-title,
+    #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-services .sub-title,
+    #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-customer .sub-title,
+    #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-vehicle .sub-title,
+    #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-employee .sub-title,
+    #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-date .sub-title,
+    #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-products .sub-title,
+    #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-services .sub-title {
+      font-size: 20px;
+      margin-bottom: 25px; }
+  #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-date label,
+  #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-date label {
+    width: 28%; }
+  #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-date input,
+  #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-date input {
+    width: 30%; }
+  #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-products .col-inventory .title-table,
+  #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-products .col-inventory .title-table {
+    font-size: 20px;
+    margin-bottom: 25px; }
+  #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-products .col-inventory table input[type=number],
+  #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-products .col-inventory table input[type=number] {
+    max-width: 70px; }
+  #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-products .col-products-used .title-table,
+  #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-products .col-products-used .title-table {
+    font-size: 20px;
+    margin-bottom: 25px; }
+  #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-products .col-products-used table input[type=number],
+  #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-products .col-products-used table input[type=number] {
+    max-width: 70px; }
+  #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-services .title-table,
+  #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-services .title-table {
+    font-size: 20px;
+    margin-bottom: 25px; }
+  #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-services #btn-add-service,
+  #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-services #btn-add-service {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    padding: 3px 15px; }
+  #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-services #btn-edit-service,
+  #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-services #btn-edit-service {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    padding: 3px 15px; }
+  #view-record #modal-add-record .modal-dialog .modal-content .modal-footer .btn-add-record,
+  #view-record #modal-edit-record .modal-dialog .modal-content .modal-footer .btn-add-record {
     border: 0;
     border-radius: 12px;
     background: #4CBC5B;
     padding: 5px 20px;
     color: white; }
-  #view-record #modal-add-record .modal-dialog .modal-content .modal-footer .btn-cancel {
+  #view-record #modal-add-record .modal-dialog .modal-content .modal-footer .btn-cancel,
+  #view-record #modal-edit-record .modal-dialog .modal-content .modal-footer .btn-cancel {
     background: #CD3030;
     padding: 5px 20px;
     color: white;
     border-radius: 12px;
     text-decoration: none;
     cursor: pointer; }
-  #view-record #modal-add-record .modal-dialog .modal-content .modal-footer .btn-clear {
+  #view-record #modal-add-record .modal-dialog .modal-content .modal-footer .btn-clear,
+  #view-record #modal-edit-record .modal-dialog .modal-content .modal-footer .btn-clear {
     background: #808080;
     padding: 5px 20px;
     color: white;
