@@ -396,7 +396,7 @@ function addProductPurchase(modal) {
         //se agrega el contenedor del producto
 
         var contenedorProducto = "<div class='row-product' id='product" + products + "'></div>";
-        $('#row-products-'+modal).append(contenedorProducto);
+        $('#row-products'+modal).append(contenedorProducto);
         //se agrega el HMTL del nombre del producto
         var nombreProducto = "<div class='row'>" +
             "<label for='name-product-purchase" + products + "'>Nombre producto</label>" +

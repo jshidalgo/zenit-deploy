@@ -13,7 +13,7 @@
 
         <div id="actions-buttons">
             <button type="button" onclick="show_edit_record()"><i class="far fa-edit"></i></button>
-            <button onclick="remove_recod()"><i class="fas fa-trash-alt"></i></button>
+            <button onclick="remove_record()"><i class="fas fa-trash-alt"></i></button>
             <button type="button" data-toggle="modal" data-target="#modal-add-record"><i class="fas fa-plus"></i></button>
         </div>
     </div>
@@ -455,7 +455,7 @@
                                     <input id="cost-service" name="dat[cost-service]" type="number" min="0" value="0">
                                 </div>
                                 <div class="col-2">
-                                    <button id="btn-add-service" type="button" onclick="addServiceRecord(`modal-edit-record`,`edit`)">Agregar</button>
+                                    <button id="btn-add-service" type="button" onclick="addServiceRecord(`modal-edit-record`,`edit`)">Editar</button>
                                     <button id="btn-edit-service" type="button" onclick="editServiceRecord(`modal-edit-record`,`edit`)">Editar</button>
                                 </div>
                                 <div class="col-12">
@@ -519,7 +519,7 @@
      * Dependiendo del que haya sido seleccionado en el select
      */
     $('#modal-add-record .col-customer select').change(function () {
-        var customer = $('.col-customer select').val();
+        var customer = $('#modal-add-record .col-customer select').val();
         $.ajax({
             type:'get',
             url:'/servicios/cliente/{id?}',
@@ -542,12 +542,36 @@
         });
     });
 
+    $('#modal-edit-record .col-customer select').change(function () {
+        var customer = $('#modal-edit-record .col-customer select').val();
+        $.ajax({
+            type:'get',
+            url:'/servicios/cliente/{id?}',
+            data:{
+                _token:'{{csrf_token()}}',
+                id: customer
+            }
+        }).done(function(data) {
+            if(data !== "") {
+                $('#modal-edit-record .col-customer #name-customer-edit').val(data.name);
+                $('#modal-edit-record .col-customer #last-name-customer-edit').val(data.last_name);
+                $('#modal-edit-record .col-customer #address-customer-edit').val(data.address);
+                $('#modal-edit-record .col-customer #mail-customer-edit').val(data.mail);
+            }else{
+                $('#modal-edit-record .col-customer #name-customer-edit').val("");
+                $('#modal-edit-record .col-customer #last-name-customer-edit').val("");
+                $('#modal-edit-record .col-customer #address-customer-edit').val("");
+                $('#modal-edit-record .col-customer #mail-customer-edit').val("");
+            }
+        });
+    });
+
     /**
      * Funcion que se encarga de cargar los campos del vehiculo
      * Dependiendo del que haya sido seleccionado en el select
      */
     $('#modal-add-record .col-vehicle select').change(function () {
-        var vehicle = $('.col-vehicle select').val();
+        var vehicle = $('#modal-add-record .col-vehicle select').val();
         $.ajax({
             type:'get',
             url:'/servicios/vehiculo/{id?}',
@@ -557,19 +581,47 @@
             }
         }).done(function(data) {
             if(data.length > 0) {
-                $('.col-vehicle #plate-vehicle-add').val(data[0].license_plate);
-                $('.col-vehicle #color-vehicle-add').val(data[0].color);
-                $('.col-vehicle #cylinder-vehicle-add').val(data[0].cylinder_capacity);
-                $('.col-vehicle #model-vehicle-add').val(data[0].model);
-                $('.col-vehicle #reference-vehicle-add').val(data[0].vehicle_reference);
-                $('.col-vehicle #brand-vehicle-add').val(data[0].brand);
+                $('#modal-add-record .col-vehicle #plate-vehicle-add').val(data[0].license_plate);
+                $('#modal-add-record .col-vehicle #color-vehicle-add').val(data[0].color);
+                $('#modal-add-record .col-vehicle #cylinder-vehicle-add').val(data[0].cylinder_capacity);
+                $('#modal-add-record .col-vehicle #model-vehicle-add').val(data[0].model);
+                $('#modal-add-record .col-vehicle #reference-vehicle-add').val(data[0].vehicle_reference);
+                $('#modal-add-record .col-vehicle #brand-vehicle-add').val(data[0].brand);
             }else{
-                $('.col-vehicle #plate-vehicle-add').val("");
-                $('.col-vehicle #color-vehicle-add').val("");
-                $('.col-vehicle #cylinder-vehicle-add').val("");
-                $('.col-vehicle #model-vehicle-add').val("");
-                $('.col-vehicle #reference-vehicle-add').val("");
-                $('.col-vehicle #brand-vehicle-add').val("");
+                $('#modal-add-record .col-vehicle #plate-vehicle-add').val("");
+                $('#modal-add-record .col-vehicle #color-vehicle-add').val("");
+                $('#modal-add-record .col-vehicle #cylinder-vehicle-add').val("");
+                $('#modal-add-record .col-vehicle #model-vehicle-add').val("");
+                $('#modal-add-record .col-vehicle #reference-vehicle-add').val("");
+                $('#modal-add-record .col-vehicle #brand-vehicle-add').val("");
+            }
+        });
+    });
+
+    $('#modal-edit-record .col-vehicle select').change(function () {
+        var vehicle = $('#modal-edit-record .col-vehicle select').val();
+        $.ajax({
+            type:'get',
+            url:'/servicios/vehiculo/{id?}',
+            data:{
+                _token:'{{csrf_token()}}',
+                id: vehicle
+            }
+        }).done(function(data) {
+            if(data.length > 0) {
+                $('#modal-edit-record .col-vehicle #plate-vehicle-edit').val(data[0].license_plate);
+                $('#modal-edit-record .col-vehicle #color-vehicle-edit').val(data[0].color);
+                $('#modal-edit-record .col-vehicle #cylinder-vehicle-edit').val(data[0].cylinder_capacity);
+                $('#modal-edit-record .col-vehicle #model-vehicle-edit').val(data[0].model);
+                $('#modal-edit-record .col-vehicle #reference-vehicle-edit').val(data[0].vehicle_reference);
+                $('#modal-edit-record .col-vehicle #brand-vehicle-edit').val(data[0].brand);
+            }else{
+                $('#modal-edit-record .col-vehicle #plate-vehicle-edit').val("");
+                $('#modal-edit-record .col-vehicle #color-vehicle-edit').val("");
+                $('#modal-edit-record .col-vehicle #cylinder-vehicle-edit').val("");
+                $('#modal-edit-record .col-vehicle #model-vehicle-edit').val("");
+                $('#modal-edit-record .col-vehicle #reference-vehicle-edit').val("");
+                $('#modal-edit-record .col-vehicle #brand-vehicle-edit').val("");
             }
         });
     });
@@ -654,8 +706,6 @@
         $('#modal-add-record .col-products-used table tbody td input[type=checkbox]').parents('tr').each(function (){
             var id_used = $(this)[0].children[0].children[0].id;
             var value_used = $(this)[0].children[2].children[0].value;
-            //console.log("ID: "+id_used+" ; Update: "+value_used);
-            console.log(value_used);
 
             var product_update = $('#modal-add-record .col-inventory table tbody td input[id="'+id_used+'"]').parents('tr')[0].children[2].children[0];
             //var total = parseInt(product_update.max) + parseInt(value_used);
@@ -678,11 +728,11 @@
      * Funcion que valida el formulario y lo envia al controlador
      */
     function valitateRecordAdd(){
-        var customer = $('.col-customer select').val();
-        var vehicle = $('.col-vehicle select').val();
-        var employee = $('.col-employee select').val();
-        var entry_date = $('.col-date #entry_date').val();
-        var mileage = $('.col-services #mileage-vehicle-add').val();
+        var customer = $('#modal-add-record .col-customer select').val();
+        var vehicle = $('#modal-add-record .col-vehicle select').val();
+        var employee = $('#modal-add-record .col-employee select').val();
+        var entry_date = $('#modal-add-record .col-date #entry_date').val();
+        var mileage = $('#modal-add-record .col-services #mileage-vehicle-add').val();
 
         if(customer !== "" && vehicle !== "" && employee !== "" && entry_date !== "" && mileage !== ""){
             //Productos que se encuentran en la tabla de repuestos utilizados
@@ -939,5 +989,38 @@
             });
         });
     }
+
+    function remove_record(){
+        var selected = Array();
+        document.querySelectorAll('input[type="checkbox"]:checked').forEach(element =>
+            selected.push(element.closest('tr').children[1].innerHTML));
+        console.log(selected);
+        if(selected.length >= 1){
+            $.ajax({
+                type:'delete',
+                url:'/servicios',
+                data:{
+                    _token:'{{csrf_token()}}',
+                    selected: selected
+                }
+            }).done(function(data) {
+                if(data==1){
+                    Swal.fire(
+                        'Se completo la operación con éxito',
+                        'Se eliminaron los registros seleccionados',
+                        'success',
+                    );
+                    location.reload();
+                }
+            });
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Ocurrió un error!',
+                text: 'Debes de seleccionar al menos un elemento'
+            });
+        }
+    }
+
 </script>
 @endsection
