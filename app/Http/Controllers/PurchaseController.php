@@ -6,32 +6,38 @@ use App\Models\Product;
 use App\Models\Product_order;
 use App\Models\Provider;
 use App\Models\Purchase;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\View\View;
 
+/**
+ * Class PurchaseController
+ * @package App\Http\Controllers
+ */
 class PurchaseController extends Controller
 {
     /**
      * Funcion que se encarga de registrar una nueva compra
      * con la compra se cran los productos incluidos
+     * El formato de fecha obtenido es aaaa-mm-dd
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function create_purchase(Request $request)
     {
-        //1 registrar la compra
-        //2 crear el produto
-        //crear la orden de compra y asociar
-
-        //formato fecha aaa-mm-dd
         //informacion recibida sin incluir los productos
         $dat = $request->get('dat');
         //informacion recibidad de los producto
         $productData = $request->get('product');
 
+        //existencia de la compra y el proveedor
         $exist_purchase = Purchase::where('cod', '=', $dat['cod'])->get();
         $exist_provider = Provider::where('id', '=', $dat['provider'])->get();
+
         //verificar que no exista la compra
         if (isset($exist_purchase) &&  $exist_purchase->count() == 0) {
             //verificar que exista el proveedor
@@ -47,56 +53,22 @@ class PurchaseController extends Controller
                 $purchase->save();
                 //crear el producto
 
-                //variable que permite conocer que dato del producto se obtiene
-                //1= nombre del producto
-                //2= costo unitario de compra del producto
-                //3= cantidad de producto
-                $auxProducto = 1;
-                $countProduct = 1;
-                $product = new Product();
-                //costo del producto
-                $productCost = 0;
+                //lista de model de productos recibidos y sus costos
+                $productos = $this::obtenerProductos($productData, $purchase->cod);
 
-                foreach ($productData as $key => $value) {
-                    if ($auxProducto == 1) {
-                        echo "haciendo registro del  producto";
-                        //codigo genara para asiganar al producto
+                for ($i = 1; $i <= count($productos); $i++){
+                    //guardar los productos
+                    $product = $productos[$i]['modelo'];
+                    $product->save();
 
-                        $codProduct = $this->obtenerIdProducto($purchase->cod, $countProduct);
-                        //crear instancia de producto
-                        $product = new Product();
-                        $product->code = $codProduct;
-                        $product->name = $value;
-                        //incremento de aux
-                        $auxProducto += 1;
-                        //incremento de contador
-                        $countProduct += 1;
-                    } elseif ($auxProducto == 2) {
-                        //obtener costo
-                        $productCost = $value;
-                        //aumentar auxiliar
-                        $auxProducto += 1;
-                    } elseif ($auxProducto == 3) {
-                        //almacenar cantidad
-                        $product->units_available = $value;
-                        //establecer valor unitario en cero
-                        $product->sale_price = 0;
-                        //guardar
-                        $product->save();
-                        //crear y guardar pedido de producto
-
-                        //orden
-                        $product_order = new Product_order();
-                        $product_order->purchase_id = $purchase->id;
-                        $product_order->quantity = $product->units_available;
-                        $product_order->product_id = $product->id;
-                        $product_order->cost = ($product->units_available * $productCost);
-                        //almacenar orden
-                        $product_order->save();
-
-                        //restablear aux
-                        $auxProducto = 1;
-                    }
+                    //crear las ordenes
+                    $product_order = new Product_order();
+                    $product_order->purchase_id = $purchase->id;
+                    $product_order->quantity = $product->units_available;
+                    $product_order->product_id = $product->id;
+                    $product_order->cost = ($product->units_available * $productos[$i]['costo']);
+                    //almacenar la orden
+                    $product_order->save();
                 }
                 $request->session()->flash('check_msg', 'La compra se registro con éxito');
             } else {
@@ -110,15 +82,67 @@ class PurchaseController extends Controller
 
 
     /**
-     * metodo que permite obtener un identificador para un producto a partir de un codigo de compra
+     * funcion que permite obtener los medelos de cada uno de los productos recibidos
+     * @param $productos - lista de productos recibidos
+     * @param $codPurchase - id de la compra
+     * @return array - array que contiene el model de producto y el costo del mismo
+     */
+    public function obtenerProductos($productos, $codPurchase){
+
+        $productModel = array();
+        //obteniedo la informacion de cada producto
+        //instancia de un producto
+        $product = new Product();
+        //costo
+        $productCost = 0;
+        //posicion que representa el data de cada producto
+        $posicion_data_producto = 0;
+        $cont = 1;
+
+        foreach ($productos as $value){
+            if ($posicion_data_producto == 0){ //nombre producto
+
+                $codProduct = $this->obtenerIdProducto($codPurchase, $cont);
+                //crear instancia de producto
+                $product = new Product();
+                $product->code = $codProduct;
+                $product->name = $value; //nombre del producto
+
+                $posicion_data_producto++;
+            }
+            elseif ($posicion_data_producto == 1){ // costo producto
+                //obtener costo
+                $productCost = $value;
+
+                $posicion_data_producto++;
+            }
+            elseif ($posicion_data_producto == 2){ //cantidad
+                //almacenar cantidad
+                $product->units_available = $value;
+                //establecer valor unitario en cero
+                $product->sale_price = 0;
+
+                $productModel[$cont] = array(
+                    'modelo' => $product,
+                    'costo' => $productCost
+                );
+
+                $posicion_data_producto=0;
+                $cont++;
+            }
+        }
+        return $productModel;
+    }
+
+    /**
+     * funcion que permite obtener un identificador para un producto a partir de un codigo de compra
      *
-     *@param string $purchaseCod codigo de compra
-     *@param integer $productCod numero de producto
-     *@return string codigo de producto asignado
+     * @param $pruchaseCod - codigo de la compra
+     * @param $productCount - contador de compras
+     * @return string codigo de producto asignado
      */
     public function obtenerIdProducto($pruchaseCod, $productCount)
     {
-
         do {
             $codProduct = $pruchaseCod . "-" . strval($productCount);
             $exist_product = Product::where('code', '=', strval($codProduct))->get();
@@ -133,8 +157,7 @@ class PurchaseController extends Controller
      * Función que busca una compra a partir de una palabra
      *
      * @param Request $request
-     * @param $word
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function show_view_purchase(Request $request)
     {
@@ -151,7 +174,6 @@ class PurchaseController extends Controller
                 ->orWhere('purchases.concept','like','%'.$word.'%')
                 ->orWhere('providers.name','like','%'.$word.'%')
                 ->get();
-//            dd($purchase);
         } else {
             //datos de todos las compras
             $purchase['purchase'] = DB::table('purchases')
@@ -169,87 +191,67 @@ class PurchaseController extends Controller
 
     /**
      * Función que obtiene una compra por su identificador
-     * @param $cc
-     * @return array
+     * @param $id - id de la compra
+     * @return Collection
      */
     public function get_purchase($id){
-        $purchase = DB::table('purchases')
-            ->join('providers', 'providers.id', '=', 'purchases.provider_id')
-            ->select('purchases.*', 'providers.name as provider_name')
-            ->where('purchases.id','=', $id)
-            ->get();
-        // $customer = Customer::where('id','=',id)->first();
-        // $phone = Customer_phone::where('customer_id','=',$customer->id)->first();
-        // $result = [$customer, $phone];
 
-        return $purchase;
+        return DB::table('purchases')
+            ->join('providers', 'providers.id', '=', 'purchases.provider_id')
+            ->join('product_orders', 'purchase_id', '=', 'purchases.id')
+            ->join('products', 'products.id', '=', 'product_orders.product_id')
+            ->where('purchases.id','=', $id)
+            ->select('purchases.id', 'purchases.cod', 'purchases.provider_id', 'purchases.cost', 'purchases.status', 'purchases.concept', 'purchases.date',
+                'providers.name as provider_name', 'product_orders.product_id','product_orders.quantity','product_orders.cost as all_product_cost',
+                'products.name as product_name')
+            ->get();
+
     }
 
     /**
      * Función que edita un cliente
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function edit_purchase(Request $request){
-        // $dat = $request->get('dat');
+         $dat = $request->get('dat');
 
-        // $customer = DB::table('customers')
-        //     ->join('customer_phones','customers.id','=','customer_phones.customer_id')
-        //     ->where('customers.id','=',$dat['id'])
-        //     ->get()->first();
+         $purchase = DB::table('purchases')
+             ->where('purchases.id','=',$dat['id'])
+             ->get()->first();
 
-        // $exist_customer = Customer::where('identification_card','=',$dat['cc'])->get();
-        // $exist_phone = Customer_phone::where('number','=',$dat['phone'])->get();
-        // $exist_mail = Customer::where('mail','=',$dat['mail'])->get();
+         $exist_purchase = Purchase::where('cod','=',$dat['cod'])->get();
+         $exist_provider = Provider::where('id', '=',$dat['provider'])->get();
 
-        // $flag_cc = true;
+         $flag_cod = true;
 
-        // //Verifica si la cédula ya se encuentra registrada
-        // if($exist_customer->count() == 1) {
-        //     if($exist_customer[0]->id != $customer->id){
-        //         $flag_cc=false;
-        //         $request->session()->flash('fail_msg','Ya existe un cliente con esta cédula');
-        //     }
-        // }
+         //Verifica si el codigo se encuentra registrado
+         if($exist_purchase->count() == 1 && ($exist_purchase[0]->id != $purchase->id)) {
+             $flag_cod=false;
+             $request->session()->flash('fail_msg','Ya existe una compra con este código');
+         }
 
-        // $flag_phone = true;
-        // // Verifica si el telefono ingresado ya se encuentra registrado
-        // if($exist_customer->count() >= 1){
-        //     foreach ($exist_phone as $aux){
-        //         if($aux->customer_id != $customer->id){
-        //             $flag_phone=false;
-        //             $request->session()->flash('fail_msg','Un cliente ya tiene este número de teléfono');
-        //         }
-        //     }
+         $flag_provider = true;
+         if ($exist_provider->count() != 1){
+             $flag_provider = false;
+             $request->session()->flash('fail_msg', 'El proveedor al cual está intentado asignar la compra no existe');
+         }
 
-        // }
+         if($flag_cod && $flag_provider){
+             $exist_purchase = Purchase::find($dat['id']);
 
-        // $flag_mail=true;
-        // //Verifica si el mail ingresado ya se encuentra registrado
-        // if($exist_mail->count() == 1){
-        //     if($exist_mail[0]->id != $customer->id){
-        //         $flag_mail=false;
-        //         $request->session()->flash('fail_msg','Un cliente ya tiene este correo electrónico');
+             $exist_purchase->provider_id = $dat['provider'];
+             $exist_purchase->date = $dat['date'];
+             $exist_purchase->cod = $dat['cod'];
+             $exist_purchase->cost = $dat['cost'];
+             $exist_purchase->status = $dat['status'];
+             $exist_purchase->concept = $dat['concept'];
 
-        //     }
-        // }
+             $exist_purchase->save();
 
-        // if($flag_cc && $flag_phone && $flag_mail){
-        //     $exist_customer = Customer::find($dat['id']);
-        //     $exist_customer->identification_card = $dat['cc'];
-        //     $exist_customer->name = $dat['name'];
-        //     $exist_customer->last_name = $dat['last_name'];
-        //     $exist_customer->address = $dat['address'];
-        //     $exist_customer->mail = $dat['mail'];
-        //     $exist_customer->save();
-
-        //     $exist_phone = Customer_phone::where('customer_id','=',$dat['id'])->first();
-        //     $exist_phone->number = $dat['phone'];
-        //     $exist_phone->save();
-        //     $request->session()->flash('check_msg','Se actualizaron los datos del cliente con éxito');
-        // }
-        return redirect()->route('view_customer');
-
+             $request->session()->flash('check_msg','Se actualizaron los datos de la compra con éxito');
+         }
+        return redirect()->route('view_purchase');
     }
 
     /**

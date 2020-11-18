@@ -357,12 +357,12 @@ function show_edit_purchase() {
             //console.log(data);
 
             document.getElementById('id-purchase-edit').value=data[0].id;
-            document.getElementById('cod-edit-purchase').value=data[0].cod;
-            document.getElementById('date-edit-purchase').value=data[0].date;
-            document.getElementById('costU-edit-purchase').value=data[0].cost;
-            document.getElementById('concept-edit-purchase').value=data[0].concept;
-            document.getElementById('status-edit-purchase').value=data[0].status;
-            document.getElementById('provider-edit-purchase').value = data[0].provider_id;
+            document.getElementById('cod-purchase-edit').value=data[0].cod;
+            document.getElementById('date-purchase-edit').value=data[0].date;
+            document.getElementById('costU-purchase-edit').value=data[0].cost;
+            document.getElementById('concept-purchase-edit').value=data[0].concept;
+            document.getElementById('status-purchase-edit').value=data[0].status;
+            document.getElementById('provider-purchase-edit').value = data[0].provider_id;
             // document.getElementById('phone-customer-edit').value=data[1].number;
         });
         //Mostrar modal para editar
@@ -461,7 +461,7 @@ function deleteProductPurchase(numberProduct) {
  */
 function validateFormProductPurchase(num,modal) {
     //hijos dentro del contenedor div
-    var products = $("#row-products-"+modal).children();
+    var products = $("#row-products"+modal).children();
     var length = (products.length - num);
     //console.log(length);
     for (i = 0; i < products.length; i++) {
@@ -505,58 +505,62 @@ function validateFormProductPurchase(num,modal) {
  * @param modal - modal al cual se le hara la verificación, add para el modal de agregar compra o edit para el modal de editar compra
  */
 function validateFormPurchase(modal) {
-    var cod = $('#cod-purchase').val();
-    var date = $('#date-purchase').val();
-    var cost = $('#costU-purchase').val();
-    var concept = $('#concept-purchase').val();
-    var status = $('#status-purchase').val();
-    var provider = $('#provider-purchase').val();
+    var cod = $('#cod-purchase'+modal).val();
+    var date = $('#date-purchase'+modal).val();
+    var cost = $('#costU-purchase'+modal).val();
+    var concept = $('#concept-purchase'+modal).val();
+    var status = $('#status-purchase'+modal).val();
+    var provider = $('#provider-purchase'+modal).val();
 
     if (cod !== "" && date !== "" && cost !== "" && concept !== "" && status !== "-1" && provider !== "-1") {
         //console.log(cod, date, cost, concept, status, provider);
-        var products = $("#row-products-"+modal).children();
+        var products = $("#row-products"+modal).children();
         var count = products.length;
         //console.log(count + " - numero de productos")
-        if (count === 1 & validateFormProductPurchase(0,modal)) {
+        if (modal == '-edit'){
+            $('#modal-edit-purchase #form-edit-purchase').submit();
+        }else {
+            if (count === 1 & validateFormProductPurchase(0, modal)) {
 
-            $('#modal-add-purchase #form-add-purchase').submit();
+                $('#modal-add-purchase #form-add-purchase').submit();
 
-        } else if (count !== 1 && validateFormProductPurchase(1,modal)) {
-            $(products[count - 1]).detach();
-            $('#modal-add-purchase #form-add-purchase').submit();
+            } else if (count !== 1 && validateFormProductPurchase(1, modal)) {
+                $(products[count - 1]).detach();
+                $('#modal-add-purchase #form-add-purchase').submit();
+            }
         }
     }
     if (cod === "") {
-        $('.msg-error-cod').css('display', 'block');
+        $('.msg-error-cod'+modal).css('display', 'block');
     } else {
-        $('.msg-error-cod').css('display', 'none');
+        $('.msg-error-cod'+modal).css('display', 'none');
     }
     if (date === "") {
-        $('.msg-error-date').css('display', 'block');
+        $('.msg-error-date'+modal).css('display', 'block');
     } else {
-        $('.msg-error-date').css('display', 'none');
+        $('.msg-error-date'+modal).css('display', 'none');
     }
     if (cost === "") {
-        $('.msg-error-cost').css('display', 'block');
+        $('.msg-error-cost'+modal).css('display', 'block');
 
     } else {
-        $('.msg-error-cost').css('display', 'none');
+        $('.msg-error-cost'+modal).css('display', 'none');
     }
     if (concept === "") {
-        $('.msg-error-concept').css('display', 'block');
+        $('.msg-error-concept'+modal).css('display', 'block');
     } else {
-        $('.msg-error-concept').css('display', 'none');
+        $('.msg-error-concept'+modal).css('display', 'none');
     }
 
     if (status === "-1") {
-        $('.msg-error-status').css('display', 'block');
+        $('.msg-error-status'+modal).css('display', 'block');
     } else {
-        $('.msg-error-status').css('display', 'none');
+        $('.msg-error-status'+modal).css('display', 'none');
     }
     if (provider === "-1") {
-        $('.msg-error-provider').css('display', 'block');
+        $('.msg-error-provider'+modal).css('display', 'block');
     } else {
-        $('.msg-error-provider').css('display', 'none');
+        $('.msg-error-provider'+modal).css('display', 'none');
     }
 
 }

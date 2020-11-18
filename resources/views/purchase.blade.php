@@ -120,7 +120,7 @@
                         <div class="row"><b><label for="name-product-purchase1">Productos</label></b>
                         </div>
 
-                        <div class="row-products" id="row-products-add">
+                        <div class="row-products" id="row-products">
                             <!-- esto es lo que se repite -->
                             <div class="row-product" id="product1">
                                 <div class="row">
@@ -147,9 +147,9 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn-clear" onclick="clearField()">Limpiar</button>
+                    <button class="btn-clear" onclick="clearFieldPurchase()">Limpiar</button>
                     <a class="btn-cancel" data-dismiss="modal" aria-label="Close">Cancelar</a>
-                    <button class="btn-add-purchase" onclick="validateFormPurchase('add')">Agregar</button>
+                    <button class="btn-add-purchase" onclick="validateFormPurchase('')">Agregar</button>
                 </div>
             </div>
         </div>
@@ -171,33 +171,33 @@
                         @csrf
                         <div class="row">
                             <label for="id-purchase-edit">ID</label>
-                            <input name="dat[id]" id="id-purchase-edit" type="text" placeholder="ID" readonly>
+                            <input name="dat[id]" id="id-purchase-edit" type="text" placeholder="ID" class="readonly" readonly>
                         </div>
                         <div class="row">
-                            <label for="cod-edit-purchase">Código</label>
-                            <input name="dat[cod]" id="cod-edit-purchase" type="text" placeholder="Código de compra">
+                            <label for="cod-purchase-edit">Código</label>
+                            <input name="dat[cod]" id="cod-purchase-edit" type="text" placeholder="Código de compra">
                             <span class="msg-error-cod-edit">Ingrese el código del producto</span>
                         </div>
 
                         <div class="row">
-                            <label for="date-edit-purchase">Fecha</label>
-                            <input name="dat[date]" id="date-edit-purchase" type="date" placeholder="dd/mm/aaaa" required pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}">
+                            <label for="date-purchase-edit">Fecha</label>
+                            <input name="dat[date]" id="date-purchase-edit" type="date" placeholder="dd/mm/aaaa" required pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}">
                             <span class="msg-error-date-edit">Ingrese una fecha</span>
                         </div>
 
                         <div class="row">
-                            <label for="costU-edit-purchase">Valor de compra</label>
-                            <input name="dat[cost]" id="costU-edit-purchase" type="number" placeholder="Valor de la compra" min='0'>
+                            <label for="costU-purchase-edit">Valor de compra</label>
+                            <input name="dat[cost]" id="costU-purchase-edit" type="number" placeholder="Valor de la compra" min='0'>
                             <span class="msg-error-cost-edit">Ingrese el valor de la compra</span>
                         </div>
                         <div class="row">
-                            <label for="concept-edit-purchase">Descripción</label>
-                            <textarea name="dat[concept]" id="concept-edit-purchase" placeholder="Descripción o motivo de la compra" rows="3"></textarea>
+                            <label for="concept-purchase-edit">Descripción</label>
+                            <textarea name="dat[concept]" id="concept-purchase-edit" placeholder="Descripción o motivo de la compra" rows="3"></textarea>
                             <span class="msg-error-concept-edit">Ingrese el concepto de la compra</span>
                         </div>
                         <div class="row">
-                            <label for="status-edit-purchase">Estado</label>
-                            <select class="form-control" id="status-edit-purchase" name="dat[status]">
+                            <label for="status-purchase-edit">Estado</label>
+                            <select class="form-control" id="status-purchase-edit" name="dat[status]">
                                 <option value="-1" selected>Seleccione un estado</option>
                                 <option value="Pago">Pago</option>
                                 <option value="NoPago">Pendiente de pago</option>
@@ -205,46 +205,25 @@
                             <span class="msg-error-status-edit">Seleccione un estado</span>
                         </div>
                         <div class="row">
-                            <label for="provider-edit-purchase">Proveedor</label>
-                            <select class="form-control" id="provider-edit-purchase" name="dat[provider]">
+                            <label for="provider-purchase-edit">Proveedor</label>
+                            <select class="form-control" id="provider-purchase-edit" name="dat[provider]">
                                 <option value="-1" selected>Seleccione un proveedor</option>
                             </select>
                             <span class="msg-error-provider-edit">Seleccione un proveedor</span>
 
                         </div>
-                        <div class="row"><b><label for="name-product-edit-purchase1">Productos</label></b>
+                        <div class="row"><b><label >Productos</label></b>
                         </div>
 
                         <div class="row-products" id="row-products-edit">
-                            <!-- esto es lo que se repite -->
-                            <div class="row-product" id="product1">
-                                <div class="row">
-                                    <label for="name-product-edit-purchase1">Nombre producto</label>
-                                    <input name="product[nameProduct1]" id="name-product-edit-purchase1" type="text" placeholder="Nombre del producto">
-                                    <span class="msg-error-name-product-edit" id='msg-error-name-edit-product1'>Ingrese el nombre del producto</span>
-                                </div>
-                                <div class="row">
-                                    <label for="costU-product-edit-purchase1">Valor de costo unidad</label>
-                                    <input name="product[costProduct1]" id="costU-product-edit-purchase1" type="number" placeholder="Valor de costo unitario del producto" min='0'>
-                                    <span class="msg-error-cost-product-edit" id="msg-error-cost-edit-product1">Ingrese el valor de costo unidad del producto</span>
-                                </div>
-                                <div class="row">
-                                    <label for="amount-product-edit-purchase1">Cantidad</label>
-                                    <input name="product[amountProduct1]" id="amount-product-edit-purchase1" type="number" placeholder="Cantidad producto disponible" min='1'>
-                                    <span class="msg-error-amount-product-edit" id="msg-error-amount-edit-product1">Ingrese la cantidad de producto</span>
-                                </div>
-                                <div class="modal-footer">
-                                    <i class="fas fa-plus-circle fa-2x" onclick="addProductPurchase('edit')" id='product-add1'></i>
-                                    <i class="fas fa-minus-circle fa-2x" id='product-del1' onclick="deleteProductPurchase(1)"></i>
-                                </div>
-                            </div>
+                            <p>Está información podrá ser editada en la sección de productos</p>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn-clear" onclick="clearField()">Limpiar</button>
+                    <button class="btn-clear" onclick="clearFieldPurchase()">Limpiar</button>
                     <a class="btn-cancel" data-dismiss="modal" aria-label="Close">Cancelar</a>
-                    <button class="btn-add-purchase" onclick="validateFormPurchase('edit')">Actualizar</button>
+                    <button class="btn-add-purchase" onclick="validateFormPurchase('-edit')">Actualizar</button>
                 </div>
             </div>
         </div>
@@ -293,7 +272,7 @@
      * Función que limpia todos los campos disponibles en las compras
      **/
     function clearFieldPurchase() {
-        document.querySelectorAll('#modal-edit-purchase input, #modal-add-purchase input').forEach(function (element) {
+        document.querySelectorAll('#modal-edit-purchase input, #modal-add-purchase input, #modal-edit-purchase textarea, #modal-add-purchase textarea').forEach(function (element) {
             element.value="";
         });
     }
@@ -323,7 +302,7 @@
             text: element.name,
             value: element.id,
         }));
-        $('#provider-edit-purchase').append($('<option />', {
+        $('#provider-purchase-edit').append($('<option />', {
             text: element.name,
             value: element.id,
         }));
