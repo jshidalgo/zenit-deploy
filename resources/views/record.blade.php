@@ -519,7 +519,7 @@
      * Dependiendo del que haya sido seleccionado en el select
      */
     $('#modal-add-record .col-customer select').change(function () {
-        var customer = $('.col-customer select').val();
+        var customer = $('#modal-add-record .col-customer select').val();
         $.ajax({
             type:'get',
             url:'/servicios/cliente/{id?}',
@@ -542,12 +542,36 @@
         });
     });
 
+    $('#modal-edit-record .col-customer select').change(function () {
+        var customer = $('#modal-edit-record .col-customer select').val();
+        $.ajax({
+            type:'get',
+            url:'/servicios/cliente/{id?}',
+            data:{
+                _token:'{{csrf_token()}}',
+                id: customer
+            }
+        }).done(function(data) {
+            if(data !== "") {
+                $('#modal-edit-record .col-customer #name-customer-edit').val(data.name);
+                $('#modal-edit-record .col-customer #last-name-customer-edit').val(data.last_name);
+                $('#modal-edit-record .col-customer #address-customer-edit').val(data.address);
+                $('#modal-edit-record .col-customer #mail-customer-edit').val(data.mail);
+            }else{
+                $('#modal-edit-record .col-customer #name-customer-edit').val("");
+                $('#modal-edit-record .col-customer #last-name-customer-edit').val("");
+                $('#modal-edit-record .col-customer #address-customer-edit').val("");
+                $('#modal-edit-record .col-customer #mail-customer-edit').val("");
+            }
+        });
+    });
+
     /**
      * Funcion que se encarga de cargar los campos del vehiculo
      * Dependiendo del que haya sido seleccionado en el select
      */
     $('#modal-add-record .col-vehicle select').change(function () {
-        var vehicle = $('.col-vehicle select').val();
+        var vehicle = $('#modal-add-record .col-vehicle select').val();
         $.ajax({
             type:'get',
             url:'/servicios/vehiculo/{id?}',
@@ -557,19 +581,47 @@
             }
         }).done(function(data) {
             if(data.length > 0) {
-                $('.col-vehicle #plate-vehicle-add').val(data[0].license_plate);
-                $('.col-vehicle #color-vehicle-add').val(data[0].color);
-                $('.col-vehicle #cylinder-vehicle-add').val(data[0].cylinder_capacity);
-                $('.col-vehicle #model-vehicle-add').val(data[0].model);
-                $('.col-vehicle #reference-vehicle-add').val(data[0].vehicle_reference);
-                $('.col-vehicle #brand-vehicle-add').val(data[0].brand);
+                $('#modal-add-record .col-vehicle #plate-vehicle-add').val(data[0].license_plate);
+                $('#modal-add-record .col-vehicle #color-vehicle-add').val(data[0].color);
+                $('#modal-add-record .col-vehicle #cylinder-vehicle-add').val(data[0].cylinder_capacity);
+                $('#modal-add-record .col-vehicle #model-vehicle-add').val(data[0].model);
+                $('#modal-add-record .col-vehicle #reference-vehicle-add').val(data[0].vehicle_reference);
+                $('#modal-add-record .col-vehicle #brand-vehicle-add').val(data[0].brand);
             }else{
-                $('.col-vehicle #plate-vehicle-add').val("");
-                $('.col-vehicle #color-vehicle-add').val("");
-                $('.col-vehicle #cylinder-vehicle-add').val("");
-                $('.col-vehicle #model-vehicle-add').val("");
-                $('.col-vehicle #reference-vehicle-add').val("");
-                $('.col-vehicle #brand-vehicle-add').val("");
+                $('#modal-add-record .col-vehicle #plate-vehicle-add').val("");
+                $('#modal-add-record .col-vehicle #color-vehicle-add').val("");
+                $('#modal-add-record .col-vehicle #cylinder-vehicle-add').val("");
+                $('#modal-add-record .col-vehicle #model-vehicle-add').val("");
+                $('#modal-add-record .col-vehicle #reference-vehicle-add').val("");
+                $('#modal-add-record .col-vehicle #brand-vehicle-add').val("");
+            }
+        });
+    });
+
+    $('#modal-edit-record .col-vehicle select').change(function () {
+        var vehicle = $('#modal-edit-record .col-vehicle select').val();
+        $.ajax({
+            type:'get',
+            url:'/servicios/vehiculo/{id?}',
+            data:{
+                _token:'{{csrf_token()}}',
+                id: vehicle
+            }
+        }).done(function(data) {
+            if(data.length > 0) {
+                $('#modal-edit-record .col-vehicle #plate-vehicle-edit').val(data[0].license_plate);
+                $('#modal-edit-record .col-vehicle #color-vehicle-edit').val(data[0].color);
+                $('#modal-edit-record .col-vehicle #cylinder-vehicle-edit').val(data[0].cylinder_capacity);
+                $('#modal-edit-record .col-vehicle #model-vehicle-edit').val(data[0].model);
+                $('#modal-edit-record .col-vehicle #reference-vehicle-edit').val(data[0].vehicle_reference);
+                $('#modal-edit-record .col-vehicle #brand-vehicle-edit').val(data[0].brand);
+            }else{
+                $('#modal-edit-record .col-vehicle #plate-vehicle-edit').val("");
+                $('#modal-edit-record .col-vehicle #color-vehicle-edit').val("");
+                $('#modal-edit-record .col-vehicle #cylinder-vehicle-edit').val("");
+                $('#modal-edit-record .col-vehicle #model-vehicle-edit').val("");
+                $('#modal-edit-record .col-vehicle #reference-vehicle-edit').val("");
+                $('#modal-edit-record .col-vehicle #brand-vehicle-edit').val("");
             }
         });
     });
