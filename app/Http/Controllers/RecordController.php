@@ -148,7 +148,7 @@ class RecordController extends Controller
             $labor->service_id = $service->id;
             $labor->save();
         }
-
+        $request->session()->flash('check_msg','El registro se ha completado con éxito');
         return redirect()->route('view_record');
     }
 
@@ -322,8 +322,33 @@ class RecordController extends Controller
                 $labor->save();
             }
         }
-
-
         return redirect()->route('view_record');
     }
+
+    /**
+     * Función que elimina un registro dado su ID
+     * @param Request $request
+     * @return int
+     */
+    function delete_record(Request $request){
+        if(sizeof($request->selected)>0){
+            foreach ($request->selected as $aux){
+                $record = Record::find($aux);
+                if(!empty($record)){
+                    $labors = Labor::where('labors.record_id','=',$record->id)->get();
+                    foreach ($labors as $labor){
+                        $labor->delete();
+                    }
+                    $spares = Spare::where('spares.record_id','=',$record->id)->get();
+                    foreach ($spares as $spare){
+                        $spare->delete();
+                    }
+                    $record->delete();
+                }
+            }
+            return 1;
+        }
+        return 0;
+    }
+
 }

@@ -13,7 +13,7 @@
 
         <div id="actions-buttons">
             <button type="button" onclick="show_edit_record()"><i class="far fa-edit"></i></button>
-            <button onclick="remove_recod()"><i class="fas fa-trash-alt"></i></button>
+            <button onclick="remove_record()"><i class="fas fa-trash-alt"></i></button>
             <button type="button" data-toggle="modal" data-target="#modal-add-record"><i class="fas fa-plus"></i></button>
         </div>
     </div>
@@ -455,7 +455,7 @@
                                     <input id="cost-service" name="dat[cost-service]" type="number" min="0" value="0">
                                 </div>
                                 <div class="col-2">
-                                    <button id="btn-add-service" type="button" onclick="addServiceRecord(`modal-edit-record`,`edit`)">Agregar</button>
+                                    <button id="btn-add-service" type="button" onclick="addServiceRecord(`modal-edit-record`,`edit`)">Editar</button>
                                     <button id="btn-edit-service" type="button" onclick="editServiceRecord(`modal-edit-record`,`edit`)">Editar</button>
                                 </div>
                                 <div class="col-12">
@@ -706,8 +706,6 @@
         $('#modal-add-record .col-products-used table tbody td input[type=checkbox]').parents('tr').each(function (){
             var id_used = $(this)[0].children[0].children[0].id;
             var value_used = $(this)[0].children[2].children[0].value;
-            //console.log("ID: "+id_used+" ; Update: "+value_used);
-            console.log(value_used);
 
             var product_update = $('#modal-add-record .col-inventory table tbody td input[id="'+id_used+'"]').parents('tr')[0].children[2].children[0];
             //var total = parseInt(product_update.max) + parseInt(value_used);
@@ -730,11 +728,11 @@
      * Funcion que valida el formulario y lo envia al controlador
      */
     function valitateRecordAdd(){
-        var customer = $('.col-customer select').val();
-        var vehicle = $('.col-vehicle select').val();
-        var employee = $('.col-employee select').val();
-        var entry_date = $('.col-date #entry_date').val();
-        var mileage = $('.col-services #mileage-vehicle-add').val();
+        var customer = $('#modal-add-record .col-customer select').val();
+        var vehicle = $('#modal-add-record .col-vehicle select').val();
+        var employee = $('#modal-add-record .col-employee select').val();
+        var entry_date = $('#modal-add-record .col-date #entry_date').val();
+        var mileage = $('#modal-add-record .col-services #mileage-vehicle-add').val();
 
         if(customer !== "" && vehicle !== "" && employee !== "" && entry_date !== "" && mileage !== ""){
             //Productos que se encuentran en la tabla de repuestos utilizados
@@ -991,5 +989,38 @@
             });
         });
     }
+
+    function remove_record(){
+        var selected = Array();
+        document.querySelectorAll('input[type="checkbox"]:checked').forEach(element =>
+            selected.push(element.closest('tr').children[1].innerHTML));
+        console.log(selected);
+        if(selected.length >= 1){
+            $.ajax({
+                type:'delete',
+                url:'/servicios',
+                data:{
+                    _token:'{{csrf_token()}}',
+                    selected: selected
+                }
+            }).done(function(data) {
+                if(data==1){
+                    Swal.fire(
+                        'Se completo la operación con éxito',
+                        'Se eliminaron los registros seleccionados',
+                        'success',
+                    );
+                    location.reload();
+                }
+            });
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Ocurrió un error!',
+                text: 'Debes de seleccionar al menos un elemento'
+            });
+        }
+    }
+
 </script>
 @endsection
