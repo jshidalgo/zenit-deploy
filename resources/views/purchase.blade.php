@@ -139,7 +139,7 @@
                                     <span class="msg-error-amount-product" id="msg-error-amount-product1">Ingrese la cantidad de producto</span>
                                 </div>
                                 <div class="modal-footer">
-                                    <i class="fas fa-plus-circle fa-2x" onclick="addProductPurchase('add')" id='product-add1'></i>
+                                    <i class="fas fa-plus-circle fa-2x" onclick="addProductPurchase('')" id='product-add1'></i>
                                     <i class="fas fa-minus-circle fa-2x" id='product-del1' onclick="deleteProductPurchase(1)"></i>
                                 </div>
                             </div>
