@@ -270,7 +270,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn-clear" onclick="clearField()">Limpiar</button>
-                    <a class="btn-cancel">Cancelar</a>
+                    <a class="btn-cancel" data-dismiss="modal" aria-label="Close">Cancelar</a>
                     <button class="btn-add-record" onclick="valitateRecordAdd()">Agregar</button>
                 </div>
             </div>
@@ -483,7 +483,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn-clear" onclick="clearField()">Limpiar</button>
-                    <a class="btn-cancel">Cancelar</a>
+                    <a class="btn-cancel" data-dismiss="modal" aria-label="Close">Cancelar</a>
                     <button class="btn-add-record" onclick="valitateRecordEdit()">Agregar</button>
                 </div>
             </div>
