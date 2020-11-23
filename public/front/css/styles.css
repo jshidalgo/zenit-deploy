@@ -968,6 +968,9 @@ header {
     #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-services .sub-title {
       font-size: 20px;
       margin-bottom: 25px; }
+  #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-vehicles .col-secundary label,
+  #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-vehicles .col-secundary label {
+    display: block; }
   #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-date label,
   #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-date label {
     width: 28%; }
@@ -1041,10 +1044,9 @@ header {
       margin: 0 0 20px 0; }
       #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .row label {
         font-size: 15px;
-        width: 40%; }
+        width: 100%; }
       #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .row input {
-        width: 60%;
-        border-radius: 12px;
+        width: 100%;
         border: solid 1px gray;
         padding-left: 10px; }
       #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .row span {
@@ -1053,6 +1055,16 @@ header {
         color: red;
         margin-left: auto;
         padding: 0 5px; }
+    #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-date input {
+      width: 50% !important; }
+    #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-customer .col-pri {
+      margin-bottom: 15px; }
+    #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-vehicle .col-primary {
+      margin-bottom: 15px; }
+    #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-products {
+      margin-top: 20px; }
+    #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-services-include {
+      margin-top: 40px; }
   #view-record #modal-edit-record .modal-dialog .modal-content .modal-footer .btn-add-record {
     border: 0;
     border-radius: 12px;
