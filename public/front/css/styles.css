@@ -1,1208 +1,264 @@
-header {
-  display: flex; }
-  header #logo-header {
-    margin: auto auto auto 10%; }
-    header #logo-header img {
-      height: 75px;
-      width: 170px;
-      margin-top: 5%; }
-  header #icon-sesion-header {
-    margin: auto 10% auto auto; }
-    header #icon-sesion-header a {
-      cursor: pointer;
-      width: max-content;
-      display: inline-block; }
-      header #icon-sesion-header a img {
-        height: 50px;
-        width: 50px; }
+#view-record{
+    width: 100%;
+    .text-intro{
+        display: flex;
+        h1{
+            font-size: 24px;
+        }
+        span{
+            font-size: 14px;
+            font-style: italic;
+            margin: auto auto auto 5px;
+        }
+    }
+    #actions-bar{
+        display: flex;
+        #search{
+            display: flex;
+            margin: auto auto auto 0;
+            input{
+                border: 1px solid gray;
+            }
+            .btn-search{
+                border: 1px solid gray;
+            }
+        }
 
-#menu-bar {
-  width: max-content;
-  margin-right: 40px; }
-  #menu-bar ul {
-    width: max-content; }
-    #menu-bar ul .nav-item {
-      padding: 1rem 1rem;
-      border-bottom: solid 1px #E1DFDF;
-      font-size: 20px; }
-      #menu-bar ul .nav-item a {
-        color: #808080;
-        display: block; }
-        #menu-bar ul .nav-item a .icon-left {
-          padding-top: 5px;
-          float: left;
-          margin-right: 10px; }
-        #menu-bar ul .nav-item a .icon-right {
-          padding-top: 5px;
-          float: right;
-          margin-left: 10px; }
-    #menu-bar ul .nav-item-first {
-      margin-bottom: 20px;
-      color: #808080;
-      font-size: 20px; }
-      #menu-bar ul .nav-item-first a {
-        display: block;
-        text-align: right; }
+        #actions-buttons{
+            margin: auto 0 auto auto;
+            button{
+                margin: 0 5px;
+                padding: 0;
+                border: 0;
+                .fa-edit{
+                    background: #DED100;
+                    color: white;
+                    padding: 7px;
+                }
+                .fa-trash-alt{
+                    background: #CD3030;
+                    color: white;
+                    padding: 7px;
+                }
+                .fa-plus{
+                    background: #4CBC5B;
+                    color: white;
+                    padding: 7px;
+                }
+            }
 
-#main {
-  margin-top: 2%;
-  display: flex;
-  padding: 0 5%; }
+        }
+    }
 
-#view-employee {
-  width: 100%; }
-  #view-employee .text-intro {
-    display: flex; }
-    #view-employee .text-intro h1 {
-      font-size: 24px; }
-    #view-employee .text-intro span {
-      font-size: 14px;
-      font-style: italic;
-      margin: auto auto auto 5px; }
-  #view-employee #actions-bar {
-    display: flex; }
-    #view-employee #actions-bar #search {
-      display: flex;
-      margin: auto auto auto 0; }
-      #view-employee #actions-bar #search input {
-        border: 1px solid gray; }
-      #view-employee #actions-bar #search .btn-search {
-        border: 1px solid gray; }
-    #view-employee #actions-bar #actions-buttons {
-      margin: auto 0 auto auto; }
-      #view-employee #actions-bar #actions-buttons button {
-        margin: 0 5px;
-        padding: 0;
-        border: 0; }
-        #view-employee #actions-bar #actions-buttons button .fa-edit {
-          background: #DED100;
-          color: white;
-          padding: 7px; }
-        #view-employee #actions-bar #actions-buttons button .fa-trash-alt {
-          background: #CD3030;
-          color: white;
-          padding: 7px; }
-        #view-employee #actions-bar #actions-buttons button .fa-plus {
-          background: #4CBC5B;
-          color: white;
-          padding: 7px; }
-  #view-employee #section-table {
-    margin-top: 40px; }
-    #view-employee #section-table table .col-check {
-      text-align: center; }
-  #view-employee #modal-add-employee .modal-dialog .modal-content .modal-header h2 {
-    font-size: 20px; }
-  #view-employee #modal-add-employee .modal-dialog .modal-content .modal-body {
-    margin: 20px 0;
-    padding: 0 5%; }
-    #view-employee #modal-add-employee .modal-dialog .modal-content .modal-body .row {
-      margin: 0 0 20px 0; }
-      #view-employee #modal-add-employee .modal-dialog .modal-content .modal-body .row label {
-        font-size: 15px;
-        width: 40%; }
-      #view-employee #modal-add-employee .modal-dialog .modal-content .modal-body .row input {
-        width: 60%;
-        border-radius: 12px;
-        border: solid 1px gray;
-        padding-left: 10px; }
-      #view-employee #modal-add-employee .modal-dialog .modal-content .modal-body .row span {
-        display: none;
-        width: 60%;
-        color: red;
-        margin-left: auto;
-        padding: 0 5px; }
-  #view-employee #modal-add-employee .modal-dialog .modal-content .modal-footer .btn-add-employee {
-    border: 0;
-    border-radius: 12px;
-    background: #4CBC5B;
-    padding: 5px 20px;
-    color: white; }
-  #view-employee #modal-add-employee .modal-dialog .modal-content .modal-footer .btn-cancel {
-    background: #CD3030;
-    padding: 5px 20px;
-    color: white;
-    border-radius: 12px;
-    text-decoration: none;
-    cursor: pointer; }
-  #view-employee #modal-add-employee .modal-dialog .modal-content .modal-footer .btn-clear {
-    background: #808080;
-    padding: 5px 20px;
-    color: white;
-    border-radius: 12px;
-    border: 0;
-    margin-right: auto; }
-  #view-employee #modal-edit-employee .modal-dialog .modal-content .modal-header h2 {
-    font-size: 20px; }
-  #view-employee #modal-edit-employee .modal-dialog .modal-content .modal-body {
-    margin: 20px 0;
-    padding: 0 5%; }
-    #view-employee #modal-edit-employee .modal-dialog .modal-content .modal-body .row {
-      margin: 0 0 20px 0; }
-      #view-employee #modal-edit-employee .modal-dialog .modal-content .modal-body .row label {
-        font-size: 15px;
-        width: 40%; }
-      #view-employee #modal-edit-employee .modal-dialog .modal-content .modal-body .row input {
-        width: 60%;
-        border-radius: 12px;
-        border: solid 1px gray;
-        padding-left: 10px; }
-      #view-employee #modal-edit-employee .modal-dialog .modal-content .modal-body .row input.readonly {
-        background-color: #e9ecef;
-        opacity: 1; }
-      #view-employee #modal-edit-employee .modal-dialog .modal-content .modal-body .row span {
-        display: none;
-        width: 60%;
-        color: red;
-        margin-left: auto;
-        padding: 0 5px; }
-  #view-employee #modal-edit-employee .modal-dialog .modal-content .modal-footer .btn-add-employee {
-    border: 0;
-    border-radius: 12px;
-    background: #4CBC5B;
-    padding: 5px 20px;
-    color: white; }
-  #view-employee #modal-edit-employee .modal-dialog .modal-content .modal-footer .btn-cancel {
-    background: #CD3030;
-    padding: 5px 20px;
-    color: white;
-    border-radius: 12px;
-    text-decoration: none;
-    cursor: pointer; }
-  #view-employee #modal-edit-employee .modal-dialog .modal-content .modal-footer .btn-clear {
-    background: #808080;
-    padding: 5px 20px;
-    color: white;
-    border-radius: 12px;
-    border: 0;
-    margin-right: auto; }
+    #section-table{
+        margin-top: 40px;
+        table{
+            .col-check{
+                text-align: center;
+            }
+        }
+    }
 
-#view-provider {
-  width: 100%; }
-  #view-provider .text-intro {
-    display: flex; }
-    #view-provider .text-intro h1 {
-      font-size: 24px; }
-    #view-provider .text-intro span {
-      font-size: 14px;
-      font-style: italic;
-      margin: auto auto auto 5px; }
-  #view-provider #actions-bar {
-    display: flex; }
-    #view-provider #actions-bar #search {
-      display: flex;
-      margin: auto auto auto 0; }
-      #view-provider #actions-bar #search input {
-        border: 1px solid gray; }
-      #view-provider #actions-bar #search .btn-search {
-        border: 1px solid gray; }
-    #view-provider #actions-bar #actions-buttons {
-      margin: auto 0 auto auto; }
-      #view-provider #actions-bar #actions-buttons button {
-        margin: 0 5px;
-        padding: 0;
-        border: 0; }
-        #view-provider #actions-bar #actions-buttons button .fa-edit {
-          background: #DED100;
-          color: white;
-          padding: 7px; }
-        #view-provider #actions-bar #actions-buttons button .fa-trash-alt {
-          background: #CD3030;
-          color: white;
-          padding: 7px; }
-        #view-provider #actions-bar #actions-buttons button .fa-plus {
-          background: #4CBC5B;
-          color: white;
-          padding: 7px; }
-  #view-provider #section-table {
-    margin-top: 40px; }
-    #view-provider #section-table table .col-check {
-      text-align: center; }
-  #view-provider #modal-add-provider .modal-dialog .modal-content .modal-header h2 {
-    font-size: 20px; }
-  #view-provider #modal-add-provider .modal-dialog .modal-content .modal-body {
-    margin: 20px 0;
-    padding: 0 5%; }
-    #view-provider #modal-add-provider .modal-dialog .modal-content .modal-body .row {
-      margin: 0 0 20px 0; }
-      #view-provider #modal-add-provider .modal-dialog .modal-content .modal-body .row label {
-        font-size: 15px;
-        width: 40%; }
-      #view-provider #modal-add-provider .modal-dialog .modal-content .modal-body .row input {
-        width: 60%;
-        border-radius: 12px;
-        border: solid 1px gray;
-        padding-left: 10px; }
-      #view-provider #modal-add-provider .modal-dialog .modal-content .modal-body .row span {
-        display: none;
-        width: 60%;
-        color: red;
-        margin-left: auto;
-        padding: 0 5px; }
-  #view-provider #modal-add-provider .modal-dialog .modal-content .modal-footer .btn-add-provider {
-    border: 0;
-    border-radius: 12px;
-    background: #4CBC5B;
-    padding: 5px 20px;
-    color: white; }
-  #view-provider #modal-add-provider .modal-dialog .modal-content .modal-footer .btn-cancel {
-    background: #CD3030;
-    padding: 5px 20px;
-    color: white;
-    border-radius: 12px;
-    text-decoration: none;
-    cursor: pointer; }
-  #view-provider #modal-add-provider .modal-dialog .modal-content .modal-footer .btn-clear {
-    background: #808080;
-    padding: 5px 20px;
-    color: white;
-    border-radius: 12px;
-    border: 0;
-    margin-right: auto; }
-  #view-provider #modal-edit-provider .modal-dialog .modal-content .modal-header h2 {
-    font-size: 20px; }
-  #view-provider #modal-edit-provider .modal-dialog .modal-content .modal-body {
-    margin: 20px 0;
-    padding: 0 5%; }
-    #view-provider #modal-edit-provider .modal-dialog .modal-content .modal-body .row {
-      margin: 0 0 20px 0; }
-      #view-provider #modal-edit-provider .modal-dialog .modal-content .modal-body .row label {
-        font-size: 15px;
-        width: 40%; }
-      #view-provider #modal-edit-provider .modal-dialog .modal-content .modal-body .row input {
-        width: 60%;
-        border-radius: 12px;
-        border: solid 1px gray;
-        padding-left: 10px; }
-      #view-provider #modal-edit-provider .modal-dialog .modal-content .modal-body .row input.readonly {
-        background-color: #e9ecef;
-        opacity: 1; }
-      #view-provider #modal-edit-provider .modal-dialog .modal-content .modal-body .row span {
-        display: none;
-        width: 60%;
-        color: red;
-        margin-left: auto;
-        padding: 0 5px; }
-  #view-provider #modal-edit-provider .modal-dialog .modal-content .modal-footer .btn-add-provider {
-    border: 0;
-    border-radius: 12px;
-    background: #4CBC5B;
-    padding: 5px 20px;
-    color: white; }
-  #view-provider #modal-edit-provider .modal-dialog .modal-content .modal-footer .btn-cancel {
-    background: #CD3030;
-    padding: 5px 20px;
-    color: white;
-    border-radius: 12px;
-    text-decoration: none;
-    cursor: pointer; }
-  #view-provider #modal-edit-provider .modal-dialog .modal-content .modal-footer .btn-clear {
-    background: #808080;
-    padding: 5px 20px;
-    color: white;
-    border-radius: 12px;
-    border: 0;
-    margin-right: auto; }
+    #modal-add-record,
+    #modal-edit-record{
+        .modal-dialog{
 
-#view-purchase {
-  width: 100%; }
-  #view-purchase .text-intro {
-    display: flex; }
-    #view-purchase .text-intro h1 {
-      font-size: 24px; }
-    #view-purchase .text-intro span {
-      font-size: 14px;
-      font-style: italic;
-      margin: auto auto auto 5px; }
-  #view-purchase #actions-bar {
-    display: flex; }
-    #view-purchase #actions-bar #search {
-      display: flex;
-      margin: auto auto auto 0; }
-      #view-purchase #actions-bar #search input {
-        border: 1px solid gray; }
-      #view-purchase #actions-bar #search .btn-search {
-        border: 1px solid gray; }
-    #view-purchase #actions-bar #actions-buttons {
-      margin: auto 0 auto auto; }
-      #view-purchase #actions-bar #actions-buttons button {
-        margin: 0 5px;
-        padding: 0;
-        border: 0; }
-        #view-purchase #actions-bar #actions-buttons button .fa-edit {
-          background: #DED100;
-          color: white;
-          padding: 7px; }
-        #view-purchase #actions-bar #actions-buttons button .fa-trash-alt {
-          background: #CD3030;
-          color: white;
-          padding: 7px; }
-        #view-purchase #actions-bar #actions-buttons button .fa-plus {
-          background: #4CBC5B;
-          color: white;
-          padding: 7px; }
-  #view-purchase #section-table {
-    margin-top: 40px; }
-    #view-purchase #section-table table .col-check {
-      text-align: center; }
-  #view-purchase #modal-add-purchase .modal-dialog .modal-content .modal-header h2 {
-    font-size: 20px; }
-  #view-purchase #modal-add-purchase .modal-dialog .modal-content .modal-body {
-    margin: 20px 0;
-    padding: 0 5%; }
-    #view-purchase #modal-add-purchase .modal-dialog .modal-content .modal-body .row {
-      margin: 0 0 20px 0; }
-      #view-purchase #modal-add-purchase .modal-dialog .modal-content .modal-body .row label {
-        font-size: 15px;
-        width: 40%; }
-      #view-purchase #modal-add-purchase .modal-dialog .modal-content .modal-body .row input {
-        width: 60%;
-        border-radius: 12px;
-        border: solid 1px gray;
-        padding-left: 10px; }
-      #view-purchase #modal-add-purchase .modal-dialog .modal-content .modal-body .row span {
-        display: none;
-        width: 60%;
-        color: red;
-        margin-left: auto;
-        padding: 0 5px; }
-      #view-purchase #modal-add-purchase .modal-dialog .modal-content .modal-body .row select {
-        width: 60%;
-        border-radius: 12px;
-        border: solid 1px gray;
-        padding-left: 10px; }
-      #view-purchase #modal-add-purchase .modal-dialog .modal-content .modal-body .row textarea {
-        width: 60%;
-        border-radius: 12px;
-        border: solid 1px gray;
-        padding-left: 10px; }
-    #view-purchase #modal-add-purchase .modal-dialog .modal-content .modal-body .row-products {
-      margin: 10px 0 20px 20px; }
-      #view-purchase #modal-add-purchase .modal-dialog .modal-content .modal-body .row-products .fa-plus-circle {
-        display: block;
-        background: transparent;
-        color: #4CBC5B;
-        padding: 7px;
-        border: 0px;
-        cursor: pointer; }
-      #view-purchase #modal-add-purchase .modal-dialog .modal-content .modal-body .row-products .fa-minus-circle {
-        display: none;
-        background: transparent;
-        color: #CD3030;
-        padding: 7px;
-        border: 0px;
-        cursor: pointer; }
-  #view-purchase #modal-add-purchase .modal-dialog .modal-content .modal-footer .btn-add-purchase {
-    border: 0;
-    border-radius: 12px;
-    background: #4CBC5B;
-    padding: 5px 20px;
-    color: white; }
-  #view-purchase #modal-add-purchase .modal-dialog .modal-content .modal-footer .btn-add-product {
-    border: 0;
-    border-radius: 12px;
-    background: #4CBC5B;
-    padding: 5px 20px;
-    color: white; }
-  #view-purchase #modal-add-purchase .modal-dialog .modal-content .modal-footer .btn-cancel {
-    background: #CD3030;
-    padding: 5px 20px;
-    color: white;
-    border-radius: 12px;
-    text-decoration: none;
-    cursor: pointer; }
-  #view-purchase #modal-add-purchase .modal-dialog .modal-content .modal-footer .btn-clear {
-    background: #808080;
-    padding: 5px 20px;
-    color: white;
-    border-radius: 12px;
-    border: 0;
-    margin-right: auto; }
-  #view-purchase #modal-edit-purchase .modal-dialog .modal-content .modal-header h2 {
-    font-size: 20px; }
-  #view-purchase #modal-edit-purchase .modal-dialog .modal-content .modal-body {
-    margin: 20px 0;
-    padding: 0 5%; }
-    #view-purchase #modal-edit-purchase .modal-dialog .modal-content .modal-body .row {
-      margin: 0 0 20px 0; }
-      #view-purchase #modal-edit-purchase .modal-dialog .modal-content .modal-body .row label {
-        font-size: 15px;
-        width: 40%; }
-      #view-purchase #modal-edit-purchase .modal-dialog .modal-content .modal-body .row input {
-        width: 60%;
-        border-radius: 12px;
-        border: solid 1px gray;
-        padding-left: 10px; }
-      #view-purchase #modal-edit-purchase .modal-dialog .modal-content .modal-body .row input.readonly {
-        background-color: #e9ecef;
-        opacity: 1; }
-      #view-purchase #modal-edit-purchase .modal-dialog .modal-content .modal-body .row span {
-        display: none;
-        width: 60%;
-        color: red;
-        margin-left: auto;
-        padding: 0 5px; }
-      #view-purchase #modal-edit-purchase .modal-dialog .modal-content .modal-body .row select {
-        width: 60%;
-        border-radius: 12px;
-        border: solid 1px gray;
-        padding-left: 10px; }
-      #view-purchase #modal-edit-purchase .modal-dialog .modal-content .modal-body .row textarea {
-        width: 60%;
-        border-radius: 12px;
-        border: solid 1px gray;
-        padding-left: 10px; }
-    #view-purchase #modal-edit-purchase .modal-dialog .modal-content .modal-body .row-products {
-      margin: 10px 0 20px 20px; }
-      #view-purchase #modal-edit-purchase .modal-dialog .modal-content .modal-body .row-products .fa-plus-circle {
-        display: block;
-        background: transparent;
-        color: #4CBC5B;
-        padding: 7px;
-        border: 0px;
-        cursor: pointer; }
-      #view-purchase #modal-edit-purchase .modal-dialog .modal-content .modal-body .row-products .fa-minus-circle {
-        display: none;
-        background: transparent;
-        color: #CD3030;
-        padding: 7px;
-        border: 0px;
-        cursor: pointer; }
-  #view-purchase #modal-edit-purchase .modal-dialog .modal-content .modal-footer .btn-add-purchase {
-    border: 0;
-    border-radius: 12px;
-    background: #4CBC5B;
-    padding: 5px 20px;
-    color: white; }
-  #view-purchase #modal-edit-purchase .modal-dialog .modal-content .modal-footer .btn-add-product {
-    border: 0;
-    border-radius: 12px;
-    background: #4CBC5B;
-    padding: 5px 20px;
-    color: white; }
-  #view-purchase #modal-edit-purchase .modal-dialog .modal-content .modal-footer .btn-cancel {
-    background: #CD3030;
-    padding: 5px 20px;
-    color: white;
-    border-radius: 12px;
-    text-decoration: none;
-    cursor: pointer; }
-  #view-purchase #modal-edit-purchase .modal-dialog .modal-content .modal-footer .btn-clear {
-    background: #808080;
-    padding: 5px 20px;
-    color: white;
-    border-radius: 12px;
-    border: 0;
-    margin-right: auto; }
+            .modal-content{
+                .modal-header{
+                    h2{
+                        font-size: 20px;
+                    }
+                }
+                .modal-body{
+                    .col-customer,
+                    .col-vehicle,
+                    .col-employee,
+                    .col-date,
+                    .col-products,
+                    .col-services{
+                        display: flex;
+                        flex-wrap: wrap;
+                        margin-bottom: 20px;
+                        .sub-title {
+                            font-size: 20px;
+                            margin-bottom: 25px;
+                        }
+                    }
+                    .col-vehicles {
+                        .col-secundary {
+                            label {
+                                display: block;
+                            }
+                        }
+                    }
+                    .col-date {
+                        label {
+                            width: 28%;
+                        }
+                        input {
+                            width: 30%;
+                        }
+                    }
 
-#view-product {
-  width: 100%; }
-  #view-product .text-intro {
-    display: flex; }
-    #view-product .text-intro h1 {
-      font-size: 24px; }
-    #view-product .text-intro span {
-      font-size: 14px;
-      font-style: italic;
-      margin: auto auto auto 5px; }
-  #view-product #actions-bar {
-    display: flex; }
-    #view-product #actions-bar #search {
-      display: flex;
-      margin: auto auto auto 0; }
-      #view-product #actions-bar #search input {
-        border: 1px solid gray; }
-      #view-product #actions-bar #search .btn-search {
-        border: 1px solid gray; }
-    #view-product #actions-bar #actions-buttons {
-      margin: auto 0 auto auto; }
-      #view-product #actions-bar #actions-buttons button {
-        margin: 0 5px;
-        padding: 0;
-        border: 0; }
-        #view-product #actions-bar #actions-buttons button .fa-edit {
-          background: #DED100;
-          color: white;
-          padding: 7px; }
-        #view-product #actions-bar #actions-buttons button .fa-trash-alt {
-          background: #CD3030;
-          color: white;
-          padding: 7px; }
-        #view-product #actions-bar #actions-buttons button .fa-plus {
-          background: #4CBC5B;
-          color: white;
-          padding: 7px; }
-  #view-product #section-table {
-    margin-top: 40px; }
-    #view-product #section-table table .col-check {
-      text-align: center; }
-  #view-product #modal-add-product .modal-dialog .modal-content .modal-header h2 {
-    font-size: 20px; }
-  #view-product #modal-add-product .modal-dialog .modal-content .modal-body {
-    margin: 20px 0;
-    padding: 0 5%; }
-    #view-product #modal-add-product .modal-dialog .modal-content .modal-body .row {
-      margin: 0 0 20px 0; }
-      #view-product #modal-add-product .modal-dialog .modal-content .modal-body .row label {
-        font-size: 15px;
-        width: 40%; }
-      #view-product #modal-add-product .modal-dialog .modal-content .modal-body .row input {
-        width: 60%;
-        border-radius: 12px;
-        border: solid 1px gray;
-        padding-left: 10px; }
-      #view-product #modal-add-product .modal-dialog .modal-content .modal-body .row span {
-        display: none;
-        width: 60%;
-        color: red;
-        margin-left: auto;
-        padding: 0 5px; }
-      #view-product #modal-add-product .modal-dialog .modal-content .modal-body .row textarea {
-        width: 60%;
-        border-radius: 12px;
-        border: solid 1px gray;
-        padding-left: 10px; }
-      #view-product #modal-add-product .modal-dialog .modal-content .modal-body .row select {
-        width: 60%;
-        border-radius: 12px;
-        border: solid 1px gray;
-        padding-left: 10px; }
-  #view-product #modal-add-product .modal-dialog .modal-content .modal-footer .btn-add-product {
-    border: 0;
-    border-radius: 12px;
-    background: #4CBC5B;
-    padding: 5px 20px;
-    color: white; }
-  #view-product #modal-add-product .modal-dialog .modal-content .modal-footer .btn-cancel {
-    background: #CD3030;
-    padding: 5px 20px;
-    color: white;
-    border-radius: 12px;
-    text-decoration: none;
-    cursor: pointer; }
-  #view-product #modal-add-product .modal-dialog .modal-content .modal-footer .btn-clear {
-    background: #808080;
-    padding: 5px 20px;
-    color: white;
-    border-radius: 12px;
-    border: 0;
-    margin-right: auto; }
-  #view-product #modal-edit-product .modal-dialog .modal-content .modal-header h2 {
-    font-size: 20px; }
-  #view-product #modal-edit-product .modal-dialog .modal-content .modal-body {
-    margin: 20px 0;
-    padding: 0 5%; }
-    #view-product #modal-edit-product .modal-dialog .modal-content .modal-body .row {
-      margin: 0 0 20px 0; }
-      #view-product #modal-edit-product .modal-dialog .modal-content .modal-body .row label {
-        font-size: 15px;
-        width: 40%; }
-      #view-product #modal-edit-product .modal-dialog .modal-content .modal-body .row input {
-        width: 60%;
-        border-radius: 12px;
-        border: solid 1px gray;
-        padding-left: 10px; }
-      #view-product #modal-edit-product .modal-dialog .modal-content .modal-body .row input.readonly {
-        background-color: #e9ecef;
-        opacity: 1; }
-      #view-product #modal-edit-product .modal-dialog .modal-content .modal-body .row span {
-        display: none;
-        width: 60%;
-        color: red;
-        margin-left: auto;
-        padding: 0 5px; }
-      #view-product #modal-edit-product .modal-dialog .modal-content .modal-body .row textarea {
-        width: 60%;
-        border-radius: 12px;
-        border: solid 1px gray;
-        padding-left: 10px; }
-      #view-product #modal-edit-product .modal-dialog .modal-content .modal-body .row select {
-        width: 60%;
-        border-radius: 12px;
-        border: solid 1px gray;
-        padding-left: 10px; }
-  #view-product #modal-edit-product .modal-dialog .modal-content .modal-footer .btn-add-product {
-    border: 0;
-    border-radius: 12px;
-    background: #4CBC5B;
-    padding: 5px 20px;
-    color: white; }
-  #view-product #modal-edit-product .modal-dialog .modal-content .modal-footer .btn-cancel {
-    background: #CD3030;
-    padding: 5px 20px;
-    color: white;
-    border-radius: 12px;
-    text-decoration: none;
-    cursor: pointer; }
-  #view-product #modal-edit-product .modal-dialog .modal-content .modal-footer .btn-clear {
-    background: #808080;
-    padding: 5px 20px;
-    color: white;
-    border-radius: 12px;
-    border: 0;
-    margin-right: auto; }
+                    .col-products {
+                        .col-inventory {
+                            .title-table {
+                                font-size: 20px;
+                                margin-bottom: 25px;
+                            }
+                            table {
+                                input[type=number] {
+                                    max-width: 70px;
+                                }
+                            }
+                        }
+                        .col-products-used {
+                            .title-table {
+                                font-size: 20px;
+                                margin-bottom: 25px;
+                            }
+                            table {
+                                input[type=number] {
+                                    max-width: 70px;
+                                }
+                            }
+                        }
+                    }
 
-#view-vehicle {
-  width: 100%; }
-  #view-vehicle .text-intro {
-    display: flex; }
-    #view-vehicle .text-intro h1 {
-      font-size: 24px; }
-    #view-vehicle .text-intro span {
-      font-size: 14px;
-      font-style: italic;
-      margin: auto auto auto 5px; }
-  #view-vehicle #actions-bar {
-    display: flex; }
-    #view-vehicle #actions-bar #search {
-      display: flex;
-      margin: auto auto auto 0; }
-      #view-vehicle #actions-bar #search input {
-        border: 1px solid gray; }
-      #view-vehicle #actions-bar #search .btn-search {
-        border: 1px solid gray; }
-    #view-vehicle #actions-bar #actions-buttons {
-      margin: auto 0 auto auto; }
-      #view-vehicle #actions-bar #actions-buttons button {
-        margin: 0 5px;
-        padding: 0;
-        border: 0; }
-        #view-vehicle #actions-bar #actions-buttons button .fa-edit {
-          background: #DED100;
-          color: white;
-          padding: 7px; }
-        #view-vehicle #actions-bar #actions-buttons button .fa-trash-alt {
-          background: #CD3030;
-          color: white;
-          padding: 7px; }
-        #view-vehicle #actions-bar #actions-buttons button .fa-plus {
-          background: #4CBC5B;
-          color: white;
-          padding: 7px; }
-  #view-vehicle #section-table {
-    margin-top: 40px; }
-    #view-vehicle #section-table table .col-check {
-      text-align: center; }
-  #view-vehicle #modal-add-vehicle .modal-dialog .modal-content .modal-header h2 {
-    font-size: 20px; }
-  #view-vehicle #modal-add-vehicle .modal-dialog .modal-content .modal-body {
-    margin: 20px 0;
-    padding: 0 5%; }
-    #view-vehicle #modal-add-vehicle .modal-dialog .modal-content .modal-body .row {
-      margin: 0 0 20px 0; }
-      #view-vehicle #modal-add-vehicle .modal-dialog .modal-content .modal-body .row label {
-        font-size: 15px;
-        width: 40%; }
-      #view-vehicle #modal-add-vehicle .modal-dialog .modal-content .modal-body .row input {
-        width: 60%;
-        border-radius: 12px;
-        border: solid 1px gray;
-        padding-left: 10px; }
-      #view-vehicle #modal-add-vehicle .modal-dialog .modal-content .modal-body .row span {
-        display: none;
-        width: 60%;
-        color: red;
-        margin-left: auto;
-        padding: 0 5px; }
-  #view-vehicle #modal-add-vehicle .modal-dialog .modal-content .modal-footer .btn-add-vehicle {
-    border: 0;
-    border-radius: 12px;
-    background: #4CBC5B;
-    padding: 5px 20px;
-    color: white; }
-  #view-vehicle #modal-add-vehicle .modal-dialog .modal-content .modal-footer .btn-cancel {
-    background: #CD3030;
-    padding: 5px 20px;
-    color: white;
-    border-radius: 12px;
-    text-decoration: none;
-    cursor: pointer; }
-  #view-vehicle #modal-add-vehicle .modal-dialog .modal-content .modal-footer .btn-clear {
-    background: #808080;
-    padding: 5px 20px;
-    color: white;
-    border-radius: 12px;
-    border: 0;
-    margin-right: auto; }
-  #view-vehicle #modal-edit-vehicle .modal-dialog .modal-content .modal-header h2 {
-    font-size: 20px; }
-  #view-vehicle #modal-edit-vehicle .modal-dialog .modal-content .modal-body {
-    margin: 20px 0;
-    padding: 0 5%; }
-    #view-vehicle #modal-edit-vehicle .modal-dialog .modal-content .modal-body .row {
-      margin: 0 0 20px 0; }
-      #view-vehicle #modal-edit-vehicle .modal-dialog .modal-content .modal-body .row label {
-        font-size: 15px;
-        width: 40%; }
-      #view-vehicle #modal-edit-vehicle .modal-dialog .modal-content .modal-body .row input {
-        width: 60%;
-        border-radius: 12px;
-        border: solid 1px gray;
-        padding-left: 10px; }
-      #view-vehicle #modal-edit-vehicle .modal-dialog .modal-content .modal-body .row input.readonly {
-        background-color: #e9ecef;
-        opacity: 1; }
-      #view-vehicle #modal-edit-vehicle .modal-dialog .modal-content .modal-body .row span {
-        display: none;
-        width: 60%;
-        color: red;
-        margin-left: auto;
-        padding: 0 5px; }
-  #view-vehicle #modal-edit-vehicle .modal-dialog .modal-content .modal-footer .btn-add-vehicle {
-    border: 0;
-    border-radius: 12px;
-    background: #4CBC5B;
-    padding: 5px 20px;
-    color: white; }
-  #view-vehicle #modal-edit-vehicle .modal-dialog .modal-content .modal-footer .btn-cancel {
-    background: #CD3030;
-    padding: 5px 20px;
-    color: white;
-    border-radius: 12px;
-    text-decoration: none;
-    cursor: pointer; }
-  #view-vehicle #modal-edit-vehicle .modal-dialog .modal-content .modal-footer .btn-clear {
-    background: #808080;
-    padding: 5px 20px;
-    color: white;
-    border-radius: 12px;
-    border: 0;
-    margin-right: auto; }
+                    .col-services {
+                        .title-table {
+                            font-size: 20px;
+                            margin-bottom: 25px;
+                        }
+                        #btn-add-service {
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            -ms-transform: translate(-50%, -50%);
+                            transform: translate(-50%, -50%);
+                            padding: 3px 15px;
+                        }
+                        #btn-edit-service {
+                            display: none;
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            -ms-transform: translate(-50%, -50%);
+                            transform: translate(-50%, -50%);
+                            padding: 3px 15px;
+                        }
+                    }
 
-#view-customer {
-  width: 100%; }
-  #view-customer .text-intro {
-    display: flex; }
-    #view-customer .text-intro h1 {
-      font-size: 24px; }
-    #view-customer .text-intro span {
-      font-size: 14px;
-      font-style: italic;
-      margin: auto auto auto 5px; }
-  #view-customer #actions-bar {
-    display: flex; }
-    #view-customer #actions-bar #search {
-      display: flex;
-      margin: auto auto auto 0; }
-      #view-customer #actions-bar #search input {
-        border: 1px solid gray; }
-      #view-customer #actions-bar #search .btn-search {
-        border: 1px solid gray; }
-    #view-customer #actions-bar #actions-buttons {
-      margin: auto 0 auto auto; }
-      #view-customer #actions-bar #actions-buttons button {
-        margin: 0 5px;
-        padding: 0;
-        border: 0; }
-        #view-customer #actions-bar #actions-buttons button .fa-edit {
-          background: #DED100;
-          color: white;
-          padding: 7px; }
-        #view-customer #actions-bar #actions-buttons button .fa-trash-alt {
-          background: #CD3030;
-          color: white;
-          padding: 7px; }
-        #view-customer #actions-bar #actions-buttons button .fa-plus {
-          background: #4CBC5B;
-          color: white;
-          padding: 7px; }
-  #view-customer #section-table {
-    margin-top: 40px; }
-    #view-customer #section-table table .col-check {
-      text-align: center; }
-  #view-customer #modal-add-customer .modal-dialog .modal-content .modal-header h2 {
-    font-size: 20px; }
-  #view-customer #modal-add-customer .modal-dialog .modal-content .modal-body {
-    margin: 20px 0;
-    padding: 0 5%; }
-    #view-customer #modal-add-customer .modal-dialog .modal-content .modal-body .row {
-      margin: 0 0 20px 0; }
-      #view-customer #modal-add-customer .modal-dialog .modal-content .modal-body .row label {
-        font-size: 15px;
-        width: 40%; }
-      #view-customer #modal-add-customer .modal-dialog .modal-content .modal-body .row input {
-        width: 60%;
-        border-radius: 12px;
-        border: solid 1px gray;
-        padding-left: 10px; }
-      #view-customer #modal-add-customer .modal-dialog .modal-content .modal-body .row span {
-        display: none;
-        width: 60%;
-        color: red;
-        margin-left: auto;
-        padding: 0 5px; }
-  #view-customer #modal-add-customer .modal-dialog .modal-content .modal-footer .btn-add-customer {
-    border: 0;
-    border-radius: 12px;
-    background: #4CBC5B;
-    padding: 5px 20px;
-    color: white; }
-  #view-customer #modal-add-customer .modal-dialog .modal-content .modal-footer .btn-cancel {
-    background: #CD3030;
-    padding: 5px 20px;
-    color: white;
-    border-radius: 12px;
-    text-decoration: none;
-    cursor: pointer; }
-  #view-customer #modal-add-customer .modal-dialog .modal-content .modal-footer .btn-clear {
-    background: #808080;
-    padding: 5px 20px;
-    color: white;
-    border-radius: 12px;
-    border: 0;
-    margin-right: auto; }
-  #view-customer #modal-edit-customer .modal-dialog .modal-content .modal-header h2 {
-    font-size: 20px; }
-  #view-customer #modal-edit-customer .modal-dialog .modal-content .modal-body {
-    margin: 20px 0;
-    padding: 0 5%; }
-    #view-customer #modal-edit-customer .modal-dialog .modal-content .modal-body .row {
-      margin: 0 0 20px 0; }
-      #view-customer #modal-edit-customer .modal-dialog .modal-content .modal-body .row label {
-        font-size: 15px;
-        width: 40%; }
-      #view-customer #modal-edit-customer .modal-dialog .modal-content .modal-body .row input {
-        width: 60%;
-        border-radius: 12px;
-        border: solid 1px gray;
-        padding-left: 10px; }
-      #view-customer #modal-edit-customer .modal-dialog .modal-content .modal-body .row input.readonly {
-        background-color: #e9ecef;
-        opacity: 1; }
-      #view-customer #modal-edit-customer .modal-dialog .modal-content .modal-body .row span {
-        display: none;
-        width: 60%;
-        color: red;
-        margin-left: auto;
-        padding: 0 5px; }
-  #view-customer #modal-edit-customer .modal-dialog .modal-content .modal-footer .btn-add-customer {
-    border: 0;
-    border-radius: 12px;
-    background: #4CBC5B;
-    padding: 5px 20px;
-    color: white; }
-  #view-customer #modal-edit-customer .modal-dialog .modal-content .modal-footer .btn-cancel {
-    background: #CD3030;
-    padding: 5px 20px;
-    color: white;
-    border-radius: 12px;
-    text-decoration: none;
-    cursor: pointer; }
-  #view-customer #modal-edit-customer .modal-dialog .modal-content .modal-footer .btn-clear {
-    background: #808080;
-    padding: 5px 20px;
-    color: white;
-    border-radius: 12px;
-    border: 0;
-    margin-right: auto; }
+                }
 
-#view-record {
-  width: 100%; }
-  #view-record .text-intro {
-    display: flex; }
-    #view-record .text-intro h1 {
-      font-size: 24px; }
-    #view-record .text-intro span {
-      font-size: 14px;
-      font-style: italic;
-      margin: auto auto auto 5px; }
-  #view-record #actions-bar {
-    display: flex; }
-    #view-record #actions-bar #search {
-      display: flex;
-      margin: auto auto auto 0; }
-      #view-record #actions-bar #search input {
-        border: 1px solid gray; }
-      #view-record #actions-bar #search .btn-search {
-        border: 1px solid gray; }
-    #view-record #actions-bar #actions-buttons {
-      margin: auto 0 auto auto; }
-      #view-record #actions-bar #actions-buttons button {
-        margin: 0 5px;
-        padding: 0;
-        border: 0; }
-        #view-record #actions-bar #actions-buttons button .fa-edit {
-          background: #DED100;
-          color: white;
-          padding: 7px; }
-        #view-record #actions-bar #actions-buttons button .fa-trash-alt {
-          background: #CD3030;
-          color: white;
-          padding: 7px; }
-        #view-record #actions-bar #actions-buttons button .fa-plus {
-          background: #4CBC5B;
-          color: white;
-          padding: 7px; }
-  #view-record #section-table {
-    margin-top: 40px; }
-    #view-record #section-table table .col-check {
-      text-align: center; }
-  #view-record #modal-add-record .modal-dialog .modal-content .modal-header h2,
-  #view-record #modal-edit-record .modal-dialog .modal-content .modal-header h2 {
-    font-size: 20px; }
-  #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-customer,
-  #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-vehicle,
-  #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-employee,
-  #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-date,
-  #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-products,
-  #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-services,
-  #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-customer,
-  #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-vehicle,
-  #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-employee,
-  #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-date,
-  #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-products,
-  #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-services {
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 20px; }
-    #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-customer .sub-title,
-    #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-vehicle .sub-title,
-    #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-employee .sub-title,
-    #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-date .sub-title,
-    #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-products .sub-title,
-    #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-services .sub-title,
-    #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-customer .sub-title,
-    #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-vehicle .sub-title,
-    #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-employee .sub-title,
-    #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-date .sub-title,
-    #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-products .sub-title,
-    #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-services .sub-title {
-      font-size: 20px;
-      margin-bottom: 25px; }
-  #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-vehicles .col-secundary label,
-  #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-vehicles .col-secundary label {
-    display: block; }
-  #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-date label,
-  #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-date label {
-    width: 28%; }
-  #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-date input,
-  #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-date input {
-    width: 30%; }
-  #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-products .col-inventory .title-table,
-  #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-products .col-inventory .title-table {
-    font-size: 20px;
-    margin-bottom: 25px; }
-  #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-products .col-inventory table input[type=number],
-  #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-products .col-inventory table input[type=number] {
-    max-width: 70px; }
-  #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-products .col-products-used .title-table,
-  #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-products .col-products-used .title-table {
-    font-size: 20px;
-    margin-bottom: 25px; }
-  #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-products .col-products-used table input[type=number],
-  #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-products .col-products-used table input[type=number] {
-    max-width: 70px; }
-  #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-services .title-table,
-  #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-services .title-table {
-    font-size: 20px;
-    margin-bottom: 25px; }
-  #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-services #btn-add-service,
-  #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-services #btn-add-service {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    padding: 3px 15px; }
-  #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-services #btn-edit-service,
-  #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-services #btn-edit-service {
-    display: none;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    padding: 3px 15px; }
-  #view-record #modal-add-record .modal-dialog .modal-content .modal-footer .btn-add-record,
-  #view-record #modal-edit-record .modal-dialog .modal-content .modal-footer .btn-add-record {
-    border: 0;
-    border-radius: 12px;
-    background: #4CBC5B;
-    padding: 5px 20px;
-    color: white; }
-  #view-record #modal-add-record .modal-dialog .modal-content .modal-footer .btn-cancel,
-  #view-record #modal-edit-record .modal-dialog .modal-content .modal-footer .btn-cancel {
-    background: #CD3030;
-    padding: 5px 20px;
-    color: white;
-    border-radius: 12px;
-    text-decoration: none;
-    cursor: pointer; }
-  #view-record #modal-add-record .modal-dialog .modal-content .modal-footer .btn-clear,
-  #view-record #modal-edit-record .modal-dialog .modal-content .modal-footer .btn-clear {
-    background: #808080;
-    padding: 5px 20px;
-    color: white;
-    border-radius: 12px;
-    border: 0;
-    margin-right: auto; }
-  #view-record #modal-edit-record .modal-dialog .modal-content .modal-header h2 {
-    font-size: 20px; }
-  #view-record #modal-edit-record .modal-dialog .modal-content .modal-body {
-    margin: 20px 0;
-    padding: 0 5%; }
-    #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .row {
-      margin: 0 0 20px 0; }
-      #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .row label {
-        font-size: 15px;
-        width: 100%; }
-      #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .row input {
-        width: 100%;
-        border: solid 1px gray;
-        padding-left: 10px; }
-      #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .row span {
-        display: none;
-        width: 60%;
-        color: red;
-        margin-left: auto;
-        padding: 0 5px; }
-    #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-date input {
-      width: 50% !important; }
-    #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-customer .col-pri {
-      margin-bottom: 15px; }
-    #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-vehicle .col-primary {
-      margin-bottom: 15px; }
-    #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-products {
-      margin-top: 20px; }
-    #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-services-include {
-      margin-top: 40px; }
-  #view-record #modal-edit-record .modal-dialog .modal-content .modal-footer .btn-add-record {
-    border: 0;
-    border-radius: 12px;
-    background: #4CBC5B;
-    padding: 5px 20px;
-    color: white; }
-  #view-record #modal-edit-record .modal-dialog .modal-content .modal-footer .btn-cancel {
-    background: #CD3030;
-    padding: 5px 20px;
-    color: white;
-    border-radius: 12px;
-    text-decoration: none;
-    cursor: pointer; }
-  #view-record #modal-edit-record .modal-dialog .modal-content .modal-footer .btn-clear {
-    background: #808080;
-    padding: 5px 20px;
-    color: white;
-    border-radius: 12px;
-    border: 0;
-    margin-right: auto; }
+                .modal-footer{
+                    .btn-add-record{
+                        border: 0;
+                        border-radius: 12px;
+                        background: #4CBC5B;
+                        padding: 5px 20px;
+                        color: white;
+                    }
+                    .btn-cancel{
+                        background: #CD3030;
+                        padding: 5px 20px;
+                        color: white;
+                        border-radius: 12px;
+                        text-decoration: none;
+                        cursor: pointer;
+                    }
+                    .btn-clear{
+                        background: #808080;
+                        padding: 5px 20px;
+                        color: white;
+                        border-radius: 12px;
+                        border: 0;
+                        margin-right: auto;
+                    }
+                }
+            }
+        }
+    }
 
-#view-calendar {
-  width: 100%;
-  /*
-    *
-    * ==========================================
-    * CUSTOM UTIL CLASSES
-    * ==========================================
-    *
-    */ }
-  #view-calendar .text-intro {
-    display: flex; }
-    #view-calendar .text-intro h1 {
-      font-size: 24px; }
-    #view-calendar .text-intro span {
-      font-size: 14px;
-      font-style: italic;
-      margin: auto auto auto 5px; }
-  #view-calendar .clearfix::after,
-  #view-calendar .calendar ol::after {
-    content: ".";
-    display: block;
-    height: 0;
-    clear: both;
-    visibility: hidden; }
-  #view-calendar .calendar {
-    border-radius: 10px; }
-    #view-calendar .calendar .month {
-      font-size: 2rem; }
-    @media (min-width: 992px) {
-      #view-calendar .calendar .month {
-        font-size: 3.5rem; } }
-    #view-calendar .calendar ol li {
-      float: left;
-      width: 14.28571%; }
-    #view-calendar .calendar .day-names {
-      border-bottom: 1px solid #eee; }
-      #view-calendar .calendar .day-names li {
-        text-transform: uppercase;
-        margin-bottom: 0.5rem; }
-    #view-calendar .calendar .days li {
-      border-bottom: 1px solid #eee;
-      min-height: 8rem; }
-      #view-calendar .calendar .days li .date {
-        margin: 0.5rem 0;
-        padding-left: 0.625rem; }
-      #view-calendar .calendar .days li .date.today {
-        text-overflow: ellipsis;
-        border-radius: 4rem;
-        margin-bottom: 1px;
-        background-color: gainsboro;
-        font-weight: bold; }
-      #view-calendar .calendar .days li .event {
-        font-size: 0.75rem;
-        padding: 0.4rem;
-        color: white;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        border-radius: 4rem;
-        margin-bottom: 1px; }
-      #view-calendar .calendar .days li .event.span-2 {
-        width: 200%; }
-      #view-calendar .calendar .days li .event.span-3 {
-        width: 300%; }
-      #view-calendar .calendar .days li .event.span-4 {
-        width: 400%; }
-      #view-calendar .calendar .days li .event.span-5 {
-        width: 500%; }
-      #view-calendar .calendar .days li .event.span-6 {
-        width: 600%; }
-      #view-calendar .calendar .days li .event.span-7 {
-        width: 700%; }
-      #view-calendar .calendar .days li .event.begin {
-        border-radius: 1rem 0 0 1rem; }
-      #view-calendar .calendar .days li .event.end {
-        border-radius: 0 1rem 1rem 0; }
-      #view-calendar .calendar .days li .event.clear {
-        background: none; }
-    #view-calendar .calendar .days li:nth-child(n+29) {
-      border-bottom: none; }
-    #view-calendar .calendar .days li.outside .date {
-      color: #ddd; }
-  #view-calendar .contenedor {
-    width: 90px;
-    height: 240px;
-    position: fixed;
-    right: 5%;
-    bottom: 5%; }
-    #view-calendar .contenedor .botonF1 {
-      width: 40px;
-      height: 40px;
-      border-radius: 100%;
-      background: #F44336;
-      right: 0;
-      bottom: 0;
-      position: absolute;
-      margin-right: 16px;
-      margin-bottom: 16px;
-      border: none;
-      outline: none;
-      color: #FFF;
-      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-      transition: .3s;
-      cursor: pointer; }
-    #view-calendar .contenedor .botonF1:active {
-      transform: scale(1.1); }
-    @media (min-width: 992px) {
-      #view-calendar .contenedor .botonF1 {
-        width: 60px;
-        height: 60px;
-        font-size: 36px; } }
-  #view-calendar .change-calendar {
-    margin-bottom: 10px; }
-    #view-calendar .change-calendar i {
-      margin-right: 10px; }
-  @media (min-width: 992px) {
-    #view-calendar .change-calendar {
-      position: absolute;
-      right: 10%;
-      font-size: 25px; } }
+    #modal-edit-record{
+        .modal-dialog{
+            .modal-content{
+                .modal-header{
+                    h2{
+                        font-size: 20px;
+                    }
+                }
+                .modal-body{
+                    margin: 20px 0;
+                    padding: 0 5%;
+                    .row{
+                        margin: 0 0 20px 0;
+
+                        label{
+                            font-size: 15px;
+                            width: 100%;
+                        }
+                        input{
+                            width: 100%;
+                            border: solid 1px gray;
+                            padding-left: 10px;
+                        }
+                        span{
+                            display: none;
+                            width: 60%;
+                            color: red;
+                            margin-left: auto;
+                            padding: 0 5px;
+                        }
+                    }
+                    .col-date {
+                        input {
+                            width: 50% !important;
+                        }
+                    }
+                    .col-customer {
+                        .col-pri {
+                            margin-bottom: 15px;
+                        }
+                    }
+                    .col-vehicle {
+                        .col-primary {
+                            margin-bottom: 15px;
+                        }
+                    }
+                    .col-products {
+                        margin-top: 20px;
+                    }
+                    .col-services-include {
+                        margin-top: 40px;
+                    }
+                }
+                .modal-footer{
+                    .btn-add-record{
+                        border: 0;
+                        border-radius: 12px;
+                        background: #4CBC5B;
+                        padding: 5px 20px;
+                        color: white;
+                    }
+                    .btn-cancel{
+                        background: #CD3030;
+                        padding: 5px 20px;
+                        color: white;
+                        border-radius: 12px;
+                        text-decoration: none;
+                        cursor: pointer;
+                    }
+                    .btn-clear{
+                        background: #808080;
+                        padding: 5px 20px;
+                        color: white;
+                        border-radius: 12px;
+                        border: 0;
+                        margin-right: auto;
+                    }
+                }
+            }
+        }
+    }
+}
