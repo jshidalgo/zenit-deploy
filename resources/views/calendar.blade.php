@@ -54,11 +54,11 @@
                             @endif
                             @endfor
             </ol>
-            <div class="contenedor">
-                <div class="botonF1 row justify-content-center align-items-center">
-                    <i class="fas fa-plus"></i>
-                </div>
-            </div>
+{{--            <div class="contenedor">--}}
+{{--                <div class="botonF1 row justify-content-center align-items-center">--}}
+{{--                    <i class="fas fa-plus"></i>--}}
+{{--                </div>--}}
+{{--            </div>--}}
         </div>
     </div>
 </section>
@@ -72,7 +72,7 @@
 <!-- Tipos de eventos
     ----Colores eventos
     <div class="event bg-warning">event name</div> - naranja
-    <div class="event bg-success">event name</div> - verde 
+    <div class="event bg-success">event name</div> - verde
     <div class="event bg-primary">event name</div> - azul
     <div class="event bg-info">event name</div> - azul claro
    ----- Evento normal, de un solo dia
