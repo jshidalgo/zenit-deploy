@@ -79,12 +79,17 @@
                         display: flex;
                         flex-wrap: wrap;
                         margin-bottom: 20px;
-                         .sub-title {
-                             font-size: 20px;
-                             margin-bottom: 25px;
-                         }
+                        .sub-title {
+                            font-size: 20px;
+                            margin-bottom: 25px;
+                        }
                     }
-                    .col-vehicles {
+                    .col-customer {
+                        label {
+                            display: block;
+                        }
+                    }
+                    .col-vehicle {
                         .col-secundary {
                             label {
                                 display: block;
@@ -126,6 +131,9 @@
                     }
 
                     .col-services {
+                        label {
+                            display: block;
+                        }
                         .title-table {
                             font-size: 20px;
                             margin-bottom: 25px;
