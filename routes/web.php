@@ -89,5 +89,5 @@ Route::group(['middleware'=>['auth']],function () {
     //Rutas para las citas
     Route::get('/calendario', [AppointmentController::class, 'show_view_calendar'])->name('view_calendar');
 
-    Route::get('/register', [HomeController::class,'index']);
+//    Route::get('/register', [HomeController::class,'index']);
 });
