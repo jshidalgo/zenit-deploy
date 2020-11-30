@@ -353,7 +353,7 @@
                                 </div>
                                 <div class="col-secundary col-3">
                                     <label for="mileage-vehicle-edit">Kilometraje:</label>
-                                    <input type="number" name="dat[mileage_edit]" id="mileage-vehicle-add" placeholder="Kilometraje" min="0">
+                                    <input type="number" name="dat[mileage_edit]" id="mileage-vehicle-edit" placeholder="Kilometraje" min="0">
                                 </div>
                             </div>
 
@@ -732,7 +732,7 @@
         var vehicle = $('#modal-add-record .col-vehicle select').val();
         var employee = $('#modal-add-record .col-employee select').val();
         var entry_date = $('#modal-add-record .col-date #entry_date').val();
-        var mileage = $('#modal-add-record .col-services #mileage-vehicle-add').val();
+        var mileage = $('#modal-add-record #mileage-vehicle-add').val();
 
         if(customer !== "" && vehicle !== "" && employee !== "" && entry_date !== "" && mileage !== ""){
             //Productos que se encuentran en la tabla de repuestos utilizados
@@ -849,7 +849,7 @@
 
         var customer = $('#modal-edit-record .col-customer select').val();
         var vehicle = $('#modal-edit-record .col-vehicle select').val();
-        var mileage = $('#modal-edit-record .col-vehicle #mileage-vehicle-add').val();
+        var mileage = $('#modal-edit-record .col-vehicle #mileage-vehicle-edit').val();
         var employee = $('#modal-edit-record .col-employee select').val();
         var entry_date = $('#modal-edit-record .col-date #entry_date_edit').val();
 
@@ -917,7 +917,7 @@
                 $('#form-edit-record .col-vehicle #model-vehicle-edit').val(data[2].model);
                 $('#form-edit-record .col-vehicle #reference-vehicle-edit').val(data[2].name);
                 //$('#form-edit-record .col-vehicle #brand-vehicle-edit').val(data[2].brand_id);
-                $('#form-edit-record .col-vehicle #mileage-vehicle-add').val(data[0].mileage);
+                $('#form-edit-record .col-vehicle #mileage-vehicle-edit').val(data[0].mileage);
                 $('#form-edit-record .col-date #entry_date_edit').val(data[0].entry_date);
                 $('#form-edit-record .col-date #out_date_edit').val(data[0].departure_date);
 
