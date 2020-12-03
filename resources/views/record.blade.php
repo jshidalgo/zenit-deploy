@@ -684,8 +684,6 @@
                         });
                     }
                 }
-            }else{
-                // console.log("Para "+id_selected+" no aplica")
             }
         });
 
