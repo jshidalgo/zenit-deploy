@@ -971,9 +971,17 @@ header {
   #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-customer label,
   #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-customer label {
     display: block; }
+  #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-customer input.readonly,
+  #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-customer input.readonly {
+    background-color: #e9ecef;
+    opacity: 1; }
   #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-vehicle .col-secundary label,
   #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-vehicle .col-secundary label {
     display: block; }
+  #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-vehicle input.readonly,
+  #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-vehicle input.readonly {
+    background-color: #e9ecef;
+    opacity: 1; }
   #view-record #modal-add-record .modal-dialog .modal-content .modal-body .col-date label,
   #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-date label {
     width: 28%; }
@@ -1055,6 +1063,9 @@ header {
         width: 100%;
         border: solid 1px gray;
         padding-left: 10px; }
+      #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .row input.readonly {
+        background-color: #e9ecef;
+        opacity: 1; }
       #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .row span {
         display: none;
         width: 60%;
@@ -1063,10 +1074,16 @@ header {
         padding: 0 5px; }
     #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-date input {
       width: 50% !important; }
+    #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-customer input.readonly {
+      background-color: #e9ecef;
+      opacity: 1; }
     #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-customer .col-pri {
       margin-bottom: 15px; }
     #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-vehicle .col-primary {
       margin-bottom: 15px; }
+    #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-vehicle input.readonly {
+      background-color: #e9ecef;
+      opacity: 1; }
     #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-products {
       margin-top: 20px; }
     #view-record #modal-edit-record .modal-dialog .modal-content .modal-body .col-services-include {
