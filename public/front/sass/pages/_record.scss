@@ -88,12 +88,20 @@
                         label {
                             display: block;
                         }
+                        input.readonly{
+                            background-color: #e9ecef;
+                            opacity: 1;
+                        }
                     }
                     .col-vehicle {
                         .col-secundary {
                             label {
                                 display: block;
                             }
+                        }
+                        input.readonly{
+                            background-color: #e9ecef;
+                            opacity: 1;
                         }
                     }
                     .col-date {
@@ -211,6 +219,10 @@
                             border: solid 1px gray;
                             padding-left: 10px;
                         }
+                        input.readonly{
+                            background-color: #e9ecef;
+                            opacity: 1;
+                        }
                         span{
                             display: none;
                             width: 60%;
@@ -225,6 +237,10 @@
                         }
                     }
                     .col-customer {
+                        input.readonly{
+                            background-color: #e9ecef;
+                            opacity: 1;
+                        }
                         .col-pri {
                             margin-bottom: 15px;
                         }
@@ -232,6 +248,10 @@
                     .col-vehicle {
                         .col-primary {
                             margin-bottom: 15px;
+                        }
+                        input.readonly{
+                            background-color: #e9ecef;
+                            opacity: 1;
                         }
                     }
                     .col-products {

@@ -90,20 +90,20 @@
                                 </div>
                                 <div class="col-secundary col-3">
                                     <label for="name-customer-add">Nombre:</label>
-                                    <input id="name-customer-add" placeholder="Nombre" readonly>
+                                    <input id="name-customer-add" placeholder="Nombre"  class="readonly" readonly>
                                 </div>
                                 <div class="col-secundary col-3">
                                     <label for="last-name-customer-add">Apellidos:</label>
-                                    <input id="last-name-customer-add" placeholder="Apellidos" readonly>
+                                    <input id="last-name-customer-add" placeholder="Apellidos" class="readonly" readonly>
                                 </div>
 
                                 <div class="col-secundary col-3">
                                     <label for="address-customer-add">Dirección:</label>
-                                    <input id="address-customer-add" placeholder="Dirección" readonly>
+                                    <input id="address-customer-add" placeholder="Dirección" class="readonly" readonly>
                                 </div>
                                 <div class="col-secundary col-3">
                                     <label for="mail-customer-add">Correo:</label>
-                                    <input id="mail-customer-add" placeholder="Correo electrónico" readonly>
+                                    <input id="mail-customer-add" placeholder="Correo electrónico" class="readonly" readonly>
                                 </div>
                             </div>
 
@@ -116,28 +116,28 @@
                                     {!! Form::select('dat[id_vehicle]',$misVehiculos, null,['placeholder'=>'Seleccione un Vehiculo']) !!}
                                 </div>
                                 <div class="col-secundary col-3">
-                                    <label for="plate-vehicle-add">Nombre:</label>
-                                    <input id="plate-vehicle-add" placeholder="Placa" readonly>
+                                    <label for="plate-vehicle-add">Placa:</label>
+                                    <input id="plate-vehicle-add" placeholder="Placa" class="readonly" readonly>
                                 </div>
                                 <div class="col-secundary col-3">
                                     <label for="color-vehicle-add">Color:</label>
-                                    <input id="color-vehicle-add" placeholder="Color" readonly>
+                                    <input id="color-vehicle-add" placeholder="Color" class="readonly" readonly>
                                 </div>
                                 <div class="col-secundary col-3">
                                     <label for="cylinder-vehicle-add">Cilindraje:</label>
-                                    <input id="cylinder-vehicle-add" placeholder="Cilindraje" readonly>
+                                    <input id="cylinder-vehicle-add" placeholder="Cilindraje" class="readonly" readonly>
                                 </div>
                                 <div class="col-secundary col-3">
                                     <label for="model-vehicle-add">Modelo:</label>
-                                    <input id="model-vehicle-add" placeholder="Modelo" readonly>
+                                    <input id="model-vehicle-add" placeholder="Modelo" class="readonly" readonly>
                                 </div>
                                 <div class="col-secundary col-3">
                                     <label for="reference-vehicle-add">Referencia:</label>
-                                    <input id="reference-vehicle-add" placeholder="Referencia" readonly>
+                                    <input id="reference-vehicle-add" placeholder="Referencia" class="readonly" readonly>
                                 </div>
                                 <div class="col-secundary col-3">
                                     <label for="brand-vehicle-add">Marca:</label>
-                                    <input id="brand-vehicle-add" placeholder="Marca" readonly>
+                                    <input id="brand-vehicle-add" placeholder="Marca" class="readonly" readonly>
                                 </div>
                                 <div class="col-secundary col-3">
                                     <label for="mileage-vehicle-add">Kilometraje:</label>
@@ -196,10 +196,10 @@
                                                 {{$product->name}}
                                             </td>
                                             <td>
-                                                <input type="number" min="0" max="{{$product->units_available}}" value="{{$product->units_available}}">
+                                                <input type="number" min="0" id="product-{{$product->id}}" max="{{$product->units_available}}" value="{{$product->units_available}}">
                                             </td>
                                             <td>
-                                                <button type="button" onclick="addProductRecord(`modal-add-record`)">Agregar</button>
+                                                <button type="button" onclick="addProductRecord(`modal-add-record`,'')">Agregar</button>
                                             </td>
                                         </tr>
                                         @endforeach
@@ -302,20 +302,20 @@
                                 </div>
                                 <div class="col-secundary col-3">
                                     <label for="name-customer-edit">Nombre:</label>
-                                    <input id="name-customer-edit" placeholder="Nombre" readonly>
+                                    <input id="name-customer-edit" placeholder="Nombre" class="readonly" readonly>
                                 </div>
                                 <div class="col-secundary col-3">
                                     <label for="last-name-customer-edit">Apellidos:</label>
-                                    <input id="last-name-customer-edit" placeholder="Apellidos" readonly>
+                                    <input id="last-name-customer-edit" placeholder="Apellidos" class="readonly" readonly>
                                 </div>
 
                                 <div class="col-secundary col-3">
                                     <label for="address-customer-edit">Dirección:</label>
-                                    <input id="address-customer-edit" placeholder="Dirección" readonly>
+                                    <input id="address-customer-edit" placeholder="Dirección" class="readonly" readonly>
                                 </div>
                                 <div class="col-secundary col-3">
                                     <label for="mail-customer-edit">Correo:</label>
-                                    <input id="mail-customer-edit" placeholder="Correo electrónico" readonly>
+                                    <input id="mail-customer-edit" placeholder="Correo electrónico" class="readonly" readonly>
                                 </div>
                             </div>
 
@@ -329,27 +329,27 @@
                                 </div>
                                 <div class="col-secundary col-3">
                                     <label for="plate-vehicle-edit">Nombre:</label>
-                                    <input id="plate-vehicle-edit" placeholder="Placa" readonly>
+                                    <input id="plate-vehicle-edit" placeholder="Placa" class="readonly" readonly>
                                 </div>
                                 <div class="col-secundary col-3">
                                     <label for="color-vehicle-edit">Color:</label>
-                                    <input id="color-vehicle-edit" placeholder="Color" readonly>
+                                    <input id="color-vehicle-edit" placeholder="Color" class="readonly" readonly>
                                 </div>
                                 <div class="col-secundary col-3">
                                     <label for="cylinder-vehicle-edit">Cilindraje:</label>
-                                    <input id="cylinder-vehicle-edit" placeholder="Cilindraje" readonly>
+                                    <input id="cylinder-vehicle-edit" placeholder="Cilindraje" class="readonly" readonly>
                                 </div>
                                 <div class="col-secundary col-3">
                                     <label for="model-vehicle-edit">Modelo:</label>
-                                    <input id="model-vehicle-edit" placeholder="Modelo" readonly>
+                                    <input id="model-vehicle-edit" placeholder="Modelo" class="readonly" readonly>
                                 </div>
                                 <div class="col-secundary col-3">
                                     <label for="reference-vehicle-edit">Referencia:</label>
-                                    <input id="reference-vehicle-edit" placeholder="Referencia" readonly>
+                                    <input id="reference-vehicle-edit" placeholder="Referencia" class="readonly" readonly>
                                 </div>
                                 <div class="col-secundary col-3">
                                     <label for="brand-vehicle-edit">Marca:</label>
-                                    <input id="brand-vehicle-edit" placeholder="Marca" readonly>
+                                    <input id="brand-vehicle-edit" placeholder="Marca" class="readonly" readonly>
                                 </div>
                                 <div class="col-secundary col-3">
                                     <label for="mileage-vehicle-edit">Kilometraje:</label>
@@ -408,10 +408,10 @@
                                                     {{$product->name}}
                                                 </td>
                                                 <td>
-                                                    <input type="number" min="0" max="{{$product->units_available}}" value="{{$product->units_available}}">
+                                                    <input type="number" min="0" id="product-{{$product->id}}-edit" max="{{$product->units_available}}" value="{{$product->units_available}}">
                                                 </td>
                                                 <td>
-                                                    <button type="button" onclick="addProductRecord(`modal-edit-record`)">Agregar</button>
+                                                    <button type="button" onclick="addProductRecord(`modal-edit-record`,'-edit')">Agregar</button>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -495,6 +495,19 @@
 @section('scripts')
 <script>
 
+    //restricción de fechas futuras
+    $(document).ready( function() {
+        var date = new Date();
+        var dia = "";
+        if (date.getDate() <= 9){
+            dia = "0"+date.getDate();
+        }
+        var fecha = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+dia;
+        $('#out_date').attr('max',fecha);
+        $('#entry_date').attr('max',fecha);
+        $('#out_date_edit').attr('max',fecha);
+        $('#entry_date_edit').attr('max',fecha);
+    });
     //mensajes emergentes
     var check_msg = '{{isset($check_msg) && !empty($check_msg) && $check_msg!=='' ? $check_msg : ''}}';
     var fail_msg = '{{isset($fail_msg) && !empty($fail_msg) && $fail_msg!=='' ? $fail_msg : ''}}';
@@ -630,7 +643,7 @@
      * Función que transfiere los productos del inventario al registro
      * De la tabla de inventario a la tabla de usados
      */
-    function addProductRecord(id_modal){
+    function addProductRecord(id_modal,tipo){
         // Filas de productos
         var selected = Array();
         var value_selected = 0;
@@ -645,26 +658,34 @@
         $('#'+id_modal+' .col-inventory table td input[type=checkbox]:checked').each(function (){
             value_selected = $(this).parent().siblings()[1].children[0].value;
             id_selected = $(this)[0].id;
-            if(value_selected !== 0 ){
-                if(!products_added.includes(id_selected)){
-                    //Si el elemento no existe en la tabla de usados, hay que agregar la nueva fila
-                    selected.push($(this).parents('tr').clone());
-                    $(this).parent().siblings()[1].children[0].max=$(this).parent().siblings()[1].children[0].max - value_selected;
-                    $(this).parent().siblings()[1].children[0].value = $(this).parent().siblings()[1].children[0].max;
-                }else{
-                    //Si el elemento ya existe en la tabla de usados, hay que actualizar los valores
-                    var product_used="";
-                    products_added.forEach(function (element){
-                        if(element === id_selected){
-                            product_used = $('#'+id_modal+' .col-products-used table tbody td input[id="'+element+'"]').parent().siblings()[1].children[0];
-                            product_used.value= parseInt(product_used.value)+parseInt(value_selected);
+            //maximo valor
+            var maxValue = $("#product-"+id_selected+""+tipo).attr('max');
 
-                            var product_invent = $('#'+id_modal+' .col-inventory table tbody td input[id="'+element+'"]').parent().siblings()[1].children[0];
-                            product_invent.max = parseInt(product_invent.max) - parseInt(value_selected);
-                            product_invent.value = parseInt(product_invent.max);
-                        }
-                    });
+            if(maxValue >= value_selected && value_selected > 0){
+
+                if(value_selected !== 0 ){
+                    if(!products_added.includes(id_selected)){
+                        //Si el elemento no existe en la tabla de usados, hay que agregar la nueva fila
+                        selected.push($(this).parents('tr').clone());
+                        $(this).parent().siblings()[1].children[0].max=$(this).parent().siblings()[1].children[0].max - value_selected;
+                        $(this).parent().siblings()[1].children[0].value = $(this).parent().siblings()[1].children[0].max;
+                    }else{
+                        //Si el elemento ya existe en la tabla de usados, hay que actualizar los valores
+                        var product_used="";
+                        products_added.forEach(function (element){
+                            if(element === id_selected){
+                                product_used = $('#'+id_modal+' .col-products-used table tbody td input[id="'+element+'"]').parent().siblings()[1].children[0];
+                                product_used.value= parseInt(product_used.value)+parseInt(value_selected);
+
+                                var product_invent = $('#'+id_modal+' .col-inventory table tbody td input[id="'+element+'"]').parent().siblings()[1].children[0];
+                                product_invent.max = parseInt(product_invent.max) - parseInt(value_selected);
+                                product_invent.value = parseInt(product_invent.max);
+                            }
+                        });
+                    }
                 }
+            }else{
+                // console.log("Para "+id_selected+" no aplica")
             }
         });
 
@@ -706,21 +727,23 @@
         $('#modal-add-record .col-products-used table tbody td input[type=checkbox]').parents('tr').each(function (){
             var id_used = $(this)[0].children[0].children[0].id;
             var value_used = $(this)[0].children[2].children[0].value;
+            var maxValue = $(this)[0].children[2].children[0].max
+            if (maxValue >= value_used && value_used >= 0) {
+                var product_update = $('#modal-add-record .col-inventory table tbody td input[id="' + id_used + '"]').parents('tr')[0].children[2].children[0];
+                //var total = parseInt(product_update.max) + parseInt(value_used);
 
-            var product_update = $('#modal-add-record .col-inventory table tbody td input[id="'+id_used+'"]').parents('tr')[0].children[2].children[0];
-            //var total = parseInt(product_update.max) + parseInt(value_used);
-
-            $.ajax({
-                type:'get',
-                url:'/servicios/producto/{id?}',
-                data:{
-                    _token:'{{csrf_token()}}',
-                    id: id_used
-                }
-            }).done(function(data) {
-                product_update.max = data.units_available - parseInt(value_used);
-                product_update.value = data.units_available - parseInt(value_used);
-            });
+                $.ajax({
+                    type: 'get',
+                    url: '/servicios/producto/{id?}',
+                    data: {
+                        _token: '{{csrf_token()}}',
+                        id: id_used
+                    }
+                }).done(function (data) {
+                    product_update.max = data.units_available - parseInt(value_used);
+                    product_update.value = data.units_available - parseInt(value_used);
+                });
+            }
         });
     }
 

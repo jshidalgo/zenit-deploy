@@ -70,7 +70,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2>Agregar datos del cliente</h2>
+                    <h2>Agregar datos del empleado</h2>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -80,7 +80,7 @@
                     <form id="form-add-employee" method="POST" action="{{route('add_employee')}}">
                         @csrf
                         <div class="row">
-                            <label for="cc-employee">Cédula cliente</label>
+                            <label for="cc-employee">Cédula empleado</label>
                             <input name="dat[cc]" id="cc-employee" type="text" placeholder="Cédula">
                             <span class="msg-error-cc">Ingrese una cédula</span>
                         </div>
@@ -127,7 +127,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2>Editar datos del cliente</h2>
+                    <h2>Editar datos del empleado</h2>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -140,7 +140,7 @@
                             <input name="dat[id]" id="id-employee-edit" type="text" placeholder="ID" class="readonly" readonly>
                         </div>
                         <div class="row">
-                            <label for="cc-employee-edit">Cédula cliente</label>
+                            <label for="cc-employee-edit">Cédula empleado</label>
                             <input name="dat[cc]" id="cc-employee-edit" type="text" placeholder="Cédula">
                             <span class="msg-error-cc-edit">Ingrese una cédula</span>
                         </div>
