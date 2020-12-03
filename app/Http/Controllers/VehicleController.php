@@ -52,6 +52,12 @@ class VehicleController extends Controller
                     $request->session()->flash('fail_msg', 'Error en el registro de la marca');
                 }
             }
+
+            $vehicle_trashed = Vehicle::onlyTrashed()->where('license_plate','=', $plate)->first();
+            if(isset($vehicle_trashed) && $vehicle_trashed != null) {
+                $vehicle_trashed->forceDelete();
+            }
+
             //creando vehiculo
             $vehicle = new Vehicle();
             $vehicle->license_plate = $plate;
@@ -84,6 +90,9 @@ class VehicleController extends Controller
         if (isset($dat) && !empty($dat)) {
             $word = $dat['search'];
             $vehicles['vehicles'] = DB::table('vehicles')
+                ->where(function ($query){
+                    $query->where('vehicles.deleted_at','=',null);
+                })
                 ->join('brands',VehicleController::VEHICLES_BRAND_ID,'=',VehicleController::BRANDS_ID)
                 ->where('license_plate','like','%'.$word.'%')
                 ->select(VehicleController::VEHICLES_ALL, VehicleController::BRANDS_NAME_AS_BRAND)

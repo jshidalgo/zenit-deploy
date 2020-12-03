@@ -72,16 +72,21 @@ class ProductController extends Controller
         if (isset($dat) && !empty($dat)) {
             $word = $dat['search'];
             $product['product'] = DB::table('products')
-                ->leftJoin('product_orders', function ($join) {
+
+                ->join('product_orders', function ($join) {
                     $join->on(ProductController::PRODUCT_ORDERS_PRODUCT_ID, '=', ProductController::PRODUCTS_ID)
                         ->join('purchases', ProductController::PURCHASES_ID, '=', ProductController::PRODUCT_ORDERS_PURCHASE_ID)
                         ->join('providers', ProductController::PROVIDERS_ID, '=', ProductController::PURCHASES_PROVIDER_ID);
                 })
-                ->Where('products.code','like','%'.$word.'%')
+                ->where(function ($query){
+                    $query->where('products.deleted_at','=',null);
+                })
+                ->where('products.code','like','%'.$word.'%')
                 ->orWhere('products.name','like','%'.$word.'%')
                 ->orWhere('products.units_available','like','%'.$word.'%')
                 ->orWhere('products.sale_price','like','%'.$word.'%')
                 ->select(ProductController::PURCHASES_ID_AS_PURCHASE_ID, ProductController::PROVIDERS_NAME_AS_PROVIDER_NAME, ProductController::PRODUCT_ORDERS_PRODUCT_ID, 'products.*')
+
                 ->get();
 
         } else {

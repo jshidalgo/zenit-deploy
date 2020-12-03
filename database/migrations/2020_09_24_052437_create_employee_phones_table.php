@@ -15,9 +15,9 @@ class CreateEmployeePhonesTable extends Migration
     {
         Schema::create('employee_phones', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('number')->unique();
+            $table->string('number');
             $table->unsignedBigInteger('employee_id');
-            $table->foreign('employee_id')->references('id')->on('employees');
+            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -39,6 +39,15 @@ class CustomerController extends Controller
 
                 //Verifica si el correo ya esta registrado
                 if(isset($exist_mail) && $exist_mail->count() == 0){
+
+                    $customer_trashed = Customer::onlyTrashed()
+                        ->where('identification_card','=',$dat['cc'])
+                        ->orWhere('mail','=',$dat['mail'])->get()->first();
+
+                    if(isset($customer_trashed) && $customer_trashed != null) {
+                        $customer_trashed->forceDelete();
+                    }
+
                     $customer = new Customer();
                     $customer->identification_card = $dat['cc'];
                     $customer->name = $dat['name'];
@@ -81,6 +90,9 @@ class CustomerController extends Controller
             $word = $dat['search'];
             $customer['customer'] = DB::table('customer_phones')
                 ->join('customers', CustomerController::CUSTOMERS_ID, '=', CustomerController::CUSTOMER_PHONES_CUSTOMER_ID)
+                ->where(function ($query){
+                    $query->where('customers.deleted_at','=',null);
+                })
                 ->where(CustomerController::IDENTIFICATION_CARD,'like','%'.$word.'%')
                 ->orWhere('name','like','%'.$word.'%')
                 ->orWhere('last_name','like','%'.$word.'%')

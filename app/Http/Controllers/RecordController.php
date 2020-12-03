@@ -31,11 +31,29 @@ class RecordController extends Controller
         $data['check_msg'] = Session::get('check_msg');
         if (isset($dat) && !empty($dat)) {
             $word = $dat['search'];
-            $record['record'] = DB::table('record')
-                ->where('identification_card','like','%'.$word.'%')
-                ->orWhere('name','like','%'.$word.'%')
-                ->orWhere('last_name','like','%'.$word.'%')
-                ->get();
+            $data['record'] = DB::table('records')
+                    ->join('customers','customers.id','=','records.customer_id')
+                    ->join('customer_phones','customer_phones.customer_id','=','customers.id')
+                    ->join('vehicles','vehicles.id','=','records.vehicle_id')
+                    ->join('employees','employees.id','=','records.employee_id')
+                    ->where(function ($query){
+                        $query->where('records.deleted_at','=',null);
+                    })
+                    ->where('customers.name','like','%'.$word.'%')
+                    ->orWhere('customers.last_name','like','%'.$word.'%')
+                    ->orWhere('customer_phones.number','like','%'.$word.'%')
+                    ->orWhere('vehicles.license_plate','like','%'.$word.'%')
+                    ->orWhere('employees.name','like','%'.$word.'%')
+                    ->orWhere('employees.last_name','like','%'.$word.'%')
+                    ->select(
+                        'records.id as id','vehicles.license_plate as license_plate',
+                        'customers.name as customer_name','customers.last_name as customer_last_name',
+                        'customer_phones.number as customer_number', 'employees.name as employee_name',
+                        'records.entry_date as entry_date','records.departure_date as departure_date',
+                        'employees.last_name as employee_last_name')
+                    ->get();
+
+
         } else {
             //marcar informacion de las entradas registradas
             $data['record'] = DB::table('records')
@@ -43,8 +61,6 @@ class RecordController extends Controller
                 ->join('customers', 'customers.id', '=', 'records.customer_id')
                 ->join('vehicles', 'vehicles.id', '=', 'records.vehicle_id')
                 ->join('customer_phones', 'customer_phones.customer_id', '=', 'customers.id')
-                // ->join('labors', 'labors.record_id', '=','records.id')
-                // ->join('services','services.id','=','labors.service_id')
                 ->select(
                     "customers.id as customer_id",
                     'customers.identification_card as customer_card',
@@ -59,43 +75,39 @@ class RecordController extends Controller
                 )
                 ->where('records.deleted_at','=',null)
                 ->get();
-            //var_dump($customer);
-
-            //informacion de los clientes
-            $data['customers'] = DB::table('customer_phones')
-                ->join('customers', 'customers.id', '=', 'customer_phones.customer_id')
-                ->select('customers.*', 'customer_phones.*')
-                ->get();
-
-            $arreglo_customer = array();
-            foreach ($data['customers'] as $customer){
-                $arreglo_customer[$customer->id] = $customer->identification_card ." - ". $customer->name ." ". $customer->last_name;
-            }
-            $data['misClientes']=$arreglo_customer;
-
-
-            //informacion de los vehiculos
-            $data['vehicles'] = DB::table('vehicles')->whereNull('deleted_at')->get();
-
-            $arreglo_vehicle = array();
-            foreach ($data['vehicles'] as $vehicle){
-                $arreglo_vehicle[$vehicle->id] = $vehicle->license_plate ." - ". $vehicle->name;
-            }
-            $data['misVehiculos']=$arreglo_vehicle;
-
-            //empleados
-            $data['employees'] = DB::table('employees')->whereNull('deleted_at')->get();
-            $arreglo_employee = array();
-            foreach ($data['employees'] as $employee){
-                $arreglo_employee[$employee->id] = $employee->identification_card ." - ". $employee->name ." ". $employee->last_name;
-            }
-            $data['misEmpleados']=$arreglo_employee;
-
-            //productos
-            $data['products'] = DB::table('products')->whereNull('deleted_at')->get();
-
-
         }
+        //informacion de los clientes
+        $data['customers'] = DB::table('customer_phones')
+            ->join('customers', 'customers.id', '=', 'customer_phones.customer_id')
+            ->select('customers.*', 'customer_phones.*')
+            ->get();
+
+        $arreglo_customer = array();
+        foreach ($data['customers'] as $customer){
+            $arreglo_customer[$customer->id] = $customer->identification_card ." - ". $customer->name ." ". $customer->last_name;
+        }
+        $data['misClientes']=$arreglo_customer;
+
+
+        //informacion de los vehiculos
+        $data['vehicles'] = DB::table('vehicles')->whereNull('deleted_at')->get();
+
+        $arreglo_vehicle = array();
+        foreach ($data['vehicles'] as $vehicle){
+            $arreglo_vehicle[$vehicle->id] = $vehicle->license_plate ." - ". $vehicle->name;
+        }
+        $data['misVehiculos']=$arreglo_vehicle;
+
+        //empleados
+        $data['employees'] = DB::table('employees')->whereNull('deleted_at')->get();
+        $arreglo_employee = array();
+        foreach ($data['employees'] as $employee){
+            $arreglo_employee[$employee->id] = $employee->identification_card ." - ". $employee->name ." ". $employee->last_name;
+        }
+        $data['misEmpleados']=$arreglo_employee;
+
+        //productos
+        $data['products'] = DB::table('products')->whereNull('deleted_at')->get();
         return view('record', $data);
     }
 

@@ -15,9 +15,9 @@ class CreateCustomerPhonesTable extends Migration
     {
         Schema::create('customer_phones', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('number')->unique();
+            $table->string('number');
             $table->unsignedBigInteger('customer_id');
-            $table->foreign('customer_id')->references('id')->on('customers');
+            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
