@@ -80,6 +80,7 @@ class RecordController extends Controller
         $data['customers'] = DB::table('customer_phones')
             ->join('customers', 'customers.id', '=', 'customer_phones.customer_id')
             ->select('customers.*', 'customer_phones.*')
+            ->where('customers.deleted_at','=',null)
             ->get();
 
         $arreglo_customer = array();
