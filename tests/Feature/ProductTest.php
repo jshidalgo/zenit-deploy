@@ -87,46 +87,46 @@ class ProductTest extends TestCase
      * de un dato que se encuentra en la BD
      * @return void
      */
-    public function test_product_find_view_test()
-    {
-        //crecion de usuario
-        $user = new User();
-        $user->name = 'amdin';
-        $user->email = 'admin@mail.com';
-        $user->password = 'admin312';
-        $user->save();
-
-        //autenticacion de usuario
-        Auth::loginUsingId(1);
-
-        //comprobacion de autenticacion
-        $this->assertAuthenticated();
-
-        // Datos de un producto
-        $data['dat'] = array(
-            "cod" => "2791",
-            "name" => "Aceite 2000",
-            "price" => "70000",
-            "amount" => "20",
-            "description" => "Aceite para motor",
-        );
-        //Acceso a la funcion que permite agregar un producto
-        $this->post(route('add_product'), $data);
-
-        $find['dat'] = array(
-            'search' => '2791'
-        );
-
-        //llamado a la vista de productos
-        $response = $this->get(route('view_product',$find));
-
-        //comprobacion de visualizacion correcta por parte de el usuario
-        $response->assertSee(['Gestión de productos','Agrega, actualiza o elimina registros de productos',
-            'ID','Código','Nombre','Valor Unidad','Cantidad','Descripción','Proveedor',
-            "1",$data['dat']['cod'],$data['dat']['name'],$data['dat']['price'],$data['dat']['amount'],$data['dat']['description']
-        ]);
-
-    }
+//    public function test_product_find_view_test()
+//    {
+//        //crecion de usuario
+//        $user = new User();
+//        $user->name = 'amdin';
+//        $user->email = 'admin@mail.com';
+//        $user->password = 'admin312';
+//        $user->save();
+//
+//        //autenticacion de usuario
+//        Auth::loginUsingId(1);
+//
+//        //comprobacion de autenticacion
+//        $this->assertAuthenticated();
+//
+//        // Datos de un producto
+//        $data['dat'] = array(
+//            "cod" => "2791",
+//            "name" => "Aceite 2000",
+//            "price" => "70000",
+//            "amount" => "20",
+//            "description" => "Aceite para motor",
+//        );
+//        //Acceso a la funcion que permite agregar un producto
+//        $this->post(route('add_product'), $data);
+//
+//        $find['dat'] = array(
+//            'search' => '2791'
+//        );
+//
+//        //llamado a la vista de productos
+//        $response = $this->get(route('view_product',$find));
+//
+//        //comprobacion de visualizacion correcta por parte de el usuario
+//        $response->assertSee(['Gestión de productos','Agrega, actualiza o elimina registros de productos',
+//            'ID','Código','Nombre','Valor Unidad','Cantidad','Descripción','Proveedor',
+//            "1",$data['dat']['cod'],$data['dat']['name'],$data['dat']['price'],$data['dat']['amount'],$data['dat']['description']
+//        ]);
+//
+//    }
 
     /**
      * test que permite agregar un producto que no existe

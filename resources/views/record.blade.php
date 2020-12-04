@@ -141,7 +141,7 @@
                                 </div>
                                 <div class="col-secundary col-3">
                                     <label for="mileage-vehicle-add">Kilometraje:</label>
-                                    <input type="number" name="dat[mileage]" id="mileage-vehicle-add" placeholder="Kilometraje" min="0">
+                                    <input onchange="valid_value(this)" type="number" name="dat[mileage]" id="mileage-vehicle-add" placeholder="Kilometraje" min="0">
                                 </div>
                             </div>
 
@@ -196,10 +196,10 @@
                                                 {{$product->name}}
                                             </td>
                                             <td>
-                                                <input type="number" min="0" id="product-{{$product->id}}" max="{{$product->units_available}}" value="{{$product->units_available}}">
+                                                <input onchange="valid_value(this)" type="number" min="0" id="product-{{$product->id}}" max="{{$product->units_available}}" value="{{$product->units_available}}">
                                             </td>
                                             <td>
-                                                <button type="button" onclick="addProductRecord(`modal-add-record`,'')">Agregar</button>
+                                                <button  type="button" onclick="addProductRecord(`modal-add-record`)">Agregar</button>
                                             </td>
                                         </tr>
                                         @endforeach
@@ -240,7 +240,7 @@
                                 </div>
                                 <div class="col-3">
                                     <label for="cost-service">Costo:</label>
-                                    <input id="cost-service" name="dat[cost-service]" type="number" min="0" value="0">
+                                    <input onchange="valid_value(this)" id="cost-service" name="dat[cost-service]" type="number" min="0" value="0">
                                 </div>
                                 <div class="col-2">
                                     <button id="btn-add-service" type="button" onclick="addServiceRecord(`modal-add-record`,`add`)">Agregar</button>
@@ -353,7 +353,7 @@
                                 </div>
                                 <div class="col-secundary col-3">
                                     <label for="mileage-vehicle-edit">Kilometraje:</label>
-                                    <input type="number" name="dat[mileage_edit]" id="mileage-vehicle-edit" placeholder="Kilometraje" min="0">
+                                    <input onchange="valid_value(this)" type="number" name="dat[mileage_edit]" id="mileage-vehicle-edit" placeholder="Kilometraje" min="0">
                                 </div>
                             </div>
 
@@ -411,7 +411,7 @@
                                                     <input type="number" min="0" id="product-{{$product->id}}-edit" max="{{$product->units_available}}" value="{{$product->units_available}}">
                                                 </td>
                                                 <td>
-                                                    <button type="button" onclick="addProductRecord(`modal-edit-record`,'-edit')">Agregar</button>
+                                                    <button onchange="valid_value(this)" type="button" onclick="addProductRecord(`modal-edit-record`)">Agregar</button>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -452,7 +452,7 @@
                                 </div>
                                 <div class="col-3">
                                     <label for="cost-service">Costo:</label>
-                                    <input id="cost-service" name="dat[cost-service]" type="number" min="0" value="0">
+                                    <input onchange="valid_value(this)" id="cost-service" name="dat[cost-service]" type="number" min="0" value="0">
                                 </div>
                                 <div class="col-2">
                                     <button id="btn-add-service" type="button" onclick="addServiceRecord(`modal-edit-record`,`edit`)">Editar</button>
@@ -643,7 +643,7 @@
      * Función que transfiere los productos del inventario al registro
      * De la tabla de inventario a la tabla de usados
      */
-    function addProductRecord(id_modal,tipo){
+    function addProductRecord(id_modal){
         // Filas de productos
         var selected = Array();
         var value_selected = 0;
@@ -658,10 +658,7 @@
         $('#'+id_modal+' .col-inventory table td input[type=checkbox]:checked').each(function (){
             value_selected = $(this).parent().siblings()[1].children[0].value;
             id_selected = $(this)[0].id;
-            //maximo valor
-            var maxValue = $("#product-"+id_selected+""+tipo).attr('max');
 
-            if(maxValue >= value_selected && value_selected > 0){
 
                 if(value_selected !== 0 ){
                     if(!products_added.includes(id_selected)){
@@ -684,7 +681,7 @@
                         });
                     }
                 }
-            }
+
         });
 
         var cmp= "";
@@ -698,6 +695,7 @@
                 cmp.appendChild(txt);
                 cmp.setAttribute('onclick','updateProductRecord()');
                 cmp.setAttribute('type','button');
+                cmp.setAttribute('onChange','onchange="valid_value(this)"');
 
                 elemento[0].children[3].children[0].replaceWith(cmp);
                 elemento[0].children[0].children[0].checked=false;
@@ -709,6 +707,7 @@
                 cmp.appendChild(txt);
                 cmp.setAttribute('onclick','updateProductRecordEdit()');
                 cmp.setAttribute('type','button');
+                cmp.setAttribute('onChange','onchange="valid_value(this)"');
                 elemento[0].children[3].children[0].replaceWith(cmp);
                 elemento[0].children[0].children[0].checked=false;
                 $('#'+id_modal+' .col-products-used table tbody').append(elemento);
@@ -725,8 +724,7 @@
         $('#modal-add-record .col-products-used table tbody td input[type=checkbox]').parents('tr').each(function (){
             var id_used = $(this)[0].children[0].children[0].id;
             var value_used = $(this)[0].children[2].children[0].value;
-            var maxValue = $(this)[0].children[2].children[0].max
-            if (maxValue >= value_used && value_used >= 0) {
+
                 var product_update = $('#modal-add-record .col-inventory table tbody td input[id="' + id_used + '"]').parents('tr')[0].children[2].children[0];
                 //var total = parseInt(product_update.max) + parseInt(value_used);
 
@@ -741,7 +739,6 @@
                     product_update.max = data.units_available - parseInt(value_used);
                     product_update.value = data.units_available - parseInt(value_used);
                 });
-            }
         });
     }
 
@@ -1043,5 +1040,26 @@
         }
     }
 
+    /**
+     * Funcion que valida el ingreso de valores a los spinners
+     * @param element
+     */
+    function valid_value(element){
+
+        console.log(element.value);
+
+        if(element.value !== ""){
+            var value = parseInt(element.value);
+            if(value < 0){
+                element.value = 0;
+            }else if(element.max !== ""){
+                if(value > element.max){
+                    element.value = element.max;
+                }
+            }
+        }else{
+            element.value = 0;
+        }
+    }
 </script>
 @endsection

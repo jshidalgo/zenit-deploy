@@ -44,6 +44,15 @@ class EmployeeController extends Controller
 
                 //Verifica si el correo ya esta registrado
                 if(isset($exist_mail) && $exist_mail->count() == 0){
+
+                    $employee_trashed = Employee::onlyTrashed()
+                        ->where('identification_card','=',$dat['cc'])
+                        ->orWhere('mail','=',$dat['mail'])->get()->first();
+
+                    if(isset($employee_trashed) && $employee_trashed != null) {
+                        $employee_trashed->forceDelete();
+                    }
+
                     $employee = new Employee();
                     $employee->identification_card = $dat['cc'];
                     $employee->name = $dat['name'];
@@ -87,11 +96,9 @@ class EmployeeController extends Controller
             $word = $dat['search'];
             $employees['employees'] = DB::table('employees')
                 ->join('employee_phones', EmployeeController::EMPLOYEE_PHONE_ID,'=', EmployeeController::EMPLOYEES_ID)
-                ->where('identification_card','like','%'.$word.'%')
-                ->orWhere('name','like','%'.$word.'%')
-                ->orWhere('last_name','like','%'.$word.'%')
-                ->select('employees.*',EmployeeController::EMPLOYEE_PHONE_NUMBER)
-                ->get();
+                ->where(function ($query){
+                    $query->where('employees.deleted_at','=',null);
+                })->where('employees.identification_card','like','%'.$word.'%')->select('employees.*',EmployeeController::EMPLOYEE_PHONE_NUMBER)->get();
 
         }else{
             $employees['employees'] = DB::table('employees')

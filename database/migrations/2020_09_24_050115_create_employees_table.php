@@ -21,7 +21,7 @@ class CreateEmployeesTable extends Migration
             $table->string('address');
             $table->string('mail')->unique();
             $table->unsignedBigInteger('user_id')->unique()->nullable(); //1-1 Esto restringue que un usuario este asignado a más de un empleado
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
