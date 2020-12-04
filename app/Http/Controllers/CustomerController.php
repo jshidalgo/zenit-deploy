@@ -90,16 +90,16 @@ class CustomerController extends Controller
             $word = $dat['search'];
             $customer['customer'] = DB::table('customer_phones')
                 ->join('customers', CustomerController::CUSTOMERS_ID, '=', CustomerController::CUSTOMER_PHONES_CUSTOMER_ID)
-                ->where(function ($query){
-                    $query->where('customers.deleted_at','=',null);
+
+                ->where('customers.deleted_at','=',null)
+                ->where(function ($query) use ($word){
+                    $query->orWhere(CustomerController::IDENTIFICATION_CARD,'like','%'.$word.'%')
+                    ->orWhere('name','like','%'.$word.'%')
+                    ->orWhere('last_name','like','%'.$word.'%')
+                    ->orWhere(CustomerController::CUSTOMER_PHONE_NUMBER,'like','%'.$word.'%');
                 })
-                ->where(CustomerController::IDENTIFICATION_CARD,'like','%'.$word.'%')
-                ->orWhere('name','like','%'.$word.'%')
-                ->orWhere('last_name','like','%'.$word.'%')
-                ->orWhere(CustomerController::CUSTOMER_PHONE_NUMBER,'like','%'.$word.'%')
                 ->select(CustomerController::CUSTOMER_PHONE_NUMBER, 'customers.*')
                 ->get();
-
         } else {
 
             $customer['customer'] = DB::table('customer_phones')

@@ -150,13 +150,16 @@ class ProviderController extends Controller
                 ->join('providers',ProviderController::PROVIDERS_CITY_ID,'=',ProviderController::CITIES_ID)
                 ->join('provider_phones', ProviderController::PROVIDER_PHONES_PROVIDER_ID, '=', ProviderController::PROVIDERS_ID)
                 ->select(ProviderController::CITIES_NAME_AS_CITY, ProviderController::CITIES_ID_AS_CITY_ID, ProviderController::DEPARTMENTS_NAME_AS_DEPARTMENT, ProviderController::COUNTRIES_NAME_AS_COUNTRY, 'providers.*',ProviderController::PROVIDER_PHONE_NUMBER)
-                ->where('providers.nit','like','%'.$word.'%')
-                ->orWhere('providers.name','like','%'.$word.'%')
-                ->orWhere('providers.mail','like','%'.$word.'%')
-                ->orWhere('providers.address','like','%'.$word.'%')
-                ->orWhere('cities.name','like','%'.$word.'%')
-                ->orWhere('countries.name','like','%'.$word.'%')
-                ->orWhere('departments.name','like','%'.$word.'%')
+                ->where('providers.deleted_at','=',null)
+                ->where(function ($query) use ($word){
+                    $query->orWhere('providers.nit','like','%'.$word.'%')
+                            ->orWhere('providers.name','like','%'.$word.'%')
+                            ->orWhere('providers.mail','like','%'.$word.'%')
+                            ->orWhere('providers.address','like','%'.$word.'%')
+                            ->orWhere('cities.name','like','%'.$word.'%')
+                            ->orWhere('countries.name','like','%'.$word.'%')
+                            ->orWhere('departments.name','like','%'.$word.'%');
+                })
                 ->get();
 
         } else {
