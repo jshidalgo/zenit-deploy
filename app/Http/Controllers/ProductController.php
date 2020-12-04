@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Product_order;
+use App\Models\Spare;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -43,6 +44,29 @@ class ProductController extends Controller
         $exist_product = Product::where('code', '=', $dat['cod'])->get();
         //verificando que no exista el producto
         if (isset($exist_product) &&  $exist_product->count() == 0) {
+
+            $product_trashed = Product::onlyTrashed()->where('code','=',$dat['cod'])->first();
+
+            if(isset($product_trashed) && $product_trashed != null){
+                $order_trashed = Product_order::onlyTrashed()->where('product_id','=',$product_trashed->id)->first();
+
+                if(isset($order_trashed) && $order_trashed!= null) {
+                    $spare_trashed = Spare::onlyTrashed()->where('product_id','=',$product_trashed->id)->first();
+
+                    if(isset($spare_trashed) && $spare_trashed != null) {
+                        $spare_trashed->forceDelete();
+                        $order_trashed->forceDelete();
+                        $product_trashed->forceDelete();
+                    }else{
+                        $order_trashed->forceDelete();
+                        $product_trashed->forceDelete();
+                    }
+
+                }else {
+                    $product_trashed->forceDelete();
+                }
+            }
+
             $product = new Product();
             $product->code = $dat['cod'];
             $product->name = $dat['name'];
@@ -71,23 +95,13 @@ class ProductController extends Controller
         $product['check_msg'] = Session::get('check_msg');
         if (isset($dat) && !empty($dat)) {
             $word = $dat['search'];
-            $product['product'] = DB::table('products')
-
-                ->join('product_orders', function ($join) {
-                    $join->on(ProductController::PRODUCT_ORDERS_PRODUCT_ID, '=', ProductController::PRODUCTS_ID)
-                        ->join('purchases', ProductController::PURCHASES_ID, '=', ProductController::PRODUCT_ORDERS_PURCHASE_ID)
-                        ->join('providers', ProductController::PROVIDERS_ID, '=', ProductController::PURCHASES_PROVIDER_ID);
-                })
-                ->where(function ($query){
-                    $query->where('products.deleted_at','=',null);
-                })
+            $product['product'] = Product::where('products.deleted_at','=',null)
                 ->where('products.code','like','%'.$word.'%')
                 ->orWhere('products.name','like','%'.$word.'%')
                 ->orWhere('products.units_available','like','%'.$word.'%')
                 ->orWhere('products.sale_price','like','%'.$word.'%')
-                ->select(ProductController::PURCHASES_ID_AS_PURCHASE_ID, ProductController::PROVIDERS_NAME_AS_PROVIDER_NAME, ProductController::PRODUCT_ORDERS_PRODUCT_ID, 'products.*')
-
                 ->get();
+
 
         } else {
             $product['product'] = DB::table('products')

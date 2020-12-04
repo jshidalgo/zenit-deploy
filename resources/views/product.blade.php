@@ -30,7 +30,6 @@
                         <th scope="col">Valor Unidad</th>
                         <th scope="col">Cantidad</th>
                         <th scope="col">Descripción</th>
-                        <th scope="col">Proveedor</th>
                     </tr>
                 </thead>
                 <tfoot>
@@ -42,7 +41,6 @@
                         <th scope="col">Valor Unidad</th>
                         <th scope="col">Cantidad</th>
                         <th scope="col">Descripción</th>
-                        <th scope="col">Proveedor</th>
                     </tr>
                 </tfoot>
                 <tbody>
@@ -55,7 +53,6 @@
                         <td>{{$aux->sale_price}}</td>
                         <td>{{$aux->units_available}}</td>
                         <td>{{$aux->description}}</td>
-                        <td>{{$aux->provider_name}}</td>
                     </tr>
                     @endforeach
 
