@@ -96,9 +96,15 @@ class EmployeeController extends Controller
             $word = $dat['search'];
             $employees['employees'] = DB::table('employees')
                 ->join('employee_phones', EmployeeController::EMPLOYEE_PHONE_ID,'=', EmployeeController::EMPLOYEES_ID)
-                ->where(function ($query){
-                    $query->where('employees.deleted_at','=',null);
-                })->where('employees.identification_card','like','%'.$word.'%')->select('employees.*',EmployeeController::EMPLOYEE_PHONE_NUMBER)->get();
+                ->where('employees.deleted_at','=',null)
+                ->where(function ($query) use ($word){
+                    $query->orWhere('identification_card','like','%'.$word.'%')
+                        ->orWhere('name','like','%'.$word.'%')
+                        ->orWhere('last_name','like','%'.$word.'%')
+                        ->orWhere('number','like','%'.$word.'%');
+                })
+                ->select('employees.*',EmployeeController::EMPLOYEE_PHONE_NUMBER)
+                ->get();
 
         }else{
             $employees['employees'] = DB::table('employees')
